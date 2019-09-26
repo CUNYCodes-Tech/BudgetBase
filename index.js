@@ -16,13 +16,13 @@ const LocalStrategy = require('passport-local');
 // Internal Dependencies
 // -----------------------------------------------------------------------------------------
 const User = require('./models/user');
-require('dotenv/config');
+if(process.env.NODE_ENV !== 'production') require('dotenv/config');
 const keys = require('./config/keys');
 
 // -----------------------------------------------------------------------------------------
 // Middlewares
 // -----------------------------------------------------------------------------------------
-app.use(bodyParser.json({ type: '*/*' }));
+app.use(bodyParser.json());
 app.use(cors());
 
 const requireAuth   = passport.authenticate('jwt', { session: false});
@@ -31,7 +31,11 @@ const requireSignin = passport.authenticate('local', { session: false });
 // -----------------------------------------------------------------------------------------
 // MongoDB Setup
 // -----------------------------------------------------------------------------------------
-mongoose.connect('mongodb://localhost:27017/budgetbase', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(keys.mongoURI, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
 
 // -----------------------------------------------------------------------------------------
 // Authentication API
@@ -75,6 +79,10 @@ app.post('/api/signup', (req, res, next) => {
 app.post('/api/signin', requireSignin, (req, res, next) => {
   res.send({ token: tokenForUser(req.user) });
 });
+
+app.get('/api/user', requireAuth, (req, res) => {
+  res.send({ user: req.user.firstName });
+})
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
@@ -120,6 +128,21 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 });
 
 passport.use(localLogin);
+
+// -----------------------------------------------------------------------------------------
+// Heroku Setup
+// -----------------------------------------------------------------------------------------
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up production assets. (e.g. main.js, or main.css)
+  app.use(express.static('client/build'));
+
+  // Express will serve up the index.html if it doesn't recognize the route.
+  const path = require('path');
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // -----------------------------------------------------------------------------------------
 // Port Setup
