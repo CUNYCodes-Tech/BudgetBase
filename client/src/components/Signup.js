@@ -10,26 +10,13 @@ class Signup extends React.Component {
       password: '',
       cpassword: '',
       dateOfBirth: '',
-      balance: 0
+      balance: 0,
+      error: null
     }
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-    if (this.validatePasswords()) this.props.signup(this.state);
-  }
-
-  validatePasswords = () => {
-    if (this.state.password !== this.state.cpassword) {
-      document.querySelector('input[name="cpassword"]').setCustomValidity('Bad!');
-      return false;
-    }
-
-    return true;
+  componentWillReceiveProps({ error }) {
+    this.setState({ error: error });
   }
 
   render() {
@@ -37,6 +24,7 @@ class Signup extends React.Component {
       <div className="row">
         <h4 class="title">Sign Up</h4>
         <form className="col s12" onSubmit={this.handleSubmit}>
+          {this.renderError()}
           <div className="input-field col s6">
             <label>Last Name:</label>
             <input 
@@ -96,6 +84,7 @@ class Signup extends React.Component {
             <input 
               name="balance" 
               type="number" 
+              min="0"
               onChange = {this.handleChange} 
               required
             />
@@ -103,10 +92,40 @@ class Signup extends React.Component {
           <div className="input-field col s12 submit">
             <input class="btn" type="submit" value="Submit"/>
           </div>
-          
         </form>
       </div>
     );
+  }
+
+  // -----------------------------------------------------------------------------
+  // Form Handlers and Render Helpers
+  // -----------------------------------------------------------------------------
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    if (this.validatePasswords()) this.props.signup(this.state);
+  }
+
+  validatePasswords = () => {
+    if (this.state.password !== this.state.cpassword) {
+      document.querySelector('input[name="cpassword"]').setCustomValidity('Bad!');
+      return false;
+    }
+
+    return true;
+  }
+
+  renderError = () => {
+    if (this.state.error) {
+      return (
+        <div className="card-panel red lighten-1 white-text alert">
+            {this.state.error}
+        </div>
+      );
+    }
   }
 }
 

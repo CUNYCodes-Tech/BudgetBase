@@ -19,6 +19,32 @@ class App extends React.Component {
     this.setState({ token: localStorage.getItem('token') });
   }
 
+  render() {
+    return (
+      <Router history={history}>
+        <div className="container">
+          <Navigation 
+            token={this.state.token}
+            signout={this.signout} 
+          />
+          <Route path="/" render={ () => <Redirect to="/signin" /> } exact />
+          <Route 
+            path="/signup"
+            render={props => <Signup {...props} signup={this.signup} error={this.state.error} /> }
+          />
+          <Route 
+            path="/signin"
+            render={props => <Signin {...props} signin={this.signin} error={this.state.error} />} 
+          />
+          <Route path="/dashboard" component={Dashboard} />
+        </div>
+      </Router>
+    );
+  }
+
+  // -----------------------------------------------------------------------------
+  // API Calls
+  // -----------------------------------------------------------------------------
   signin = async (form) => {
     try {
       const response = await fetch('/api/signin', { 
@@ -30,11 +56,12 @@ class App extends React.Component {
       });
   
       const json = await response.json();
+
       this.setState({ token: json.token });
       localStorage.setItem('token', json.token);
       history.push('/dashboard')
     } catch (error) {
-      this.setState({ error: 'Invalid'})
+      this.setState({ error: 'Invalid Credentials!'})
     }
   }
 
@@ -49,11 +76,14 @@ class App extends React.Component {
       });
   
       const json = await response.json();
+      
+      if (json.error) return this.setState({ error: json.error });
+      
       this.setState({ token: json.token });
       localStorage.setItem('token', json.token);
       history.push('/dashboard');
     } catch (error) {
-      this.setState({ error: 'Invalid' });
+      this.setState({ error: 'Opps! Something went wrong!' });
     }
   }
 
@@ -61,29 +91,6 @@ class App extends React.Component {
     this.setState({ token: '' });
     localStorage.removeItem('token');
     history.push('/signin');
-  }
-
-  render() {
-    return (
-      <Router history={history}>
-        <div className="container">
-          <Navigation 
-            token={this.state.token}
-            signout={this.signout} 
-          />
-          <Route path="/" render={ () => <Redirect to="/signin" /> } exact />
-          <Route 
-            path="/signup"
-            render={props => <Signup {...props} signup={this.signup} /> }
-          />
-          <Route 
-            path="/signin"
-            render={props => <Signin {...props} signin={this.signin} />} 
-          />
-          <Route path="/dashboard" component={Dashboard} />
-        </div>
-      </Router>
-    );
   }
 }
 

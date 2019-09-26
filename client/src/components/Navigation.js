@@ -12,6 +12,22 @@ class Navigation extends React.Component {
     this.fetchUser(token);
   }
 
+  render() {
+    return (
+      <nav>
+        <div className="nav-wrapper">
+          <a href="#" className="brand-logo">Budgetbase</a>
+          <ul className="right hide-on-med-and-down">
+            {this.renderLinks()}
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+
+  // -----------------------------------------------------------------------------
+  // Helper Methods
+  // -----------------------------------------------------------------------------
   renderLinks = () => {
     if (this.state.token) {
       return (
@@ -45,19 +61,6 @@ class Navigation extends React.Component {
     });
     const json = await response.json();
     this.setState({ user: json.user });
-  }
-
-  render() {
-    return (
-      <nav>
-        <div className="nav-wrapper">
-          <a href="#" className="brand-logo">Budgetbase</a>
-          <ul className="right hide-on-med-and-down">
-            {this.renderLinks()}
-          </ul>
-        </div>
-      </nav>
-    );
   }
 }
 
