@@ -9,7 +9,7 @@ class Navigation extends React.Component {
 
   componentWillReceiveProps({ token, user }) {
     this.setState({ token: token });
-    this.fetchUser(token);
+    if (token) this.fetchUser(token);
   }
 
   render() {
