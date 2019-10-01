@@ -22,7 +22,7 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="row">
-        <h4 class="title">Sign Up</h4>
+        <h4 className="title">Sign Up</h4>
         <form className="col s12" onSubmit={this.handleSubmit}>
           {this.renderError()}
           <div className="input-field col s6">
@@ -67,6 +67,7 @@ class Signup extends React.Component {
               name="cpassword" 
               type="password" 
               onChange = {this.handleChange}
+              onBlur = { this.validatePasswords }
               required
             />
           </div>
@@ -90,7 +91,7 @@ class Signup extends React.Component {
             />
           </div>
           <div className="input-field col s12 submit">
-            <input class="btn" type="submit" value="Submit"/>
+            <input className="btn" type="submit" value="Submit"/>
           </div>
         </form>
       </div>
@@ -106,6 +107,7 @@ class Signup extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log(this.validatePasswords())
     if (this.validatePasswords()) this.props.signup(this.state);
   }
 
@@ -114,7 +116,7 @@ class Signup extends React.Component {
       document.querySelector('input[name="cpassword"]').setCustomValidity('Bad!');
       return false;
     }
-
+    document.querySelector('input[name="cpassword"]').setCustomValidity('');
     return true;
   }
 
