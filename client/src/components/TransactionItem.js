@@ -1,39 +1,80 @@
 import React, { Component } from 'react'
 
-export class TransactionItem extends Component {
-    state = {
-        date : '10/01/19',
-        type : ['Food', 'Housing', 'Transportation'],
-        cost : '2550'
-    };
+// ------------------------------------------------------------------
+// functional Components
+// ------------------------------------------------------------------
 
-    render() {
-        return (
-            <div>
-                <form onSubmit = {this.onSubmit} className = "form">
-                    <p></p>
-                    <div className="row" >
-                        <div className ="col s12 m3"  >
-                           <p>{this.state.date}</p>
-                        </div>
-                         <div className="col s12 m3" >
-                           <p>{this.state.type[1]}</p>
-                        </div>
-                        <div className ="col s12 m3"  >
-                           <p>{this.state.cost + ' $'} </p>
-                        </div> 
-                        
-                        <div className ="col s12 m1"  >
-                            <i className="fas fa-edit"></i>
-                        </div> 
-                        <div className ="col s12 m1"  >
-                            <i className="fas fa-eraser"></i>
-                        </div> 
+const TransactionItem = ( {transaction: {name, date, type, cost}}) => {
+    return (
+        <div>
+            <form className = "form">
+                <div className="row" >
+                    <div className ="col s12 m3">
+                        <p>{name}</p>
                     </div>
-                </form>
-            </div> 
-        )
-    }
+                    <div className="col s12 m2" >
+                        <p>{date}</p>
+                    </div>
+                    <div className="col s12 m3" >
+                        <p>{type}</p>
+                    </div>
+                    <div className ="col s12 m2"  >
+                        <p>{cost+ ' $'} </p>
+                    </div> 
+                    <div className ="col s12 m1"  >
+                        <i className="fas fa-edit"></i>
+                    </div> 
+                    <div className ="col s12 m1"  >
+                        <i className="fas fa-eraser"></i>
+                    </div> 
+                </div>
+            </form>
+        </div> 
+    )
 }
+
+
+// ------------------------------------------------------------------
+// Class based Components
+// ------------------------------------------------------------------
+// export class TransactionItem extends Component {
+//     state = {
+//         date : '10/01/19',
+//         type : ['Food', 'Housing', 'Transportation'],
+//         cost : '2550'
+//     };
+
+//     render() {
+//         const style = {
+//             border: '1px solid green'
+//         }
+
+        // return (
+        //     <div>
+        //         <form onSubmit = {this.onSubmit} className = "form">
+        //             <p></p>
+        //             <div className="row" style = {style} >
+        //                 <div className ="col s12 m3">
+        //                    <p>{this.state.date}</p>
+        //                 </div>
+        //                  <div className="col s12 m3" >
+        //                    <p>{this.state.type[1]}</p>
+        //                 </div>
+        //                 <div className ="col s12 m3"  >
+        //                    <p>{this.state.cost + ' $'} </p>
+        //                 </div> 
+                        
+        //                 <div className ="col s12 m1"  >
+        //                     <i className="fas fa-edit"></i>
+        //                 </div> 
+        //                 <div className ="col s12 m1"  >
+        //                     <i className="fas fa-eraser"></i>
+        //                 </div> 
+        //             </div>
+        //         </form>
+        //     </div> 
+        // )
+//     }
+// }
 
 export default TransactionItem
