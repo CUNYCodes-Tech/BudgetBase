@@ -8,7 +8,8 @@ class ActivityMenu extends React.Component {
             {name: 'Subway', date: '10/01/19', type: 'Transportation', cost: 2.75},   
             {name: 'Uber', date: '10/01/19',type: 'Transportation', cost: 10.34 }, 
             {name: 'Fruits', date: '10/02/19', type: 'Food',cost: 8.54},  
-            {name: 'Pizza', date: '10/02/19', type: 'Food',cost: 5.34}   
+            {name: 'Pizza', date: '10/02/19', type: 'Food',cost: 5.34},   
+            {name: 'Snack', date: '10/03/19', type: 'Food',cost: 3.96}   
         ], 
         budgetLeft: 354
     }

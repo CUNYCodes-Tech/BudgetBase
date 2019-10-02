@@ -5,9 +5,13 @@ import React, { Component } from 'react'
 // ------------------------------------------------------------------
 
 const TransactionItem = ( {transaction: {name, date, type, cost}}) => {
+    const style = {
+       border: '0.5px solid lightgray'
+    }
     return (
-        <div>
-            <form className = "form">
+        <div className = "TransactionItem" style = {style}>
+            <p></p>
+            <form className = "form" style = {style}>
                 <div className="row" >
                     <div className ="col s12 m3">
                         <p>{name}</p>
