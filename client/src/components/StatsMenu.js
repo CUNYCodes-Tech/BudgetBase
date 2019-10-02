@@ -3,7 +3,9 @@ import React from 'react';
 class StatsMenu extends React.Component {
   render() {
     return (
-      <div>Stats Menu</div>
+        <div className = "center">
+            Stats Menu
+        </div>
     );
   }
 }
