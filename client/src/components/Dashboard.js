@@ -8,14 +8,14 @@ class Dashboard extends React.Component {
     return (
       <div>
         <h4 className="title">Dashboard</h4>
-        <div class="row">
-          <div class="col s12 m4">
+        <div className ="row" >
+          <div className="col s12 m4"  >
             <SideMenu />
           </div>
-          <div class="col s12 m4">
+          <div className ="col s12 m4">
             <ActivityMenu />
           </div>
-          <div class="col s12 m4">
+          <div className="col s12 m4">
             <StatsMenu />
           </div>
         </div>
