@@ -1,6 +1,65 @@
+/* Navigation bar */
+.navbar {
+  padding-left: 1rem;
+}
+
+nav .logo {
+  width: 13rem;
+  height: auto;
+  padding: 0.75rem;
+}
+/* End Navigation bar */
+
+/* SignIn */
 .title {
   text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 2.7rem;
+  letter-spacing: -0.15rem;
+  color: #707070;
+  margin-bottom: 3rem;
 }
+
+.left-slide {
+  padding: 8rem 5rem !important;
+}
+.right-slide {
+  height: 52rem;
+  background-color: inherit;
+  background-image: url('./assets/img/signIn-left.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: -12rem;
+  padding: 0 !important;
+  padding-right: 0.75rem;
+}
+
+.signIn-logo {
+  width: 10rem;
+  height: auto;
+  padding-left: 1rem;
+}
+
+.btn-login {
+  background-color: #08afce;
+}
+
+.form-ico {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  font-weight: 100;
+}
+
+.login-phrase {
+  width: 30rem;
+  height: auto;
+  position: relative;
+  left: 3rem;
+  top: 4rem;
+}
+/* End SignIn */
 
 .submit {
   text-align: center;
@@ -13,3 +72,9 @@
 .alert {
   padding: 0.5rem 1rem;
 }
+
+/* ADDONS */
+.material-icons {
+  color: #70707080;
+}
+/* END ADDONS */
