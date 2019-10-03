@@ -13,3 +13,53 @@
 .alert {
   padding: 0.5rem 1rem;
 }
+
+.sidemenu-container {
+  margin-top: 20px;
+}
+
+.sidemenu-button {
+  margin: 0.3rem 0;
+}
+
+#newTransaction {
+  width: 200px;
+}
+
+.activity-container {
+  margin-top: 20px;
+}
+
+.item-container {
+  padding: 10px 8px;
+}
+
+.item {
+  margin: 0;
+}
+
+.item-button {
+  padding: 0;
+}
+
+.edit , .delete {
+  margin-left: 25px;
+}
+
+.modal-container {
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 5px;
+  padding: 30px 25px;
+}

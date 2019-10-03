@@ -1,8 +1,9 @@
 import React from 'react';
-import ActivityContainer from './ActivityContainer'
+import { Link } from 'react-router-dom';
+
+import ActivityContainer from './ActivityContainer';
 
 class ActivityMenu extends React.Component {
-
     state  = {
         transactions: [
             {name: 'Subway', date: '10/01/19', type: 'Transportation', cost: 2.75},   
@@ -17,26 +18,13 @@ class ActivityMenu extends React.Component {
         const {transactions , budgetLeft}= this.state;
        
         return (
-            <div className = "center">
-                Activity Menu
-                <div className="row" >
-                    <div className ="col s12 m6">
-                        <p>Budget Left:</p>
-                    </div>
-                    <div className ="col s12 m6"  >
-                        <p>{this.state.budgetLeft + ' $'}</p>
-                    </div>
-                </div> 
-
-                <input 
-                    type = "submit" 
-                    value = "New Transaction" 
-                    className = "btn btn-dark btn-block" 
-                />
-                
-                <ActivityContainer transactions = {transactions} />
+            <div className="center">
+              <h5>Budgets Left: $0.00</h5>
+              <Link to="/transaction/new" id="newTransaction" className="btn" >
+                New Transaction
+              </Link>
+              <ActivityContainer transactions={transactions} />
             </div>
-
         );
     }
 }
