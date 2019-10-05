@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+// Assets
 import BBlogo from '../assets/logo/BudgetBase-Logo-dark.png';
 import SlidePhrase from '../assets/img/Phrase.png';
 
@@ -8,7 +11,7 @@ class Signin extends React.Component {
     this.state = { email: '', password: '', error: null };
   }
 
-  componentWillReceiveProps({ error }) {
+  static componentWillReceiveProps({ error }) {
     this.setState({ error: error });
   }
 
@@ -40,9 +43,18 @@ class Signin extends React.Component {
                 required
               />
               <i className="material-icons form-ico">lock_outline</i>
+              <Link to="/forgot-password" className="link-forgot right">
+                Forgot password?
+              </Link>
             </div>
             <div className="input-field col s12 submit">
-              <input className="btn btn-login" value="Submit" type="submit" />
+              <button className="btn custom-btn btn-login" type="submit">
+                Log In
+              </button>
+              <button className="btn custom-btn btn-social-fb" type="submit">
+                <i class="fab fa-facebook-square social-icon"></i>Log in with
+                Facebook
+              </button>
             </div>
           </form>
         </div>

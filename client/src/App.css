@@ -1,4 +1,8 @@
-/* Navigation bar */
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/*=============== Navigation bar ===============*/
 .navbar {
   padding-left: 1rem;
 }
@@ -8,12 +12,11 @@ nav .logo {
   height: auto;
   padding: 0.75rem;
 }
-/* End Navigation bar */
+/*=============== End Navigation bar ===============*/
 
-/* SignIn */
+/*=============== SignIn ===============*/
 .title {
   text-align: center;
-  font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 2.7rem;
   letter-spacing: -0.15rem;
@@ -24,6 +27,7 @@ nav .logo {
 .left-slide {
   padding: 8rem 5rem !important;
 }
+
 .right-slide {
   height: 52rem;
   background-color: inherit;
@@ -41,8 +45,31 @@ nav .logo {
   padding-left: 1rem;
 }
 
+.custom-btn {
+  padding: 0.5rem 0rem;
+  box-sizing: content-box;
+  text-transform: initial;
+  margin-bottom: 0.75rem;
+}
+
 .btn-login {
   background-color: #08afce;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.btn-login:hover {
+  background-color: #069eba;
+}
+
+.btn-social-fb {
+  background-color: #4267b2;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.btn-social-fb:hover {
+  background-color: #2b4272;
 }
 
 .form-ico {
@@ -53,13 +80,21 @@ nav .logo {
 }
 
 .login-phrase {
-  width: 30rem;
+  width: 35rem;
   height: auto;
   position: relative;
-  left: 3rem;
-  top: 4rem;
+  left: 2rem;
+  top: 11rem;
 }
-/* End SignIn */
+
+.link-forgot {
+  color: #08afce;
+}
+
+.link-forgot:hover {
+  color: #069eba;
+}
+/*=============== End SignIn ===============*/
 
 .submit {
   text-align: center;
@@ -127,5 +162,10 @@ nav .logo {
 /* ADDONS */
 .material-icons {
   color: #70707080;
+}
+
+.social-icon {
+  margin-right: 0.4rem;
+  font-size: 1.6rem !important;
 }
 /* END ADDONS */
