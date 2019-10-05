@@ -3,11 +3,12 @@ import { Router, Route } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import './App.css';
-import history from './history';
-import Navigation from './components/Navigation';
-import Signup from './components/Signup';
-import Signin from './components/Signin';
-import Dashboard from './components/Dashboard';
+import history        from './history';
+import Navigation     from './components/Navigation';
+import Signup         from './components/Signup';
+import Signin         from './components/Signin';
+import Dashboard      from './components/Dashboard';
+import NewTransaction from './components/NewTransaction';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,10 +23,17 @@ class App extends React.Component {
   render() {
     return (
       <Router history={history}>
-        <div>
-          <Navigation token={this.state.token} signout={this.signout} />
-          <Route path="/" render={() => <Redirect to="/signin" />} exact />
-          <Route
+        <div className="container">
+          <Navigation 
+            token={this.state.token}
+            signout={this.signout} 
+          />
+          <Route 
+            path="/" 
+            render={ () => <Redirect to="/signin" /> } 
+            exact 
+          />
+          <Route 
             path="/signup"
             render={props => (
               <Signup
@@ -46,6 +54,7 @@ class App extends React.Component {
             )}
           />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/transaction/new" component={NewTransaction} />
         </div>
       </Router>
     );
