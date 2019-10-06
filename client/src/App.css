@@ -44,6 +44,10 @@ nav .logo {
   padding-right: 0.75rem;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
+
 /*=============== End Layout ===============*/
 
 /*=============== SignIn ===============*/

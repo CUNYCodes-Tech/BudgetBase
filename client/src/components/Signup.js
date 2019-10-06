@@ -26,7 +26,7 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row no-margin-bottom">
         <div className="col s5 slide-image" id="signUp-image">
           <img
             className="login-phrase"

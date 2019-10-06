@@ -17,7 +17,7 @@ class Signin extends React.Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row no-margin-bottom">
         <div className="col s5 slide-form">
           <img className="signIn-logo" src={BBlogo} alt="BudgetBase" />
           <h4 className="title">Log In Into Your Account</h4>
