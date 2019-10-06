@@ -35,10 +35,12 @@ class App extends React.Component {
           />
           <Route 
             path="/signup"
+            exact
             render={props => <Signup {...props} signup={this.signup} error={this.state.error} /> }
           />
           <Route 
             path="/signin"
+            exact
             render={props => <Signin {...props} signin={this.signin} error={this.state.error} />} 
           />
           <Route path="/dashboard" component={Dashboard} />
