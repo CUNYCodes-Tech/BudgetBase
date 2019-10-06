@@ -18,7 +18,7 @@ class Signin extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col s5 left-slide">
+        <div className="col s5 slide-form">
           <img className="signIn-logo" src={BBlogo} alt="BudgetBase" />
           <h4 className="title">Log In Into Your Account</h4>
           <form onSubmit={this.handleSubmit}>
@@ -58,7 +58,7 @@ class Signin extends React.Component {
             </div>
           </form>
         </div>
-        <div className="col s7 right-slide">
+        <div className="col s7 slide-image" id="signIn-image">
           <img className="login-phrase" src={SlidePhrase} alt="phrase" />
         </div>
       </div>
