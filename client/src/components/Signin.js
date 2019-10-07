@@ -11,11 +11,12 @@ class Signin extends React.Component {
     this.state = { email: '', password: '', error: null };
   }
 
-  static componentWillReceiveProps({ error }) {
+  componentWillReceiveProps({ error }) {
     this.setState({ error: error });
   }
 
   render() {
+    console.log(this.state.error);
     return (
       <div className="row">
         <div className="col s5 slide-form">

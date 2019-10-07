@@ -1,12 +1,20 @@
 import React from 'react';
 
+import M from "materialize-css";
+
 class SideMenu extends React.Component {
+  componentDidMount() {
+    const elems = document.querySelectorAll('#dateFilter');
+    M.Datepicker.init(elems);
+  }
+
   render() {
     return (
       <div className="center sidemenu-container">
           <div className="row">
             <div className="input-field col s7">
-              <input type="date" />
+              <input id="dateFilter" type="text" className="datepicker" />
+              <label>Pick a Date</label>
             </div>
             <div className="input-field col s5">
               <button className="btn">Filter</button>

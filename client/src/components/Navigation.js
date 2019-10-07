@@ -5,16 +5,21 @@ import BBLogo from '../assets/logo/BudgetBase-Logo-light.png';
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { token: null, user: null };
+    this.state = { token: null, user: null, showNav: false };
   }
 
   componentWillReceiveProps({ token, user }) {
     this.setState({ token: token });
-    if (token) this.fetchUser(token);
+    if (token) {
+      this.fetchUser(token);
+      this.setState({ showNav: true });
+    } else {
+      this.setState({ showNav: false });
+    }
   }
 
   render() {
-    return (
+    return this.state.showNav? (
       <div className="navbar-fixed">
         <nav>
           <div className="nav-wrapper navbar">
@@ -23,7 +28,7 @@ class Navigation extends React.Component {
           </div>
         </nav>
       </div>
-    );
+    ) : null;
   }
 
   // -----------------------------------------------------------------------------

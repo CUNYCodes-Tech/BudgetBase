@@ -18,6 +18,10 @@ body {
 }
 
 /*=============== Navigation bar ===============*/
+nav {
+  z-index: -1000!important;
+}
+
 .navbar {
   padding-left: 1rem;
 }
@@ -205,6 +209,7 @@ nav .logo {
   background-color: white;
   border-radius: 5px;
   padding: 30px 25px;
+  margin: 0 20px;
 }
 
 /* ADDONS */

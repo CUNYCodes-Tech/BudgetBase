@@ -8,7 +8,6 @@ import Navigation from './components/Navigation';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Dashboard from './components/Dashboard';
-import NewTransaction from './components/NewTransaction';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +24,15 @@ class App extends React.Component {
       <Router history={history}>
         <div>
           <Navigation token={this.state.token} signout={this.signout} />
-          <Route path="/" render={() => <Redirect to="/signin" />} exact />
+          <Route 
+            path="/" 
+            render={() => {
+              return localStorage.getItem('token')
+                ? <Redirect to="/dashboard" />
+                : <Redirect to="/signin" />
+            }}
+            exact 
+          />
           <Route
             path="/signup"
             render={props => (
@@ -47,7 +54,6 @@ class App extends React.Component {
             )}
           />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/transaction/new" component={NewTransaction} />
         </div>
       </Router>
     );
