@@ -110,6 +110,17 @@ nav .logo {
 .link-forgot:hover {
   color: #069eba;
 }
+
+.light-logo {
+  width: 75%;
+  height: auto;
+  margin-bottom: 1.3rem;
+}
+
+.profile-image {
+  width: 35%;
+  border: 1px solid #707070;
+}
 /*=============== End SignIn ===============*/
 
 /*=============== SignUp ===============*/
@@ -225,9 +236,47 @@ nav .logo {
 /*=============== Media Queries ===============*/
 
 /*====== Smartphone ======*/
-@media only screen and (max-width: 320px) {
+@media only screen and (min-width: 320px) and (max-width: 440px) {
+  .title {
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: -0.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .row {
+    padding: 8% 5%;
+    background-color: #08afce;
+  }
+
+  .slide-form {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px #707070;
+  }
 }
 /*====== End Smartphone ======*/
+
+/*====== Tablet ======*/
+@media only screen and (min-width: 600px) and (max-width: 834px) {
+  .title {
+    font-weight: bold;
+    font-size: 3.5rem;
+    letter-spacing: -0.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .row {
+    padding: 10% 9%;
+    background-color: #08afce;
+  }
+
+  .slide-form {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px #707070;
+  }
+}
+
+/*====== End Tablet ======*/
 
 /*====== Desktop and Laptop ======*/
 @media only screen and (min-width: 1224px) and (max-width: 1400px) {
