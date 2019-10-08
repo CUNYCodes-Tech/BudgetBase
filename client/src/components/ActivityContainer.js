@@ -2,7 +2,7 @@ import React from 'react'
 import TransactionItem from './TransactionItem';
 
 
-const ActivityContainer = ({transactions}) => {
+const ActivityContainer = ({ transactions }) => {
   return (
     <div className="activity-container">
       {

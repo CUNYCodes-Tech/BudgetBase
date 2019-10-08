@@ -16,7 +16,6 @@ class Signin extends React.Component {
   }
 
   render() {
-    console.log(this.state.error);
     return (
       <div className="row">
         <div className="col s5 slide-form">

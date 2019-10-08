@@ -16,7 +16,8 @@ const https         = require('https');
 // -----------------------------------------------------------------------------------------
 // Internal Dependencies
 // -----------------------------------------------------------------------------------------
-const User = require('./models/user');
+const User        = require('./models/user');
+const Transaction = require('./models/transaction');
 if(process.env.NODE_ENV !== 'production') require('dotenv/config');
 const keys = require('./config/keys');
 
@@ -84,6 +85,35 @@ app.post('/api/signin', requireSignin, (req, res, next) => {
 app.get('/api/user', requireAuth, (req, res) => {
   res.send({ user: req.user.firstName });
 })
+
+// -----------------------------------------------------------------------------------------
+// Transaction API
+// -----------------------------------------------------------------------------------------
+app.post('/api/transaction/create', requireAuth, (req, res, next) => {
+  const createdAt = req.body.createdAt;
+  const cost      = req.body.cost;
+  const category  = req.body.category;
+  const name      = req.body.name;
+
+  const newTransaction = new Transaction({
+    name: name,
+    createdAt: createdAt,
+    cost: cost,
+    category: category
+  });
+
+  newTransaction.save(err => {
+    if (err) next(err);
+    res.json({ success: true });
+  });
+});
+
+app.get('/api/transaction/all', requireAuth, (req, res, next) => {
+  Transaction.find({}, (err, results) => {
+    if (err) next(err);
+    res.json(results);
+  });
+});
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy

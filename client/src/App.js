@@ -53,7 +53,7 @@ class App extends React.Component {
               />
             )}
           />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" render={props => <Dashboard {...props} token={this.state.token} />} />
         </div>
       </Router>
     );

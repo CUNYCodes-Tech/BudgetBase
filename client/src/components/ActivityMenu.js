@@ -1,24 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import ActivityContainer from './ActivityContainer';
 import TransactionForm from './forms/TransactionForm';
 
 class ActivityMenu extends React.Component {
-  state  = {
-    transactions: [
-      {name: 'Subway', date: '10/01/19', type: 'Transportation', cost: 2.75},   
-      {name: 'Uber', date: '10/01/19',type: 'Transportation', cost: 10.34 }, 
-      {name: 'Fruits', date: '10/02/19', type: 'Food',cost: 8.54},  
-      {name: 'Pizza', date: '10/02/19', type: 'Food',cost: 5.34},   
-      {name: 'Snack', date: '10/03/19', type: 'Food',cost: 3.96}   
-    ], 
-    budgetLeft: 354
+  state = { transactions: [], budgetLeft: 0 };
+
+  componentDidMount() {
+    this.fetchTransactions();
+  }
+
+  fetchTransactions = async () => {
+    const response = await fetch('/api/transaction/all', {
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    });
+
+    const data = await response.json();
+
+    this.setState({ transactions: data });
   }
 
   handleModal = () => {
     this.props.setModalTitle('New Transaction');
-    this.props.setModalContent(<TransactionForm/>);
+    this.props.setModalContent(<TransactionForm toggleModal={this.props.toggleModal} fetchTransactions={this.fetchTransactions} />);
     this.props.toggleModal();
   }
 
@@ -31,7 +37,7 @@ class ActivityMenu extends React.Component {
         <button onClick={this.handleModal} id="newTransaction" className="btn" >
           New Transaction
         </button>
-        <ActivityContainer transactions={transactions} />
+        <ActivityContainer transactions={this.state.transactions} />
       </div>
     );
   }
