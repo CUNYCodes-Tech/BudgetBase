@@ -4,14 +4,14 @@ import React, { Component } from 'react'
 // functional Components
 // ------------------------------------------------------------------
 
-const TransactionItem = ( {transaction: {name, date, type, cost}}) => {
+const TransactionItem = ( {transaction: {name, createdAt, category, cost}}) => {
     return (
       <div className="card-panel item-container">
         <div className="row item">
-          <div className="col s2">{date}</div>
+          <div className="col s2">{new Date(createdAt).toDateString()}</div>
           <div className="col s2">{name}</div>
           <div className="col s2">${cost}</div>
-          <div className="col s3">{type}</div>
+          <div className="col s3">{category}</div>
           <div className="col s1">
             <i className="material-icons edit">edit</i>
           </div>

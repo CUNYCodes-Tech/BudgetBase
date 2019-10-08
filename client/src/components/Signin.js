@@ -13,7 +13,7 @@ class Signin extends React.Component {
     this.state = { email: '', password: '', error: null };
   }
 
-  static componentWillReceiveProps({ error }) {
+  componentWillReceiveProps({ error }) {
     this.setState({ error: error });
   }
 

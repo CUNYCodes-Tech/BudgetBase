@@ -1,28 +1,53 @@
 import React from 'react';
+
 import SideMenu from './SideMenu';
 import ActivityMenu from './ActivityMenu';
-import StatsMenu from './StatsMenu';
+import Modal from './Modal';
 
 class Dashboard extends React.Component {
-    render() {
-        return (
-            <div>
-              <h4 className="title">Dashboard</h4>
-              <div className ="row" >
-                  <div className="col s12 m4">
-                    <SideMenu />
-                  </div>
-                  <div className ="col s12 m8">
-                    <ActivityMenu />
-                  </div>
-                  {/* <div className="col s12 m4">
-                    <StatsMenu />
-                  </div> */}
-              </div>
-            </div>
+  state = { showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
 
-        );
-    }
+  toggleModal = () => {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
+  setModalContent = content => {
+    this.setState({ modalContent: content });
+  }
+
+  setModalTitle = title => {
+    this.setState({ modalTitle: title })
+  }
+
+  render() {
+    return (
+      <div>
+        <Modal title={this.state.modalTitle} modalSubmit={this.state.modalSubmit} showModal={this.state.showModal} toggleModal={this.toggleModal}>
+          {this.state.modalContent}
+        </Modal>
+        <h4 className="title">Dashboard</h4>
+        <div className ="row" >
+          <div className="col s12 m4">
+            <SideMenu 
+              showModal={this.state.showModal}
+              toggleModal={this.toggleModal}
+              setModalContent={this.setModalContent}
+              setModalTitle={this.setModalTitle}
+            />
+          </div>
+          <div className ="col s12 m8">
+            <ActivityMenu
+              token={this.props.token}
+              showModal={this.state.showModal}
+              toggleModal={this.toggleModal}
+              setModalContent={this.setModalContent}
+              setModalTitle={this.setModalTitle}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Dashboard;
