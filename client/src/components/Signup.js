@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 // Assets
 import BBlogo from '../assets/logo/BudgetBase-Logo-dark.png';
+import BBlight from '../assets/logo/BudgetBase-Logo-light@2x.png';
 import Phrase from '../assets/img/Phrase-signUp.png';
 
 class Signup extends React.Component {
@@ -26,8 +27,11 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="row no-margin-bottom">
-        <div className="col s5 slide-image" id="signUp-image">
+      <div className="row no-margin-bottom" id="signUp-row">
+        <div
+          className="col l5 slide-image hide-on-med-and-down"
+          id="signUp-image"
+        >
           <img
             className="login-phrase"
             id="signUp-phrase"
@@ -35,8 +39,20 @@ class Signup extends React.Component {
             alt="Slide Left"
           />
         </div>
-        <div className="col s7 slide-form" id="signUp">
-          <img className="signIn-logo" src={BBlogo} alt="BudgetBase" />
+        <div className="col s12 m12 hide-on-large-only center-align">
+          <img
+            className="light-logo"
+            src={BBlight}
+            alt="BudgetBase logo"
+            id="signUp-light"
+          />
+        </div>
+        <div className="col s12 m12 l7 slide-form" id="signUp">
+          <img
+            className="signIn-logo hide-on-med-and-down"
+            src={BBlogo}
+            alt="BudgetBase"
+          />
           <h4 className="title" id="signUp-title">
             Create Your Free Account
           </h4>
@@ -107,6 +123,7 @@ class Signup extends React.Component {
               <input
                 name="dateOfBirth"
                 type="date"
+                value="1994-09-10"
                 onChange={this.handleChange}
                 required
               />

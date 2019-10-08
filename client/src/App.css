@@ -139,7 +139,7 @@ nav .logo {
 }
 
 #signUp {
-  padding: 2rem 6rem !important;
+  padding: 2.1% 6.2% !important;
 }
 
 #signUp-image {
@@ -253,6 +253,27 @@ nav .logo {
     background-color: #fff;
     box-shadow: 0px 2px 5px 0px #707070;
   }
+
+  #signUp {
+    padding: 0% 3% !important;
+    margin-bottom: 1%;
+  }
+
+  #signUp-row {
+    padding: 2% 0% !important;
+  }
+
+  #signUp-light {
+    width: 60%;
+    margin-bottom: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  #signUp-title {
+    text-align: center;
+    font-size: 2.2rem;
+    padding-left: 0;
+  }
 }
 /*====== End Smartphone ======*/
 
@@ -278,6 +299,24 @@ nav .logo {
   .light-logo {
     width: 60%;
     margin-bottom: 3rem;
+  }
+
+  #signUp {
+    padding: 5% 10% !important;
+    margin-bottom: 5%;
+  }
+
+  #signUp-title {
+    font-size: 3rem;
+  }
+
+  #signUp-row {
+    padding: 10% 0%;
+  }
+
+  #signUp-light {
+    width: 50%;
+    margin-bottom: 2rem;
   }
 }
 
