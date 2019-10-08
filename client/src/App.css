@@ -19,7 +19,7 @@ body {
 
 /*=============== Navigation bar ===============*/
 nav {
-  z-index: -1000!important;
+  z-index: -1000 !important;
 }
 
 .navbar {
@@ -261,7 +261,7 @@ nav .logo {
 
   #signUp {
     padding: 0% 3% !important;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
   }
 
   #signUp-row {
