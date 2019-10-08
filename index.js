@@ -99,7 +99,8 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     name: name,
     createdAt: createdAt,
     cost: cost,
-    category: category
+    category: category,
+    user: req.user._id
   });
 
   newTransaction.save(err => {
@@ -109,7 +110,7 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
 });
 
 app.get('/api/transaction/all', requireAuth, (req, res, next) => {
-  Transaction.find({}, (err, results) => {
+  Transaction.find({ user: req.user._id }, (err, results) => {
     if (err) next(err);
     res.json(results);
   });
