@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 const Modal = props => {
+  console.log(props)
   return props.showModal? ReactDOM.createPortal(
     <div className="modal-container">
       <div className="modal-content row">
