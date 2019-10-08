@@ -9,6 +9,7 @@ import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Dashboard from './components/Dashboard';
 import NewTransaction from './components/NewTransaction';
+import AddBudgetNew from './components/AddBudget2';
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class App extends React.Component {
           />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/transaction/new" component={NewTransaction} />
+          <Route path="/dashboard/new-budget" component={AddBudgetNew} />
         </div>
       </Router>
     );
