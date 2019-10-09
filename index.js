@@ -82,10 +82,6 @@ app.post('/api/signin', requireSignin, (req, res, next) => {
   res.send({ token: tokenForUser(req.user) });
 });
 
-app.get('/api/user', requireAuth, (req, res) => {
-  res.send({ user: req.user.firstName });
-})
-
 // -----------------------------------------------------------------------------------------
 // Transaction API
 // -----------------------------------------------------------------------------------------
@@ -113,6 +109,30 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
   Transaction.find({ user: req.user._id }, (err, results) => {
     if (err) next(err);
     res.json(results);
+  });
+});
+
+
+// -----------------------------------------------------------------------------------------
+// User API
+// -----------------------------------------------------------------------------------------
+mongoose.set('useFindAndModify', false); // Must add this to fix deprecation warning
+
+app.get('/api/user', requireAuth, (req, res) => {
+  res.send({ user: req.user.firstName });
+})
+
+app.get('/api/user/budget', requireAuth, (req, res) => {
+  res.json(req.user.balance);
+})
+
+app.put('/api/user/update', requireAuth, (req, res, next) => {
+  const update = { ...req.user._doc, ...req.body };
+
+  User.findOneAndUpdate({_id: req.user._id}, update, (err, results) => {
+    if (err) next(err);
+
+    res.json({ success: true });
   });
 });
 

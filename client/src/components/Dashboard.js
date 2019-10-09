@@ -22,7 +22,11 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <Modal title={this.state.modalTitle} modalSubmit={this.state.modalSubmit} showModal={this.state.showModal} toggleModal={this.toggleModal}>
+        <Modal title={this.state.modalTitle} 
+          modalSubmit={this.state.modalSubmit} 
+          showModal={this.state.showModal} 
+          toggleModal={this.toggleModal}
+        >
           {this.state.modalContent}
         </Modal>
         <h4 className="title">Dashboard</h4>

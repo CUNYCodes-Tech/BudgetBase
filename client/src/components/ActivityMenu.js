@@ -8,6 +8,7 @@ class ActivityMenu extends React.Component {
 
   componentDidMount() {
     this.fetchTransactions();
+    this.fetchBudget();
   }
 
   fetchTransactions = async () => {
@@ -16,10 +17,16 @@ class ActivityMenu extends React.Component {
         Authorization: localStorage.getItem('token')
       }
     });
-
     const data = await response.json();
-
     this.setState({ transactions: data });
+  }
+
+  fetchBudget = async () => {
+    const response = await fetch('/api/user/budget', {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
+    const data = await response.json();
+    this.setState({ budgetLeft: data });
   }
 
   handleModal = () => {
@@ -33,9 +40,9 @@ class ActivityMenu extends React.Component {
     
     return (
       <div className="center">
-        <h5>Budgets Left: $0.00</h5>
+        <h5>Budgets Left: ${this.state.budgetLeft}</h5>
         <button onClick={this.handleModal} id="newTransaction" className="btn" >
-          New Transaction
+        New Transaction
         </button>
         <ActivityContainer transactions={this.state.transactions} />
       </div>
