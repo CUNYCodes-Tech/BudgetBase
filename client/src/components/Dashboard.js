@@ -23,9 +23,9 @@ class Dashboard extends React.Component {
     return (
       <div>
         <Modal title={this.state.modalTitle} 
-               modalSubmit={this.state.modalSubmit} 
-               showModal={this.state.showModal} 
-               toggleModal={this.toggleModal}
+          modalSubmit={this.state.modalSubmit} 
+          showModal={this.state.showModal} 
+          toggleModal={this.toggleModal}
         >
           {this.state.modalContent}
         </Modal>
