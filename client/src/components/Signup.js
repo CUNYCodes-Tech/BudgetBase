@@ -123,7 +123,6 @@ class Signup extends React.Component {
               <input
                 name="dateOfBirth"
                 type="date"
-                value="1994-09-10"
                 onChange={this.handleChange}
                 required
               />
@@ -176,7 +175,7 @@ class Signup extends React.Component {
   renderError = () => {
     if (this.state.error) {
       return (
-        <div className="card-panel red lighten-1 white-text alert">
+        <div className="card-panel red lighten-1 white-text alert alert-wrong">
           {this.state.error}
         </div>
       );
