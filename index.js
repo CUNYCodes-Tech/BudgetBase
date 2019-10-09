@@ -116,6 +116,25 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
   });
 });
 
+
+// -----------------------------------------------------------------------------------------
+// Update Budget API
+// -----------------------------------------------------------------------------------------
+mongoose.set('useFindAndModify', false); // Must add this to fix deprecation warning
+app.put('/api/budget/update',requireAuth, async (req, res, next) => {
+   
+    try {
+        user = await User.findOneAndUpdate(User.id,
+            { balance : req.body.balance});       
+
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+
+});
+
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
 // -----------------------------------------------------------------------------------------
