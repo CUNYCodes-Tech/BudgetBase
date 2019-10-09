@@ -115,6 +115,39 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
   });
 });
 
+
+// -----------------------------------------------------------------------------------------
+// Update Budget API
+// -----------------------------------------------------------------------------------------
+
+// just for practice
+app.get('/api/budget/update', requireAuth, (req, res, next) => {
+   res.json( {msg: "Hello there!"});
+});
+
+
+// app.put('/api/budget/update',requireAuth,  (req, res, next) => {
+//    User.find({}, (err, results) => {
+//     if (err) next(err);
+//     res.json(results);
+//   });
+// });
+
+
+app.put('/api/budget/update',requireAuth, async (req, res, next) => {
+   
+    try {
+        user = await User.findOneAndUpdate(User.id,
+            { balance : 200});       
+
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+
+});
+
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
 // -----------------------------------------------------------------------------------------
