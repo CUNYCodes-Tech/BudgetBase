@@ -119,26 +119,12 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 // Update Budget API
 // -----------------------------------------------------------------------------------------
-
-// just for practice
-app.get('/api/budget/update', requireAuth, (req, res, next) => {
-   res.json( {msg: "Hello there!"});
-});
-
-
-// app.put('/api/budget/update',requireAuth,  (req, res, next) => {
-//    User.find({}, (err, results) => {
-//     if (err) next(err);
-//     res.json(results);
-//   });
-// });
-
-
+mongoose.set('useFindAndModify', false); // Must add this to fix deprecation warning
 app.put('/api/budget/update',requireAuth, async (req, res, next) => {
    
     try {
         user = await User.findOneAndUpdate(User.id,
-            { balance : 200});       
+            { balance : req.body.balance});       
 
         res.json(user);
     } catch (err) {
