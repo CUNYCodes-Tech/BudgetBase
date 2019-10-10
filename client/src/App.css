@@ -19,7 +19,7 @@ body {
 
 /*=============== Navigation bar ===============*/
 nav {
-  z-index: -1000!important;
+  z-index: -1000 !important;
 }
 
 .navbar {
@@ -35,17 +35,21 @@ nav .logo {
 
 /*=============== Layout ===============*/
 .slide-form {
-  padding: 8rem 5rem !important;
+  padding: 8.3% 5.2% !important;
 }
 
 .slide-image {
-  height: 52rem;
+  height: 51.2rem;
   background-color: inherit;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-x: -12rem;
+  background-position-x: 50%;
   padding: 0 !important;
   padding-right: 0.75rem;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px !important;
 }
 
 /*=============== End Layout ===============*/
@@ -96,11 +100,11 @@ nav .logo {
 }
 
 .login-phrase {
-  width: 35rem;
+  width: 65%;
   height: auto;
   position: relative;
-  left: 2rem;
-  top: 11rem;
+  left: 4%;
+  top: 22%;
 }
 
 .link-forgot {
@@ -110,9 +114,28 @@ nav .logo {
 .link-forgot:hover {
   color: #069eba;
 }
+
+.light-logo {
+  width: 75%;
+  height: auto;
+  margin-bottom: 1.3rem;
+}
+
+.profile-image {
+  width: 35%;
+  border: 1px solid #707070;
+}
 /*=============== End SignIn ===============*/
 
 /*=============== SignUp ===============*/
+.alert-wrong{
+    position: absolute;
+    z-index: 1000;
+    top: 43rem;
+    width: 40rem;
+    margin: 0 1.3rem;
+}
+
 #signUp-title {
   text-align: initial;
   padding-left: 0.75rem;
@@ -128,7 +151,7 @@ nav .logo {
 }
 
 #signUp {
-  padding: 2rem 6rem !important;
+  padding: 2.1% 6.2% !important;
 }
 
 #signUp-image {
@@ -136,7 +159,7 @@ nav .logo {
 }
 
 #signUp-phrase {
-  width: 38rem;
+  width: 90%;
   top: 0px;
   left: 0px;
   margin: 1rem;
@@ -212,12 +235,12 @@ nav .logo {
   margin: 0 20px;
 }
 
+/*=============== ADDONS ===============*/
 .delete:hover {
   color: red;
   cursor: pointer;
 }
 
-/* ADDONS */
 .material-icons {
   color: #70707080;
 }
@@ -226,4 +249,106 @@ nav .logo {
   margin-right: 0.4rem;
   font-size: 1.6rem !important;
 }
-/* END ADDONS */
+/*=============== End ADDONS ===============*/
+
+/*=============== Media Queries ===============*/
+
+/*====== Smartphone ======*/
+@media only screen and (min-width: 320px) and (max-width: 440px) {
+  .title {
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: -0.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .row {
+    padding: 8% 5%;
+    background-color: #08afce;
+  }
+
+  .slide-form {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px #707070;
+  }
+
+  #signUp {
+    padding: 0% 3% !important;
+    margin-bottom: 2%;
+  }
+
+  #signUp-row {
+    padding: 2% 0% !important;
+  }
+
+  #signUp-light {
+    width: 60%;
+    margin-bottom: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  #signUp-title {
+    text-align: center;
+    font-size: 2.2rem;
+    padding-left: 0;
+  }
+}
+/*====== End Smartphone ======*/
+
+/*====== Tablet ======*/
+@media only screen and (min-width: 600px) and (max-width: 834px) {
+  .title {
+    font-weight: bold;
+    font-size: 3.5rem;
+    letter-spacing: -0.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .row {
+    padding: 10% 9%;
+    background-color: #08afce;
+  }
+
+  .slide-form {
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px #707070;
+  }
+
+  .light-logo {
+    width: 60%;
+    margin-bottom: 3rem;
+  }
+
+  #signUp {
+    padding: 5% 10% !important;
+    margin-bottom: 5%;
+  }
+
+  #signUp-title {
+    font-size: 3rem;
+  }
+
+  #signUp-row {
+    padding: 10% 0%;
+  }
+
+  #signUp-light {
+    width: 50%;
+    margin-bottom: 2rem;
+  }
+}
+
+/*====== End Tablet ======*/
+
+/*====== Desktop and Laptop ======*/
+@media only screen and (min-width: 1224px) and (max-width: 1400px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .slide-image {
+    height: 53.3rem;
+  }
+}
+/*====== End Desktop and Laptop ======*/
+
+/*=============== End Queries ===============*/
