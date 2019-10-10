@@ -27,118 +27,121 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="row no-margin-bottom" id="signUp-row">
+      <div className='row no-margin-bottom' id='signUp-row'>
         <div
-          className="col l5 slide-image hide-on-med-and-down"
-          id="signUp-image"
+          className='col l5 slide-image hide-on-med-and-down'
+          id='signUp-image'
         >
           <img
-            className="login-phrase"
-            id="signUp-phrase"
+            className='login-phrase'
+            id='signUp-phrase'
             src={Phrase}
-            alt="Slide Left"
+            alt='Slide Left'
           />
         </div>
-        <div className="col s12 m12 hide-on-large-only center-align">
+        <div className='col s12 m12 hide-on-large-only center-align'>
           <img
-            className="light-logo"
+            className='light-logo'
             src={BBlight}
-            alt="BudgetBase logo"
-            id="signUp-light"
+            alt='BudgetBase logo'
+            id='signUp-light'
           />
         </div>
-        <div className="col s12 m12 l7 slide-form" id="signUp">
+        <div className='col s12 m12 l7 slide-form' id='signUp'>
           <img
-            className="signIn-logo hide-on-med-and-down"
+            className='signIn-logo hide-on-med-and-down'
             src={BBlogo}
-            alt="BudgetBase"
+            alt='BudgetBase'
           />
-          <h4 className="title" id="signUp-title">
+          <h4 className='title' id='signUp-title'>
             Create Your Free Account
           </h4>
-          <p className="sub-title" id="signUp-subTitle">
+          <p className='sub-title' id='signUp-subTitle'>
             Already have an account?
             <span>
-              <Link to="/signin"> Log in</Link>
+              <Link to='/signin' className='link-a'>
+                {' '}
+                Log in
+              </Link>
             </span>
           </p>
           <form
-            className="col s12"
-            id="signUp-form"
+            className='col s12'
+            id='signUp-form'
             onSubmit={this.handleSubmit}
           >
             {this.renderError()}
-            <button className="btn custom-btn btn-social-fb" type="submit">
-              <i class="fab fa-facebook-square social-icon"></i>Log in with
+            <button className='btn custom-btn btn-social-fb' type='submit'>
+              <i class='fab fa-facebook-square social-icon'></i>Log in with
               Facebook
             </button>
-            <div className="input-field col s6">
+            <div className='input-field col s6'>
               <label>Last Name:</label>
               <input
-                name="lastName"
-                type="text"
+                name='lastName'
+                type='text'
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className="input-field col s6">
+            <div className='input-field col s6'>
               <label>First Name:</label>
               <input
-                name="firstName"
-                type="text"
+                name='firstName'
+                type='text'
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               <label>Email:</label>
               <input
-                name="email"
-                type="email"
+                name='email'
+                type='email'
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               <label>Password:</label>
               <input
-                name="password"
-                type="password"
+                name='password'
+                type='password'
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               <label>Confirm Password:</label>
               <input
-                name="cpassword"
-                type="password"
+                name='cpassword'
+                type='password'
                 onChange={this.handleChange}
                 onBlur={this.validatePasswords}
                 required
               />
             </div>
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               {/* <label>Date of Birth:</label> */}
               <input
-                name="dateOfBirth"
-                type="date"
+                name='dateOfBirth'
+                type='date'
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               <label>Initial Budget:</label>
               <input
-                name="balance"
-                type="number"
-                min="0"
+                name='balance'
+                type='number'
+                min='0'
                 onChange={this.handleChange}
                 required
               />
             </div>
-            <div className="input-field col s12 submit">
-              <button className="btn custom-btn btn-login" type="submit">
+            <div className='input-field col s12 submit'>
+              <button className='btn custom-btn btn-login' type='submit'>
                 Sign Up
               </button>
             </div>
@@ -175,7 +178,7 @@ class Signup extends React.Component {
   renderError = () => {
     if (this.state.error) {
       return (
-        <div className="card-panel red lighten-1 white-text alert alert-wrong">
+        <div className='card-panel red lighten-1 white-text alert alert-wrong'>
           {this.state.error}
         </div>
       );
