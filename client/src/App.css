@@ -107,11 +107,11 @@ nav .logo {
   top: 22%;
 }
 
-.link-forgot {
+.link-a {
   color: #08afce;
 }
 
-.link-forgot:hover {
+.link-a:hover {
   color: #069eba;
 }
 
@@ -125,15 +125,19 @@ nav .logo {
   width: 35%;
   border: 1px solid #707070;
 }
+
+#link-newAccount {
+  font-size: 1.2rem;
+}
 /*=============== End SignIn ===============*/
 
 /*=============== SignUp ===============*/
-.alert-wrong{
-    position: absolute;
-    z-index: 1000;
-    top: 43rem;
-    width: 40rem;
-    margin: 0 1.3rem;
+.alert-wrong {
+  position: absolute;
+  z-index: 1000;
+  top: 43rem;
+  width: 40rem;
+  margin: 0 1.3rem;
 }
 
 #signUp-title {

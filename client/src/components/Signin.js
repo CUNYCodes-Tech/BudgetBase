@@ -19,66 +19,69 @@ class Signin extends React.Component {
 
   render() {
     return (
-      <div className="row no-margin-bottom">
-        <div className="col s12 m12 hide-on-large-only center-align">
-          <img className="light-logo" src={BBlight} alt="BudgetBase logo" />
+      <div className='row no-margin-bottom'>
+        <div className='col s12 m12 hide-on-large-only center-align'>
+          <img className='light-logo' src={BBlight} alt='BudgetBase logo' />
         </div>
-        <div className="col s12 m12 l5 slide-form">
+        <div className='col s12 m12 l5 slide-form'>
           <img
-            className="signIn-logo hide-on-med-and-down"
+            className='signIn-logo hide-on-med-and-down'
             src={BBlogo}
-            alt="BudgetBase"
+            alt='BudgetBase'
           />
-          <div className="center-align">
+          <div className='center-align'>
             <img
-              className="circle responsive-img hide-on-large-only profile-image"
+              className='circle responsive-img hide-on-large-only profile-image'
               src={profileDump}
-              alt="Profile"
+              alt='Profile'
             />
           </div>
-          <h4 className="title">Log In Into Your Account</h4>
+          <h4 className='title'>Log In Into Your Account</h4>
           <form onSubmit={this.handleSubmit}>
             {this.renderError()}
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               <label>Email</label>
               <input
-                name="email"
-                type="email"
+                name='email'
+                type='email'
                 onChange={this.handleChange}
                 required
               />
-              <i class="material-icons form-ico">mail_outline</i>
+              <i class='material-icons form-ico'>mail_outline</i>
             </div>
-            <div className="input-field col s12">
+            <div className='input-field col s12'>
               <label>Password</label>
               <br />
               <input
-                name="password"
-                type="password"
+                name='password'
+                type='password'
                 onChange={this.handleChange}
                 required
               />
-              <i className="material-icons form-ico">lock_outline</i>
-              <Link to="/forgot-password" className="link-forgot right">
+              <i className='material-icons form-ico'>lock_outline</i>
+              <Link to='/forgot-password' className='link-a right'>
                 Forgot password?
               </Link>
             </div>
-            <div className="input-field col s12 submit">
-              <button className="btn custom-btn btn-login" type="submit">
+            <div className='input-field col s12 submit'>
+              <button className='btn custom-btn btn-login' type='submit'>
                 Log In
               </button>
-              <button className="btn custom-btn btn-social-fb" type="submit">
-                <i class="fab fa-facebook-square social-icon"></i>Log in with
+              <button className='btn custom-btn btn-social-fb' type='submit'>
+                <i class='fab fa-facebook-square social-icon'></i>Log in with
                 Facebook
               </button>
+              <Link to='/signup' className='link-a center' id='link-newAccount'>
+                Create a new account
+              </Link>
             </div>
           </form>
         </div>
         <div
-          className="col l7 hide-on-med-and-down slide-image"
-          id="signIn-image"
+          className='col l7 hide-on-med-and-down slide-image'
+          id='signIn-image'
         >
-          <img className="login-phrase" src={SlidePhrase} alt="phrase" />
+          <img className='login-phrase' src={SlidePhrase} alt='phrase' />
         </div>
       </div>
     );
@@ -99,7 +102,7 @@ class Signin extends React.Component {
   renderError = () => {
     if (this.state.error) {
       return (
-        <div className="card-panel red lighten-1 white-text alert">
+        <div className='card-panel red lighten-1 white-text alert'>
           {this.state.error}
         </div>
       );
