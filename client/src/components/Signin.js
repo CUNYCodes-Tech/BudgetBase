@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 // Assets
 import BBlogo from '../assets/logo/BudgetBase-Logo-dark.png';
+import BBlight from '../assets/logo/BudgetBase-Logo-light@2x.png';
+import profileDump from '../assets/img/profile-dump.jpg';
 import SlidePhrase from '../assets/img/Phrase.png';
 
 class Signin extends React.Component {
@@ -17,9 +19,23 @@ class Signin extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col s5 slide-form">
-          <img className="signIn-logo" src={BBlogo} alt="BudgetBase" />
+      <div className="row no-margin-bottom">
+        <div className="col s12 m12 hide-on-large-only center-align">
+          <img className="light-logo" src={BBlight} alt="BudgetBase logo" />
+        </div>
+        <div className="col s12 m12 l5 slide-form">
+          <img
+            className="signIn-logo hide-on-med-and-down"
+            src={BBlogo}
+            alt="BudgetBase"
+          />
+          <div className="center-align">
+            <img
+              className="circle responsive-img hide-on-large-only profile-image"
+              src={profileDump}
+              alt="Profile"
+            />
+          </div>
           <h4 className="title">Log In Into Your Account</h4>
           <form onSubmit={this.handleSubmit}>
             {this.renderError()}
@@ -58,7 +74,10 @@ class Signin extends React.Component {
             </div>
           </form>
         </div>
-        <div className="col s7 slide-image" id="signIn-image">
+        <div
+          className="col l7 hide-on-med-and-down slide-image"
+          id="signIn-image"
+        >
           <img className="login-phrase" src={SlidePhrase} alt="phrase" />
         </div>
       </div>
