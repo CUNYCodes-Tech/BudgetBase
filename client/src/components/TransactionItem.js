@@ -9,7 +9,7 @@ class TransactionItem extends React.Component{
 
   handleModal = () =>{
     this.props.setModalTitle(`Delete ${this.props.transaction.name}?`);
-    this.props.setModalContent(<DeleteItemForm toggleModal = {this.props.toggleModal}/>);
+    this.props.setModalContent(<DeleteItemForm id={this.props.transaction._id} cost={this.props.transaction.cost} toggleModal = {this.props.toggleModal} fetchBudget={this.props.fetchBudget} fetchTransactions={this.props.fetchTransactions}/>);
     this.props.toggleModal();
   }
 

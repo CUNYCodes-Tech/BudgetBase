@@ -4,9 +4,8 @@ import M from "materialize-css";
 
 const TransactionForm = props => {
   const [form, setForm] = useState({ createdAt: null, cost: 0, category: null, name: null });
-  console.log(form);
   const { createdAt, cost, category, name } = form;
-
+  console.log(form);
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -18,7 +17,9 @@ const TransactionForm = props => {
     M.FormSelect.init(selector);
 
     datepicker.addEventListener('change', e => {
-      setForm({...form, createdAt: e.target.value});
+      console.log(form);
+      // setForm({...form, [e.target.name]: e.target.value });
+      // handleChange(e);
     });
   }, []);
 
@@ -33,6 +34,7 @@ const TransactionForm = props => {
     });
 
     props.fetchTransactions();
+    props.fetchBudget();
     props.toggleModal();
   }
 
@@ -43,7 +45,7 @@ const TransactionForm = props => {
         <label>Date</label>
       </div>
       <div className="input-field col s12">
-        <input id="Cost" name="cost" type="number" onChange={handleChange} require />
+        <input id="Cost" name="cost" type="number" onChange={handleChange} min={0} require />
         <label>Cost</label>
       </div>
       <div className="input-field col s12">

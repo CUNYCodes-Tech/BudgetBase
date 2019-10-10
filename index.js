@@ -39,6 +39,8 @@ mongoose.connect(keys.mongoURI, {
   useCreateIndex: true
 });
 
+mongoose.set('useFindAndModify', false); // Must add this to fix deprecation warning
+
 // -----------------------------------------------------------------------------------------
 // Authentication API
 // -----------------------------------------------------------------------------------------
@@ -99,9 +101,14 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     user: req.user._id
   });
 
+  const userUpdate = { ...req.user._doc, balance: req.user.balance - cost };
+
   newTransaction.save(err => {
     if (err) next(err);
-    res.json({ success: true });
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    })
   });
 });
 
@@ -112,12 +119,22 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
   });
 });
 
+app.delete('/api/transaction/delete/:id', requireAuth, (req, res, next) => {
+  const userUpdate = { ...req.user._doc, balance: req.user.balance + req.body.cost };
+
+  Transaction.deleteOne({ _id: req.params.id }, (err, results) => {
+    if (err) next(err);
+
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    });
+  });
+});
 
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
-mongoose.set('useFindAndModify', false); // Must add this to fix deprecation warning
-
 app.get('/api/user', requireAuth, (req, res) => {
   res.send({ user: req.user.firstName });
 })
