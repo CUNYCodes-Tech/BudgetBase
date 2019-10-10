@@ -44,7 +44,11 @@ class ActivityMenu extends React.Component {
         <button onClick={this.handleModal} id="newTransaction" className="btn" >
         New Transaction
         </button>
-        <ActivityContainer transactions={this.state.transactions} />
+        <ActivityContainer 
+        transactions={this.state.transactions} 
+        setModalTitle = {this.props.setModalTitle} 
+        setModalContent = {this.props.setModalContent} 
+        toggleModal = {this.props.toggleModal}/>
       </div>
     );
   }
