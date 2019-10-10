@@ -18,10 +18,10 @@ userSchema.pre('save', function(next) {
     if (err) return next(err);
 
     bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) return next(err);
+        if (err) return next(err);
 
-      user.password = hash;
-      next();
+        user.password = hash;
+        next();
     });
   });
 });
