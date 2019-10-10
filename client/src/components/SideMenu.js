@@ -2,12 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import M from 'materialize-css';
-import Modal from './Modal';
+import UpdateBudgetForm from './forms/UpdateBudgetForm';
+import ReportForm from './forms/ReportForm';
+import ImportExportForm from './forms/ImportExportForm';
 
 class SideMenu extends React.Component {
   componentDidMount() {
     const elems = document.querySelectorAll('#dateFilter');
     M.Datepicker.init(elems);
+  }
+
+  handleUpdateBudget = () => {
+    this.props.setModalTitle('Update Budget');
+    this.props.setModalContent(<UpdateBudgetForm fetchBudget={this.props.fetchBudget} toggleModal={this.props.toggleModal} />)
+    this.props.toggleModal();
+  }
+
+  handleReports = () => {
+    this.props.setModalTitle('Reports');
+    this.props.setModalContent(<ReportForm toggleModal={this.props.toggleModal} />)
+    this.props.toggleModal();
+  }
+
+  handleImportExport = () => {
+    this.props.setModalTitle('Import / Export');
+    this.props.setModalContent(<ImportExportForm toggleModal={this.props.toggleModal} />)
+    this.props.toggleModal();
   }
 
   render() {
@@ -21,13 +41,13 @@ class SideMenu extends React.Component {
           <div className='input-field col s5'>
             <button className='btn'>Filter</button>
           </div>
-          {/* <button className="btn sidemenu-button">Update Budget</button> */}
-          <Link className='btn sidemenu-button' to='/dashboard/update-budget'>
+          {/* <Link className='btn sidemenu-button' to='/dashboard/update-budget'>
             Update Budget
-          </Link>
-          <button className='btn sidemenu-button'>Reports</button>
+          </Link> */}
+          <button className="btn sidemenu-button" onClick={this.handleUpdateBudget}>Update Budget</button>
+          <button className='btn sidemenu-button' onClick={this.handleReports}>Reports</button>
           <button className='btn sidemenu-button'>Checking Account</button>
-          <button className='btn sidemenu-button'>Import / Export</button>
+          <button className='btn sidemenu-button' onClick={this.handleImportExport}>Import / Export</button>
         </div>
       </div>
     );

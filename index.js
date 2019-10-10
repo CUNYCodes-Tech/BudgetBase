@@ -119,6 +119,18 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
   });
 });
 
+app.delete('/api/transaction/delete/:id', requireAuth, (req, res, next) => {
+  const userUpdate = { ...req.user._doc, balance: req.user.balance + req.body.cost };
+
+  Transaction.deleteOne({ _id: req.params.id }, (err, results) => {
+    if (err) next(err);
+
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    });
+  });
+});
 
 // -----------------------------------------------------------------------------------------
 // User API
