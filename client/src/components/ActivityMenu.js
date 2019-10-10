@@ -31,7 +31,7 @@ class ActivityMenu extends React.Component {
 
   handleModal = () => {
     this.props.setModalTitle('New Transaction');
-    this.props.setModalContent(<TransactionForm toggleModal={this.props.toggleModal} fetchTransactions={this.fetchTransactions} />);
+    this.props.setModalContent(<TransactionForm toggleModal={this.props.toggleModal} fetchTransactions={this.fetchTransactions} fetchBudget={this.fetchBudget} />);
     this.props.toggleModal();
   }
 
