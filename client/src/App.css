@@ -1,7 +1,153 @@
-.title {
-  text-align: center;
+body {
+  font-family: Helvetica, Arial, sans-serif;
 }
 
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.7rem;
+  letter-spacing: -0.15rem;
+  color: #707070;
+  margin-bottom: 3rem;
+}
+
+.sub-title {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #707070;
+}
+
+/*=============== Navigation bar ===============*/
+nav {
+  z-index: -1000!important;
+}
+
+.navbar {
+  padding-left: 1rem;
+}
+
+nav .logo {
+  width: 13rem;
+  height: auto;
+  padding: 0.75rem;
+}
+/*=============== End Navigation bar ===============*/
+
+/*=============== Layout ===============*/
+.slide-form {
+  padding: 8rem 5rem !important;
+}
+
+.slide-image {
+  height: 52rem;
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: -12rem;
+  padding: 0 !important;
+  padding-right: 0.75rem;
+}
+
+/*=============== End Layout ===============*/
+
+/*=============== SignIn ===============*/
+#signIn-image {
+  background-image: url('./assets/img/signIn-left.jpg');
+}
+
+.signIn-logo {
+  width: 10rem;
+  height: auto;
+  padding-left: 1rem;
+}
+
+.custom-btn {
+  padding: 0.5rem 0rem;
+  box-sizing: content-box;
+  text-transform: initial;
+  margin-bottom: 0.75rem;
+}
+
+.btn-login {
+  background-color: #08afce;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.btn-login:hover {
+  background-color: #069eba;
+}
+
+.btn-social-fb {
+  background-color: #4267b2;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.btn-social-fb:hover {
+  background-color: #2b4272;
+}
+
+.form-ico {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  font-weight: 100;
+}
+
+.login-phrase {
+  width: 35rem;
+  height: auto;
+  position: relative;
+  left: 2rem;
+  top: 11rem;
+}
+
+.link-forgot {
+  color: #08afce;
+}
+
+.link-forgot:hover {
+  color: #069eba;
+}
+/*=============== End SignIn ===============*/
+
+/*=============== SignUp ===============*/
+#signUp-title {
+  text-align: initial;
+  padding-left: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+#signUp-subTitle {
+  padding-left: 1rem;
+}
+
+#signUp-image {
+  background-position-x: 0rem;
+}
+
+#signUp {
+  padding: 2rem 6rem !important;
+}
+
+#signUp-image {
+  background-image: url('./assets/img/signup-img.png');
+}
+
+#signUp-phrase {
+  width: 38rem;
+  top: 0px;
+  left: 0px;
+  margin: 1rem;
+}
+
+#signUp-form .input-field {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/*=============== End SignUp ===============*/
 .submit {
   text-align: center;
 }
@@ -42,12 +188,13 @@
   padding: 0;
 }
 
-.edit , .delete {
+.edit,
+.delete {
   margin-left: 25px;
 }
 
 .modal-container {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   height: 100%;
   width: 100%;
@@ -61,5 +208,22 @@
 .modal-content {
   background-color: white;
   border-radius: 5px;
-  padding: 30px 25px;
+  padding: 30px 65px;
+  margin: 0 20px;
 }
+
+.delete:hover {
+  color: red;
+  cursor: pointer;
+}
+
+/* ADDONS */
+.material-icons {
+  color: #70707080;
+}
+
+.social-icon {
+  margin-right: 0.4rem;
+  font-size: 1.6rem !important;
+}
+/* END ADDONS */
