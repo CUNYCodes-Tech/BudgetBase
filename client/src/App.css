@@ -231,11 +231,16 @@ nav .logo {
 .modal-content {
   background-color: white;
   border-radius: 5px;
-  padding: 30px 25px;
+  padding: 30px 65px;
   margin: 0 20px;
 }
 
 /*=============== ADDONS ===============*/
+.delete:hover {
+  color: red;
+  cursor: pointer;
+}
+
 .material-icons {
   color: #70707080;
 }
