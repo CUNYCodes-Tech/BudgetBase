@@ -20,9 +20,7 @@ class DeleteItemForm extends React.Component{
   render(){
     return(
       <div>
-        <p>Delete this item?</p>
-        <div>{this.props.id}</div>
-        <div>{this.props.cost}</div>
+        <p>Are you sure?</p>
         <div className = "input-field col s6">
           <button className = "btn red" onClick={this.handleDelete}>Delete</button>
         </div>

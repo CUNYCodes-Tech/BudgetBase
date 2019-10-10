@@ -17,9 +17,7 @@ const TransactionForm = props => {
     M.FormSelect.init(selector);
 
     datepicker.addEventListener('change', e => {
-      console.log(form);
-      // setForm({...form, [e.target.name]: e.target.value });
-      // handleChange(e);
+      handleChange(e);
     });
   }, []);
 
