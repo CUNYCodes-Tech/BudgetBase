@@ -8,7 +8,7 @@ import DeleteItemForm from './forms/DeleteItemForm'
 class TransactionItem extends React.Component{
 
   handleModal = () =>{
-    this.props.setModalTitle(null);
+    this.props.setModalTitle(`Delete ${this.props.transaction.name}?`);
     this.props.setModalContent(<DeleteItemForm toggleModal = {this.props.toggleModal}/>);
     this.props.toggleModal();
   }
