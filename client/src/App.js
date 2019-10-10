@@ -57,7 +57,7 @@ class App extends React.Component {
           />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/transaction/new" component={NewTransaction} />
-          <Route path="/dashboard/new-budget" component={ButtonBudget} />
+          <Route path="/dashboard/update-budget" component={ButtonBudget} />
         </div>
       </Router>
     );
