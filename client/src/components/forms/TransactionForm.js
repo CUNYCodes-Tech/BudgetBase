@@ -32,7 +32,7 @@ const TransactionForm = props => {
     });
 
     props.fetchTransactions();
-    props.fetchBudget();
+    props.fetchBalance();
     props.toggleModal();
   }
 

@@ -15,7 +15,7 @@ class UpdateBudgetForm extends React.Component{
 
     const data = await response.json();
 
-    this.props.fetchBudget();
+    this.props.fetchBalance();
     this.props.toggleModal();
   };
 

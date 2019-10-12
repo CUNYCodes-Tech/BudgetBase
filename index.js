@@ -139,7 +139,7 @@ app.get('/api/user', requireAuth, (req, res) => {
   res.send({ user: req.user.firstName });
 })
 
-app.get('/api/user/budget', requireAuth, (req, res) => {
+app.get('/api/user/balance', requireAuth, (req, res) => {
   res.json(req.user.balance);
 })
 

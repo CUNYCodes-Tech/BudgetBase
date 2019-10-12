@@ -5,11 +5,11 @@ import ActivityMenu from './ActivityMenu';
 import Modal from './Modal';
 
 class Dashboard extends React.Component {
-  state = { budgetLeft: 0, transactions: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
+  state = { balance: 0, transactions: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
 
   componentDidMount() {
     this.fetchTransactions();
-    this.fetchBudget();
+    this.fetchBalance();
   }
 
   toggleModal = () => {
@@ -34,12 +34,12 @@ class Dashboard extends React.Component {
     this.setState({ transactions: data });
   }
 
-  fetchBudget = async () => {
-    const response = await fetch('/api/user/budget', {
+  fetchBalance = async () => {
+    const response = await fetch('/api/user/balance', {
       headers: { Authorization: localStorage.getItem('token') }
     });
     const data = await response.json();
-    this.setState({ budgetLeft: data });
+    this.setState({ balance: data });
   }
 
   render() {
@@ -56,7 +56,8 @@ class Dashboard extends React.Component {
         <div className ="row" >
           <div className="col s12 m4">
             <SideMenu
-              fetchBudget={this.fetchBudget}
+              transactions={this.state.transactions}
+              fetchBalance={this.fetchBalance}
               fetchTransactions={this.fetchTransactions}
               showModal={this.state.showModal}
               toggleModal={this.toggleModal}
@@ -66,9 +67,9 @@ class Dashboard extends React.Component {
           </div>
           <div className ="col s12 m8">
             <ActivityMenu
-              fetchBudget={this.fetchBudget}
+              fetchBalance={this.fetchBalance}
               fetchTransactions={this.fetchTransactions}
-              budgetLeft={this.state.budgetLeft}
+              balance={this.state.balance}
               transactions={this.state.transactions}
               token={this.props.token}
               showModal={this.state.showModal}

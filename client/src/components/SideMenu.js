@@ -14,13 +14,13 @@ class SideMenu extends React.Component {
 
   handleUpdateBudget = () => {
     this.props.setModalTitle('Update Budget');
-    this.props.setModalContent(<UpdateBudgetForm fetchBudget={this.props.fetchBudget} toggleModal={this.props.toggleModal} />)
+    this.props.setModalContent(<UpdateBudgetForm fetchBalance={this.props.fetchBalance} toggleModal={this.props.toggleModal} />)
     this.props.toggleModal();
   }
 
   handleReports = () => {
     this.props.setModalTitle('Reports');
-    this.props.setModalContent(<ReportForm toggleModal={this.props.toggleModal} />)
+    this.props.setModalContent(<ReportForm transactions={this.props.transactions} toggleModal={this.props.toggleModal} />)
     this.props.toggleModal();
   }
 
