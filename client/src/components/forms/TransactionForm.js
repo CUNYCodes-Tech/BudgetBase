@@ -5,7 +5,7 @@ import M from "materialize-css";
 const TransactionForm = props => {
   const [form, setForm] = useState({ createdAt: null, cost: 0, category: null, name: null });
   const { createdAt, cost, category, name } = form;
-  console.log(form);
+  
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -32,7 +32,7 @@ const TransactionForm = props => {
     });
 
     props.fetchTransactions();
-    props.fetchBudget();
+    props.fetchBalance();
     props.toggleModal();
   }
 

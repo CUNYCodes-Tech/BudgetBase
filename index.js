@@ -132,6 +132,22 @@ app.delete('/api/transaction/delete/:id', requireAuth, (req, res, next) => {
   });
 });
 
+app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
+  Transaction.findOneAndUpdate({ _id: req.params.id }, req.body, (err, results) => {
+    if (err) next(err);
+
+    const originalCost = results.cost;
+    const updatedCost  = req.body.cost;
+    const userUpdate   = { ...req.user._doc, balance: req.user.balance + (originalCost - updatedCost) }
+
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, err2 => {
+      if (err2) next(err2);
+
+      res.json({ success: true });
+    })
+  });
+});
+
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
@@ -139,7 +155,7 @@ app.get('/api/user', requireAuth, (req, res) => {
   res.send({ user: req.user.firstName });
 })
 
-app.get('/api/user/budget', requireAuth, (req, res) => {
+app.get('/api/user/balance', requireAuth, (req, res) => {
   res.json(req.user.balance);
 })
 
