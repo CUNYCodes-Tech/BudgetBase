@@ -11,7 +11,7 @@ class DeleteItemForm extends React.Component{
       body: JSON.stringify({ cost: this.props.cost })
     });
 
-    const data = await response.json();
+    await response.json();
     this.props.fetchTransactions();
     this.props.fetchBalance();
     this.props.toggleModal();

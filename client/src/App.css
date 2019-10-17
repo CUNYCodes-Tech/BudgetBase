@@ -215,11 +215,6 @@ nav .logo {
   padding: 0;
 }
 
-.edit,
-.delete {
-  margin-left: 25px;
-}
-
 .modal-container {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -241,6 +236,16 @@ nav .logo {
 
 .delete:hover {
   color: red;
+  cursor: pointer;
+}
+
+.edit:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.save:hover {
+  color: green;
   cursor: pointer;
 }
 

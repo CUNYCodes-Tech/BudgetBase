@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import M from 'materialize-css';
 import UpdateBudgetForm from './forms/UpdateBudgetForm';
