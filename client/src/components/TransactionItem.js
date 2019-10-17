@@ -75,7 +75,7 @@ class TransactionItem extends React.Component{
           <input type="number" value={this.state.cost} onChange={e => this.setState({ cost: e.target.value })} />
         </div>
         <div className="col s3">
-          <select name="category" className="browser-default">
+          <select name="category" className="browser-default" onChange={e => this.setState({ category: e.target.value })}>
             <option value="Eating Out" selected={this.isSelected('Eating Out')}>Eating Out</option>
             <option value="Fuel" selected={this.isSelected('Fuel')}>Fuel</option>
             <option value="Clothes" selected={this.isSelected('Clothes')}>Clothes</option>
