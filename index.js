@@ -88,17 +88,23 @@ app.post('/api/signin', requireSignin, (req, res, next) => {
 // Transaction API
 // -----------------------------------------------------------------------------------------
 app.post('/api/transaction/create', requireAuth, (req, res, next) => {
-  const createdAt = req.body.createdAt;
-  const cost      = req.body.cost;
-  const category  = req.body.category;
-  const name      = req.body.name;
+  const createdAt   = req.body.createdAt;
+  const cost        = req.body.cost;
+  const category    = req.body.category;
+  const name        = req.body.name;
+  const paymentType = req.body.paymentType;
+  const budgetType  = req.body.budgetType;
+  const budgetId    = req.body.budgetId;
 
   const newTransaction = new Transaction({
     name: name,
     createdAt: createdAt,
     cost: cost,
     category: category,
-    user: req.user._id
+    user: req.user._id,
+    paymentType: paymentType,
+    budgetType: budgetType,
+    budgetId: budgetId
   });
 
   const userUpdate = { ...req.user._doc, balance: req.user.balance - cost };
