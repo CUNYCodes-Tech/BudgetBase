@@ -169,6 +169,15 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
   });
 });
 
+app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
+  const newBalance = req.user.balance + req.body.balance;
+  const userUpdate = { ...req.user._doc, balance: newBalance };
+  User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+    if (err) next(err);
+    res.json({ success: true });
+  });
+});
+
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
 // -----------------------------------------------------------------------------------------
