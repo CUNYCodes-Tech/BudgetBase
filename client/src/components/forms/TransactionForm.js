@@ -70,11 +70,11 @@ const TransactionForm = props => {
     paymentForm.push(
       <form action="#">
         <label>
-          <input name = "paymentType" type = "radio" value = "cash" onChange = {handleChange}/>
+          <input checked={form.paymentType === "cash"} name = "paymentType" type = "radio" value = "cash" onChange = {handleChange}/>
           <span>Cash</span>
         </label>
         <label>
-          <input name = "paymentType" type = "radio" value = "debet/credit" onChange = {handleChange}/>
+          <input checked={form.paymentType === "debet/credit"} name = "paymentType" type = "radio" value = "debet/credit" onChange = {handleChange}/>
           <span>Debet/Credit</span>
         </label>
       </form>
