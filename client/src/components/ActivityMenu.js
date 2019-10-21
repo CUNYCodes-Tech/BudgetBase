@@ -6,7 +6,15 @@ import TransactionForm from './forms/TransactionForm';
 class ActivityMenu extends React.Component {
   handleModal = () => {
     this.props.setModalTitle('New Transaction');
-    this.props.setModalContent(<TransactionForm toggleModal={this.props.toggleModal} fetchTransactions={this.props.fetchTransactions} fetchBalance={this.props.fetchBalance} />);
+    let budgetNameList = ["Book1", "Book2", "Book3", "Book4"];
+    let categoriesList = ["", "Eating out", "Fuel", "Clothes", "Entertainment", "General", "Gifts", "Holidays", "Kids", "Shopping", "Sports", "Travel"];
+    this.props.setModalContent(
+    <TransactionForm 
+      toggleModal={this.props.toggleModal} 
+      fetchTransactions={this.props.fetchTransactions} 
+      fetchBalance={this.props.fetchBalance} 
+      budgetNameList = {budgetNameList}
+      categoriesList = {categoriesList}/>);
     this.props.toggleModal();
   }
 
