@@ -157,8 +157,8 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
-app.get('/api/user', requireAuth, (req, res) => {
-  res.send({ user: req.user.firstName });
+app.get('/api/user/', requireAuth, (req, res) => {
+  res.send(req.user);
 })
 
 app.get('/api/user/balance', requireAuth, (req, res) => {
@@ -243,10 +243,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-setInterval(function() {
-  https.get("https://budgetbase.herokuapp.com");
-}, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup

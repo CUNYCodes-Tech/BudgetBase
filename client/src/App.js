@@ -23,7 +23,7 @@ class App extends React.Component {
     return (
       <Router history={history}>
         <div>
-          <Navigation token={this.state.token} signout={this.signout} />
+          {/* <Navigation token={this.state.token} signout={this.signout} /> */}
           <Route 
             path="/" 
             render={() => {
