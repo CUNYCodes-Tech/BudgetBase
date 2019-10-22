@@ -8,8 +8,6 @@ import Navigation from './components/Navigation';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Dashboard from './components/Dashboard';
-import NewTransaction from './components/NewTransaction';
-import ButtonBudget from './components/ButtonBudget';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,8 +54,6 @@ class App extends React.Component {
             )}
           />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/transaction/new" component={NewTransaction} />
-          <Route path="/dashboard/update-budget" component={ButtonBudget} />
         </div>
       </Router>
     );

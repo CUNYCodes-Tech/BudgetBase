@@ -5,7 +5,10 @@ const transactionSchema = new mongoose.Schema({
   category: String,
   cost: Number,
   name: String,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  paymentType: String,
+  budgetType: String,
+  budgetId: mongoose.Schema.Types.ObjectId
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

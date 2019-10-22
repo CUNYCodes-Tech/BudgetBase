@@ -215,11 +215,6 @@ nav .logo {
   padding: 0;
 }
 
-.edit,
-.delete {
-  margin-left: 25px;
-}
-
 .modal-container {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -244,9 +239,23 @@ nav .logo {
   cursor: pointer;
 }
 
+.edit:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.save:hover {
+  color: green;
+  cursor: pointer;
+}
+
 .dropdown-content {
   max-height: 250px;
 }
+
+input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display: none; } 
+::-webkit-datetime-edit { padding: 0; margin: 0 } 
+::-webkit-calendar-picker-indicator { padding: 0.1em; }
 
 /*=============== ADDONS ===============*/
 .material-icons {

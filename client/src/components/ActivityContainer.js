@@ -2,7 +2,7 @@ import React from 'react'
 import TransactionItem from './TransactionItem';
 
 
-const ActivityContainer = ({ fetchBudget, fetchTransactions, transactions, setModalTitle, setModalContent, toggleModal }) => {
+const ActivityContainer = ({ fetchBalance, fetchTransactions, transactions, setModalTitle, setModalContent, toggleModal }) => {
   return (
     <div className="activity-container">
       {
@@ -13,7 +13,7 @@ const ActivityContainer = ({ fetchBudget, fetchTransactions, transactions, setMo
             setModalTitle = {setModalTitle}
             setModalContent = {setModalContent}
             toggleModal = {toggleModal}
-            fetchBudget={fetchBudget}
+            fetchBalance={fetchBalance}
             fetchTransactions={fetchTransactions}
           />
         ))
