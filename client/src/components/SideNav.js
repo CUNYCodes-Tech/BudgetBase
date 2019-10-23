@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Assets
 import SideNavLogo from '../assets/img/Dashboard-Logo.png'
@@ -25,7 +26,12 @@ class SideNav extends React.Component {
           <i className="side-icon far fa-bookmark" />
         </div>
         <div className="side-nav-footer">
-          <i className="side-icon fas fa-cog" />
+          <div className="dropup-container">
+            <i className="side-icon fas fa-cog" />
+            <div className="dropup-content">
+              <Link to="/signout">Log out</Link>
+            </div>
+          </div>
         </div>
       </div>
     );

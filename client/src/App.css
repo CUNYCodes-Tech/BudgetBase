@@ -75,6 +75,31 @@ nav .logo {
   font-size: 1.5rem;
 }
 
+.dropup-container {
+  position: relative;
+  width: 7rem;
+}
+
+.dropup-content {
+  display: none;
+  position: absolute;
+  background: black;
+  color: white;
+  bottom: 2rem;
+  left: 0.3rem;
+  width: 90%;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.dropup-content a {
+  display: block;
+}
+
+.dropup-container:hover .dropup-content {
+  display:block;
+}
+
 /*=============== End SideNav ===============*/
 
 /*=============== Begin SideMenu ===============*/
