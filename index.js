@@ -18,6 +18,7 @@ const https         = require('https');
 // -----------------------------------------------------------------------------------------
 const User        = require('./models/user');
 const Transaction = require('./models/transaction');
+const Budget      = require('./models/budget');
 if(process.env.NODE_ENV !== 'production') require('dotenv/config');
 const keys = require('./config/keys');
 
