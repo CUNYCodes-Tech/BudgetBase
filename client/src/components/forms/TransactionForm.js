@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import M from "materialize-css";
 
 const TransactionForm = props => {
-  const [form, setForm] = useState({ createdAt: null, cost: 0, category: null, name: null });
+  const [form, setForm] = useState({ createdAt: null, cost: 0, category: null, name: null, budgetType: null, paymentType: "cash" });
   const { createdAt, cost, category, name } = form;
   
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(e.target.name + " " + e.target.value);
   }
 
   useEffect(() => {
@@ -32,8 +33,53 @@ const TransactionForm = props => {
     });
 
     props.fetchTransactions();
-    props.fetchBalance();
+    props.fetchUser();
     props.toggleModal();
+  }
+
+ const createBudgetOptions = () =>{
+    let budgetList =[];
+    let options = [];
+    for (let i = 0; i < props.budgetNameList.length; i++){
+      options.push(
+        <option value = {props.budgetNameList[i].toString()}>{props.budgetNameList[i]}</option>
+      );
+    }
+    budgetList.push(<select name = "budgetType" id = "selector" onChange = {handleChange}>{options}</select>);
+    return budgetList;
+  }
+
+  const createCategriesOptions = () =>{
+    let categoriesList = [];
+    let options = [];
+    for (let i = 0; i < props.categoriesList.length; i++){
+      options.push(
+        <option value = {props.categoriesList[i]}>{props.categoriesList[i]}</option>
+      );
+    }
+    categoriesList.push(
+      <select name = "category" id = "selector" onChange = {handleChange}>
+        {options}
+      </select>
+    );
+    return categoriesList;
+  }
+
+  const createPaymentRadio = () =>{
+    let paymentForm = [];
+    paymentForm.push(
+      <form action="#">
+        <label>
+          <input checked={form.paymentType === "cash"} name = "paymentType" type = "radio" value = "cash" onChange = {handleChange}/>
+          <span>Cash</span>
+        </label>
+        <label>
+          <input checked={form.paymentType === "debet/credit"} name = "paymentType" type = "radio" value = "debet/credit" onChange = {handleChange}/>
+          <span>Debet/Credit</span>
+        </label>
+      </form>
+    );
+    return paymentForm;
   }
 
   return (
@@ -47,25 +93,20 @@ const TransactionForm = props => {
         <label>Cost</label>
       </div>
       <div className="input-field col s12">
-        <select name="category" id="selector" onChange={handleChange}>
-          <option value="">--Please choose an option--</option>
-          <option value="Eating Out">Eating Out</option>
-          <option value="Fuel">Fuel</option>
-          <option value="Clothes">Clothes</option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="General">General</option>
-          <option value="Gifts">Gifts</option>
-          <option value="Holidays">Holidays</option>
-          <option value="Kids">Kids</option>
-          <option value="Shopping">Shopping</option>
-          <option value="Sports">Sports</option>
-          <option value="Travel">Travel</option>
-        </select>
+        {createCategriesOptions()}
         <label>Category</label>
       </div>
       <div className="input-field col s12">
         <input type="text" name="name" onChange={handleChange} />
         <label>Enter the name</label>
+      </div>
+      <div className = "input-field col s12">
+        {createBudgetOptions()}
+        <label>Budget</label>
+      </div>
+      <div>
+        {createPaymentRadio()}
+        <label>Payment</label>
       </div>
       <div className="input-field col s6">
         <button className="btn" onClick={createTransaction}>Submit</button>

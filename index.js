@@ -18,6 +18,7 @@ const https         = require('https');
 // -----------------------------------------------------------------------------------------
 const User        = require('./models/user');
 const Transaction = require('./models/transaction');
+const Budget      = require('./models/budget');
 if(process.env.NODE_ENV !== 'production') require('dotenv/config');
 const keys = require('./config/keys');
 
@@ -88,17 +89,23 @@ app.post('/api/signin', requireSignin, (req, res, next) => {
 // Transaction API
 // -----------------------------------------------------------------------------------------
 app.post('/api/transaction/create', requireAuth, (req, res, next) => {
-  const createdAt = req.body.createdAt;
-  const cost      = req.body.cost;
-  const category  = req.body.category;
-  const name      = req.body.name;
+  const createdAt   = req.body.createdAt;
+  const cost        = req.body.cost;
+  const category    = req.body.category;
+  const name        = req.body.name;
+  const paymentType = req.body.paymentType;
+  const budgetType  = req.body.budgetType;
+  const budgetId    = req.body.budgetId;
 
   const newTransaction = new Transaction({
     name: name,
     createdAt: createdAt,
     cost: cost,
     category: category,
-    user: req.user._id
+    user: req.user._id,
+    paymentType: paymentType,
+    budgetType: budgetType,
+    budgetId: budgetId
   });
 
   const userUpdate = { ...req.user._doc, balance: req.user.balance - cost };
@@ -151,8 +158,8 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
-app.get('/api/user', requireAuth, (req, res) => {
-  res.send({ user: req.user.firstName });
+app.get('/api/user/', requireAuth, (req, res) => {
+  res.send(req.user);
 })
 
 app.get('/api/user/balance', requireAuth, (req, res) => {
@@ -165,6 +172,15 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
   User.findOneAndUpdate({_id: req.user._id}, update, (err, results) => {
     if (err) next(err);
 
+    res.json({ success: true });
+  });
+});
+
+app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
+  const newBalance = req.user.balance + req.body.balance;
+  const userUpdate = { ...req.user._doc, balance: newBalance };
+  User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+    if (err) next(err);
     res.json({ success: true });
   });
 });
@@ -228,10 +244,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-setInterval(function() {
-  https.get("https://budgetbase.herokuapp.com");
-}, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup

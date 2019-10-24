@@ -7,6 +7,7 @@ import history from './history';
 import Navigation from './components/Navigation';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
+import Signout from './components/Signout';
 import Dashboard from './components/Dashboard';
 
 class App extends React.Component {
@@ -23,7 +24,7 @@ class App extends React.Component {
     return (
       <Router history={history}>
         <div>
-          <Navigation token={this.state.token} signout={this.signout} />
+          {/* <Navigation token={this.state.token} signout={this.signout} /> */}
           <Route 
             path="/" 
             render={() => {
@@ -53,6 +54,7 @@ class App extends React.Component {
               />
             )}
           />
+          <Route path="/signout" render={ props => <Signout {...props} signout={this.signout} />} />
           <Route path="/dashboard" component={Dashboard} />
         </div>
       </Router>
