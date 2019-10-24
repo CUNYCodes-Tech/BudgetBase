@@ -1,7 +1,7 @@
 import React from 'react';
 
 import M from 'materialize-css';
-import UpdateBudgetForm from './forms/UpdateBudgetForm';
+import AddBalanceForm from './forms/AddBalanceForm';
 import ReportForm from './forms/ReportForm';
 import ImportExportForm from './forms/ImportExportForm';
 
@@ -11,23 +11,35 @@ class SideMenu extends React.Component {
     M.Datepicker.init(elems);
   }
 
-  handleUpdateBudget = () => {
-    this.props.setModalTitle('Update Budget');
-    this.props.setModalContent(<UpdateBudgetForm fetchBalance={this.props.fetchBalance} toggleModal={this.props.toggleModal} />)
+  handleAddBalance = () => {
+    this.props.setModalTitle('Add Balance');
+    this.props.setModalContent(
+      <AddBalanceForm
+        fetchBalance={this.props.fetchBalance}
+        toggleModal={this.props.toggleModal}
+      />
+    );
     this.props.toggleModal();
-  }
+  };
 
   handleReports = () => {
     this.props.setModalTitle('Reports');
-    this.props.setModalContent(<ReportForm transactions={this.props.transactions} toggleModal={this.props.toggleModal} />)
+    this.props.setModalContent(
+      <ReportForm
+        transactions={this.props.transactions}
+        toggleModal={this.props.toggleModal}
+      />
+    );
     this.props.toggleModal();
-  }
+  };
 
   handleImportExport = () => {
     this.props.setModalTitle('Import / Export');
-    this.props.setModalContent(<ImportExportForm toggleModal={this.props.toggleModal} />)
+    this.props.setModalContent(
+      <ImportExportForm toggleModal={this.props.toggleModal} />
+    );
     this.props.toggleModal();
-  }
+  };
 
   render() {
     return (
@@ -43,10 +55,22 @@ class SideMenu extends React.Component {
           {/* <Link className='btn sidemenu-button' to='/dashboard/update-budget'>
             Update Budget
           </Link> */}
-          <button className="btn sidemenu-button" onClick={this.handleUpdateBudget}>Update Budget</button>
-          <button className='btn sidemenu-button' onClick={this.handleReports}>Reports</button>
+          <button
+            className='btn sidemenu-button'
+            onClick={this.handleAddBalance}
+          >
+            Add Balance
+          </button>
+          <button className='btn sidemenu-button' onClick={this.handleReports}>
+            Reports
+          </button>
           <button className='btn sidemenu-button'>Checking Account</button>
-          <button className='btn sidemenu-button' onClick={this.handleImportExport}>Import / Export</button>
+          <button
+            className='btn sidemenu-button'
+            onClick={this.handleImportExport}
+          >
+            Import / Export
+          </button>
         </div>
       </div>
     );
