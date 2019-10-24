@@ -5,10 +5,9 @@ body {
 .title {
   text-align: center;
   font-weight: bold;
-  font-size: 2.7rem;
+  font-size: 2rem;
   letter-spacing: -0.15rem;
   color: #707070;
-  margin-bottom: 3rem;
 }
 
 .sub-title {
@@ -33,6 +32,319 @@ nav .logo {
 }
 /*=============== End Navigation bar ===============*/
 
+/*=============== Begin SideNav ===============*/
+.white-text {
+  color: white;
+}
+
+.side-nav-container {
+  padding: 0!important;
+  height: 100vh;
+}
+
+.side-nav {
+  position: fixed;
+  background: #3C58B9;
+  height: 100%;
+  position: fixed;
+}
+
+#side-nav-logo {
+  display: block;
+  width: 4.5em;
+  height: 4.5em;
+  margin: 1rem auto;
+}
+
+.side-icon {
+  display: block!important;
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  margin: 3.5rem 0;
+}
+
+.side-nav-footer {
+  bottom: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.balance {
+  font-size: 1.5rem;
+}
+
+.dropup-container {
+  position: relative;
+  width: 7rem;
+}
+
+.dropup-content {
+  display: none;
+  position: absolute;
+  background: black;
+  color: white;
+  bottom: 2rem;
+  left: 0.3rem;
+  width: 90%;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.dropup-content a {
+  display: block;
+}
+
+.dropup-container:hover .dropup-content {
+  display:block;
+}
+
+/*=============== End SideNav ===============*/
+
+/*=============== Begin SideMenu ===============*/
+.side-menu-container {
+  padding: 0!important;
+}
+
+.side-menu {
+  position: fixed;
+  background: #1c2c85;
+  height: 100vh;
+  padding: 0 1.5rem;
+  /* Experiment */
+  display: flex;
+  flex-flow: column;
+  align-content: flex-start;
+}
+
+.side-menu-header {
+  margin: 0;
+}
+
+#profile-pic {
+  margin: 1rem 0;
+  width: 7rem;
+  height: 7rem;
+}
+
+#fullname {
+  color: white;
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+#separator {
+  width: 100%;
+}
+
+.side-btn {
+  background: #3C58B9;
+  margin: 0.3rem 0;
+}
+
+.buttons-row {
+  margin-bottom: 1rem;
+}
+
+.side-menu-header::after {
+  display: none;
+}
+
+.financial-row {
+  height: 4rem;
+}
+
+.financial-icon {
+  color: #fff;
+  font-size: 2rem;
+}
+
+.financial-name {
+  color: #fff;
+  opacity: 0.65;
+  margin: 0;
+}
+
+.financial-amount {
+  margin: 0;
+  color: #fff;
+}
+
+.income-container {
+  border-right: 1px solid rgba(170, 170, 170, 0.80);
+  height: 100%;
+}
+
+.income-wrapper {
+  margin: 0;
+  height: 100%;
+}
+
+.income-wrapper::after {
+  display:none;
+}
+
+.spending-container {
+  height: 100%;
+}
+
+.spending-wrapper {
+  margin: 0;
+  height: 100%;
+}
+
+.spending-wrapper::after {
+  display: none;
+}
+
+.bank-acc-row {
+  flex-grow: 1;
+}
+
+.bank-acc-container {
+  text-align: left;
+  height: 100%;
+}
+
+#bank-acc {
+  color: #fff;
+  opacity: 0.65;
+}
+
+.bank-info {
+  position: relative;
+  background: #3C58B9;
+  width: 100%;
+  height: 90%;
+  border-radius: 5px;
+}
+
+.add-btn {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #08AFCE;
+}
+/*=============== End SideMenu ===============*/
+
+/*=============== Begin ActivityMenu ===============*/
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  color: #707070;
+}
+
+.dashboard-subtitle {
+  font-size: 1.5rem;
+  color: #707070;
+}
+
+.budget-total {
+  color: #AAAAAA;
+  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.budget-total-title {
+  letter-spacing: 0.05rem;
+  margin-right: 1.5rem;
+}
+
+.budget-num {
+  color: #272727;
+  font-size: 2rem;
+}
+
+.budget-item {
+  position: relative;
+  height: 9rem;
+  border-radius: 10px;
+}
+
+.budget-title {
+  position: relative;
+  color: white;
+  opacity: 0.7;
+  top: 7%;
+  left: 7%;
+}
+
+.budget-amount {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.progress-bar {
+  position: absolute;
+  background: #1C2C85;
+  height: 1rem;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 13%;
+  border-radius: 10px;
+}
+
+.activity-column {
+  padding: 1.5rem 2rem!important;
+}
+
+.teal-bg {
+  background: #08AFCE;
+}
+
+.light-blue-bg {
+  background: #3C58B9;
+}
+
+.spent-icon {
+  color: #e57373;
+  font-size: 2.5rem;
+}
+
+.item-cost-row::after {
+  display: none;
+}
+
+.item-cost {
+  font-weight: bold;
+  color: #707070;
+  font-size: 1.2rem;
+}
+
+.item-category {
+  color: #AAAAAA;
+  font-size: 0.88rem;
+}
+
+.item-name {
+  color: #707070;
+  font-size: 1.1rem;
+  font-weight: bold;
+  opacity: 0.88;
+  letter-spacing: 0.01rem;
+}
+
+.item-date {
+  color: #AAAAAA;
+  font-size: 0.9rem;
+}
+
+/*=============== End ActivityMenu ===============*/
 /*=============== Layout ===============*/
 .slide-form {
   padding: 8.3% 5.2% !important;
@@ -208,7 +520,9 @@ nav .logo {
 }
 
 .item {
-  margin: 0;
+  border-radius: 6px;
+  margin: 0.3rem 0!important;
+  padding: 0.7rem 0!important;
 }
 
 .item-button {
