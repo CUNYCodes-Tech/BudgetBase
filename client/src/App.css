@@ -270,6 +270,35 @@ nav .logo {
   border-radius: 10px;
 }
 
+.budget-title {
+  position: relative;
+  color: white;
+  opacity: 0.7;
+  top: 7%;
+  left: 7%;
+}
+
+.budget-amount {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.progress-bar {
+  position: absolute;
+  background: #1C2C85;
+  height: 1rem;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 13%;
+  border-radius: 10px;
+}
+
 .activity-column {
   padding: 1.5rem 2rem!important;
 }
