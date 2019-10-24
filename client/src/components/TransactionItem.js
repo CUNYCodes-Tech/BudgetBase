@@ -17,7 +17,7 @@ class TransactionItem extends React.Component{
 
   convertDate = date => {
     const d = new Date(date);
-    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
   }
 
   handleModal = () => {
@@ -49,18 +49,31 @@ class TransactionItem extends React.Component{
     return !this.state.isEdit
     ? (
       <>
-        <div className="col s2">
+        <div className="col s2 center-align">
+          <i class="spent-icon fas fa-chevron-circle-down"></i>
+        </div>
+        <div className="col s2 center-align">
+          <div className="row item-cost-row">
+            <div className="col s12 item-cost">
+              ${this.props.transaction.cost}
+            </div>
+            <div className="col s12 item-category">
+              {this.props.transaction.category}
+            </div>
+          </div>
+        </div>
+        <div className="col s5 center-align item-name">
+          {this.props.transaction.name}
+        </div>
+        <div className="col s3 center-align item-date">
           {this.convertDate(this.props.transaction.createdAt)}
         </div>
-        <div className="col s2">{this.props.transaction.name}</div>
-        <div className="col s2">${this.props.transaction.cost}</div>
-        <div className="col s3">{this.props.transaction.category}</div>
-        <div className="col s1 center-align">
+        {/* <div className="col s1 center-align">
           <i className="material-icons edit" onClick={() => this.setState({ isEdit: true })}>edit</i>
         </div>
         <div className="col s1 center-align">
           <i className="material-icons delete" onClick = {this.handleModal}>delete</i>
-        </div>
+        </div> */}
       </>
     )
     : (
@@ -101,8 +114,8 @@ class TransactionItem extends React.Component{
 
   render(){
     return(
-      <div className="card-panel item-container">
-        <div className="row item valign-wrapper">
+      <div className="col s12 item-container">
+        <div className="row item valign-wrapper card-panel">
           {this.renderItem()}
         </div>
       </div>
