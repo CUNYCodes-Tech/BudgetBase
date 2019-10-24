@@ -1,7 +1,7 @@
 import React from 'react';
 
 import M from 'materialize-css';
-import UpdateBudgetForm from './forms/UpdateBudgetForm';
+import AddBalanceForm from './forms/AddBalanceForm';
 import ReportForm from './forms/ReportForm';
 import ImportExportForm from './forms/ImportExportForm';
 import TransactionForm from './forms/TransactionForm';
@@ -21,6 +21,14 @@ class SideMenu extends React.Component {
     M.Datepicker.init(elems);
   }
 
+  handleAddBalance = () => {
+    this.props.setModalTitle('Add Balance');
+    this.props.setModalContent(
+      <AddBalanceForm
+        fetchBalance={this.props.fetchBalance}
+        toggleModal={this.props.toggleModal}
+      />
+    );
   fetchUser = async () => {
     const response = await fetch('/api/user/', {
       headers: {
@@ -40,19 +48,26 @@ class SideMenu extends React.Component {
     this.props.setModalTitle('Update Budget');
     this.props.setModalContent(<UpdateBudgetForm fetchUser={this.fetchUser} toggleModal={this.props.toggleModal} />)
     this.props.toggleModal();
-  }
+  };
 
   handleReports = () => {
     this.props.setModalTitle('Reports');
-    this.props.setModalContent(<ReportForm transactions={this.props.transactions} toggleModal={this.props.toggleModal} />)
+    this.props.setModalContent(
+      <ReportForm
+        transactions={this.props.transactions}
+        toggleModal={this.props.toggleModal}
+      />
+    );
     this.props.toggleModal();
-  }
+  };
 
   handleImportExport = () => {
     this.props.setModalTitle('Import / Export');
-    this.props.setModalContent(<ImportExportForm toggleModal={this.props.toggleModal} />)
+    this.props.setModalContent(
+      <ImportExportForm toggleModal={this.props.toggleModal} />
+    );
     this.props.toggleModal();
-  }
+  };
 
   handleNewTransaction = () => {
     this.props.setModalTitle('New Transaction');
@@ -130,6 +145,28 @@ class SideMenu extends React.Component {
           <div className='input-field col s5'>
             <button className='btn'>Filter</button>
           </div>
+<<<<<<< HEAD
+          {/* <Link className='btn sidemenu-button' to='/dashboard/update-budget'>
+            Update Budget
+          </Link> */}
+          <button
+            className='btn sidemenu-button'
+            onClick={this.handleAddBalance}
+          >
+            Add Balance
+          </button>
+          <button className='btn sidemenu-button' onClick={this.handleReports}>
+            Reports
+          </button>
+          <button className='btn sidemenu-button'>Checking Account</button>
+          <button
+            className='btn sidemenu-button'
+            onClick={this.handleImportExport}
+          >
+            Import / Export
+          </button>
+        </div>
+=======
         </div> */}
         {/* <div className="row">
           <div className="col s12">
@@ -138,6 +175,7 @@ class SideMenu extends React.Component {
             <button className='btn sidemenu-button' onClick={this.handleImportExport}>Import / Export</button>
           </div>
         </div> */}
+>>>>>>> 441f7a187966b109f81442290907b015ede51eb3
       </div>
     );
   }
