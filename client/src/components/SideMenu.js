@@ -5,6 +5,7 @@ import AddBalanceForm from './forms/AddBalanceForm';
 import ReportForm from './forms/ReportForm';
 import ImportExportForm from './forms/ImportExportForm';
 import TransactionForm from './forms/TransactionForm';
+import UpdateBudgetForm from './forms/UpdateBudgetForm';
 
 // Assets
 import ProfilePicture from '../assets/img/profile-picture.png';
@@ -167,31 +168,6 @@ class SideMenu extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-        {/* <div className="row">
-          <div className='input-field col s7'>
-            <input id='dateFilter' type='text' className='datepicker' />
-            <label>Pick a Date</label>
-          </div>
-          <div className='input-field col s5'>
-            <button className='btn'>Filter</button>
-          </div>
-          <button
-            className='btn sidemenu-button'
-            onClick={this.handleAddBalance}
-          >
-            Add Balance
-          </button>
-          <button className='btn sidemenu-button' onClick={this.handleReports}>
-            Reports
-          </button>
-          <button className='btn sidemenu-button'>Checking Account</button>
-          <button
-            className='btn sidemenu-button'
-            onClick={this.handleImportExport}
-          >
-            Import / Export
-          </button>
         </div>
       </div>
     );
