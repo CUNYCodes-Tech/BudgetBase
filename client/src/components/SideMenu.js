@@ -52,16 +52,11 @@ class SideMenu extends React.Component {
       .setAttribute('style', `width:${parWidth}px!important`);
   }
 
-  // handleUpdateBudget = () => {
-  //   this.props.setModalTitle('Update Budget');
-  //   this.props.setModalContent(
-  //     <UpdateBudgetForm
-  //       fetchUser={this.fetchUser}
-  //       toggleModal={this.props.toggleModal}
-  //     />
-  //   );
-  //   this.props.toggleModal();
-  // };
+  handleUpdateBudget = () => {
+    this.props.setModalTitle('Update Budget');
+    this.props.setModalContent(<UpdateBudgetForm fetchUser={this.fetchUser} toggleModal={this.props.toggleModal} />)
+    this.props.toggleModal();
+  };
 
   handleReports = () => {
     this.props.setModalTitle('Reports');
@@ -181,14 +176,23 @@ class SideMenu extends React.Component {
           <div className='input-field col s5'>
             <button className='btn'>Filter</button>
           </div>
-        </div> */}
-        {/* <div className="row">
-          <div className="col s12">
-            <button className='btn sidemenu-button' onClick={this.handleReports}>Reports</button>
-            <button className='btn sidemenu-button'>Checking Account</button>
-            <button className='btn sidemenu-button' onClick={this.handleImportExport}>Import / Export</button>
-          </div>
-        </div> */}
+          <button
+            className='btn sidemenu-button'
+            onClick={this.handleAddBalance}
+          >
+            Add Balance
+          </button>
+          <button className='btn sidemenu-button' onClick={this.handleReports}>
+            Reports
+          </button>
+          <button className='btn sidemenu-button'>Checking Account</button>
+          <button
+            className='btn sidemenu-button'
+            onClick={this.handleImportExport}
+          >
+            Import / Export
+          </button>
+        </div>
       </div>
     );
   }
