@@ -33,7 +33,7 @@ const TransactionForm = props => {
     });
 
     props.fetchTransactions();
-    props.fetchBalance();
+    props.fetchUser();
     props.toggleModal();
   }
 

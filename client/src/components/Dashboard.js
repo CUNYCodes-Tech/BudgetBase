@@ -1,8 +1,10 @@
 import React from 'react';
 
+import SideNav from './SideNav';
 import SideMenu from './SideMenu';
 import ActivityMenu from './ActivityMenu';
 import Modal from './Modal';
+import BudgetContainer from './BudgetContainer';
 
 class Dashboard extends React.Component {
   state = { balance: 0, transactions: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
@@ -52,9 +54,11 @@ class Dashboard extends React.Component {
         >
           {this.state.modalContent}
         </Modal>
-        <h4 className="title">Dashboard</h4>
-        <div className ="row" >
-          <div className="col s12 m4">
+        <div className ="row">
+          <div className="col s12 m1 side-nav-container">
+            <SideNav />
+          </div>
+          <div className="col s12 m3 side-menu-container">
             <SideMenu
               transactions={this.state.transactions}
               fetchBalance={this.fetchBalance}
@@ -65,18 +69,41 @@ class Dashboard extends React.Component {
               setModalTitle={this.setModalTitle}
             />
           </div>
-          <div className ="col s12 m8">
-            <ActivityMenu
-              fetchBalance={this.fetchBalance}
-              fetchTransactions={this.fetchTransactions}
-              balance={this.state.balance}
-              transactions={this.state.transactions}
-              token={this.props.token}
-              showModal={this.state.showModal}
-              toggleModal={this.toggleModal}
-              setModalContent={this.setModalContent}
-              setModalTitle={this.setModalTitle}
-            />
+          <div className ="col s12 m8 activity-column">
+            <div className="row">
+              <div className="col s12 dashboard-header">
+                <span className="dashboard-title">Dashboard</span>
+                <span className="budget-total">
+                  <span className="budget-total-title">Budget Total</span>
+                  <span className="budget-num">$293,240</span>
+                </span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s12">
+                <div className="budget-total">Budgets</div>
+                <BudgetContainer />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s8">
+                <div className="dashboard-subtitle">Your History</div>
+                <ActivityMenu
+                  fetchBalance={this.fetchBalance}
+                  fetchTransactions={this.fetchTransactions}
+                  balance={this.state.balance}
+                  transactions={this.state.transactions}
+                  token={this.props.token}
+                  showModal={this.state.showModal}
+                  toggleModal={this.toggleModal}
+                  setModalContent={this.setModalContent}
+                  setModalTitle={this.setModalTitle}
+                />
+              </div>
+              <div className="col s4">
+                <div className="dashboard-subtitle">Overview</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
