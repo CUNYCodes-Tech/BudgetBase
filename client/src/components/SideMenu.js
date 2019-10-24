@@ -52,16 +52,16 @@ class SideMenu extends React.Component {
       .setAttribute('style', `width:${parWidth}px!important`);
   }
 
-  handleUpdateBudget = () => {
-    this.props.setModalTitle('Update Budget');
-    this.props.setModalContent(
-      <UpdateBudgetForm
-        fetchUser={this.fetchUser}
-        toggleModal={this.props.toggleModal}
-      />
-    );
-    this.props.toggleModal();
-  };
+  // handleUpdateBudget = () => {
+  //   this.props.setModalTitle('Update Budget');
+  //   this.props.setModalContent(
+  //     <UpdateBudgetForm
+  //       fetchUser={this.fetchUser}
+  //       toggleModal={this.props.toggleModal}
+  //     />
+  //   );
+  //   this.props.toggleModal();
+  // };
 
   handleReports = () => {
     this.props.setModalTitle('Reports');
