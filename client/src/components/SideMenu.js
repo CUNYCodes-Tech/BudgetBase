@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import M from 'materialize-css';
 import AddBalanceForm from './forms/AddBalanceForm';
@@ -12,7 +13,11 @@ import ProfilePicture from '../assets/img/profile-picture.png';
 import Separator from '../assets/img/Separator.png';
 
 class SideMenu extends React.Component {
-  state = { firstName: '', lastName: '', balance: null };
+  state = { firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
+
+  componentWillReceiveProps({ transactions }) {
+    this.updateFinancialStatus(transactions);
+  }
 
   componentDidMount() {
     this.fetchUser();
@@ -22,6 +27,75 @@ class SideMenu extends React.Component {
     M.Datepicker.init(elems);
   }
 
+  render() {
+    return (
+      <div className='side-menu'>
+        <div className='row side-menu-header center'>
+          <div className='col s12'>
+            <img id='profile-pic' src={ProfilePicture} />
+            <h5 id='fullname'>
+              {this.state.firstName} {this.state.lastName}
+            </h5>
+            <div className='balance-container white-text'>
+              $ <span className='balance'>{this.state.balance}</span>
+            </div>
+            <img id='separator' src={Separator} />
+          </div>
+          {/* Buttons */}
+          <div className='col s12 side-btn-container'>
+            <button className='btn side-btn' onClick={this.handleUpdateBudget}>
+              Add Balance
+            </button>
+            <button
+              className='btn side-btn'
+              onClick={this.handleNewTransaction}
+            >
+              New Transaction
+            </button>
+          </div>
+          {/* Financial Status */}
+          <div className='col s6 income-container'>
+            <div className='row income-wrapper valign-wrapper'>
+              <div className='col s3 valign-wrapper'>
+                <i className='financial-icon fas fa-chevron-circle-down' />
+              </div>
+              <div className='financial-name-container col s9'>
+                <h7 className='financial-name'>Income</h7>
+                <h6 className='financial-amount'>${this.state.income}</h6>
+              </div>
+            </div>
+          </div>
+          <div className='col s6 spending-container'>
+            <div className='row spending-wrapper valign-wrapper'>
+              <div className='col s3'>
+                <i className='financial-icon fas fa-chevron-circle-up' />
+              </div>
+              <div className='financial-name-container col s9'>
+                <h7 className='financial-name'>Spending</h7>
+                <h6 className='financial-amount'>${this.state.spending}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='row bank-acc-row'>
+          <div className="col s12">
+            <h7 id="bank-acc">Bank Account</h7>
+          </div>
+          <div className='col s12 bank-acc-container'>
+            <div className='bank-info'>
+              <div class='add-btn btn-floating btn-large waves-light'>
+                <i class='material-icons'>add</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ----------------------------------------------------------------------
+  // Helper Methods
+  // ----------------------------------------------------------------------
   handleAddBalance = () => {
     this.props.setModalTitle('Add Balance');
     this.props.setModalContent(
@@ -107,70 +181,23 @@ class SideMenu extends React.Component {
     this.props.toggleModal();
   };
 
-  render() {
-    return (
-      <div className='side-menu'>
-        <div className='row side-menu-header center'>
-          <div className='col s12'>
-            <img id='profile-pic' src={ProfilePicture} />
-            <h5 id='fullname'>
-              {this.state.firstName} {this.state.lastName}
-            </h5>
-            <div className='balance-container white-text'>
-              $ <span className='balance'>{this.state.balance}</span>
-            </div>
-            <img id='separator' src={Separator} />
-          </div>
-          {/* Buttons */}
-          <div className='col s12 side-btn-container'>
-            <button className='btn side-btn' onClick={this.handleUpdateBudget}>
-              Add Balance
-            </button>
-            <button
-              className='btn side-btn'
-              onClick={this.handleNewTransaction}
-            >
-              New Transaction
-            </button>
-          </div>
-          {/* Financial Status */}
-          <div className='col s6 income-container'>
-            <div className='row income-wrapper valign-wrapper'>
-              <div className='col s3 valign-wrapper'>
-                <i className='financial-icon fas fa-chevron-circle-down' />
-              </div>
-              <div className='financial-name-container col s9'>
-                <h7 className='financial-name'>Income</h7>
-                <h6 className='financial-amount'>$35,000</h6>
-              </div>
-            </div>
-          </div>
-          <div className='col s6 spending-container'>
-            <div className='row spending-wrapper valign-wrapper'>
-              <div className='col s3'>
-                <i className='financial-icon fas fa-chevron-circle-up' />
-              </div>
-              <div className='financial-name-container col s9'>
-                <h7 className='financial-name'>Spending</h7>
-                <h6 className='financial-amount'>$12,000</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className='row bank-acc-row'>
-          <div className="col s12">
-            <h7 id="bank-acc">Bank Account</h7>
-          </div>
-          <div className='col s12 bank-acc-container'>
-            <div className='bank-info'>
-              <div class='add-btn btn-floating btn-large waves-light'>
-                <i class='material-icons'>add</i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  updateFinancialStatus = transactions => {
+    const today    = new Date();
+    let spending = 0;
+    let income   = 0;
+    
+    if (transactions.length) {
+      for (let transaction of transactions) {
+        const isSameMonth = moment(transaction.createdAt).isSame(today, 'year') &&
+                            moment(transaction.createdAt).isSame(today, 'month');
+        if (isSameMonth) spending += transaction.cost;
+        this.setState({ spending: spending });
+      }
+      // console.log(moment(transactions[0].createdAt).isSame(today, 'month'))
+      // console.log(moment(transactions[0].createdAt).isSame(today, 'week'))
+      // console.log(moment(transactions[0].createdAt).isSame(today, 'day'))
+      // this.setState({ spending: spending, income: income })
+    }
   }
 }
 
