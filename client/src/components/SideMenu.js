@@ -109,8 +109,8 @@ class SideMenu extends React.Component {
 
   render() {
     return (
-      <div className='center side-menu'>
-        <div className='row side-menu-header'>
+      <div className='side-menu'>
+        <div className='row side-menu-header center'>
           <div className='col s12'>
             <img id='profile-pic' src={ProfilePicture} />
             <h5 id='fullname'>
@@ -121,9 +121,8 @@ class SideMenu extends React.Component {
             </div>
             <img id='separator' src={Separator} />
           </div>
-        </div>
-        <div className='row buttons-row'>
-          <div className='col s12'>
+          {/* Buttons */}
+          <div className='col s12 side-btn-container'>
             <button className='btn side-btn' onClick={this.handleUpdateBudget}>
               Add Balance
             </button>
@@ -134,8 +133,7 @@ class SideMenu extends React.Component {
               New Transaction
             </button>
           </div>
-        </div>
-        <div className='row financial-row'>
+          {/* Financial Status */}
           <div className='col s6 income-container'>
             <div className='row income-wrapper valign-wrapper'>
               <div className='col s3 valign-wrapper'>
@@ -160,8 +158,10 @@ class SideMenu extends React.Component {
           </div>
         </div>
         <div className='row bank-acc-row'>
+          <div className="col s12">
+            <h7 id="bank-acc">Bank Account</h7>
+          </div>
           <div className='col s12 bank-acc-container'>
-            <h7 id='bank-acc'>Bank Account</h7>
             <div className='bank-info'>
               <div class='add-btn btn-floating btn-large waves-light'>
                 <i class='material-icons'>add</i>

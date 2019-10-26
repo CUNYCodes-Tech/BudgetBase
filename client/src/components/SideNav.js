@@ -18,14 +18,16 @@ class SideNav extends React.Component {
   render() {
     return (
       <div className="side-nav">
-        <img id="side-nav-logo" src={SideNavLogo} />
-        <div className="icon-container">
+        <div className="center">
+          <img id="side-nav-logo" src={SideNavLogo} />
+        </div>
+        <div className="side-icon-container">
           <i className="side-icon fas fa-wallet" />
           <i className="side-icon far fa-file-alt" />
           <i className="side-icon fas fa-credit-card" />
           <i className="side-icon far fa-bookmark" />
         </div>
-        <div className="side-nav-footer">
+        <div>
           <div className="dropup-container">
             <i className="side-icon fas fa-cog" />
             <div className="dropup-content">
