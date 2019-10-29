@@ -43,7 +43,7 @@ class SideMenu extends React.Component {
           </div>
           {/* Buttons */}
           <div className='col s12 side-btn-container'>
-            <button className='btn side-btn' onClick={this.handleUpdateBudget}>
+            <button className='btn side-btn' onClick={this.handleAddBalance}>
               Add Balance
             </button>
             <button
@@ -100,10 +100,11 @@ class SideMenu extends React.Component {
     this.props.setModalTitle('Add Balance');
     this.props.setModalContent(
       <AddBalanceForm
-        fetchBalance={this.props.fetchBalance}
         toggleModal={this.props.toggleModal}
+        fetchUser={this.fetchUser}
       />
     );
+    this.props.toggleModal();
   };
 
   fetchUser = async () => {
@@ -182,7 +183,8 @@ class SideMenu extends React.Component {
   };
 
   updateFinancialStatus = transactions => {
-    const today    = new Date();
+    const category = new Set(['Cash Deposit', 'Direct Deposit', 'ATM Deposit'])
+    const today  = new Date();
     let spending = 0;
     let income   = 0;
     
@@ -190,13 +192,14 @@ class SideMenu extends React.Component {
       for (let transaction of transactions) {
         const isSameMonth = moment(transaction.createdAt).isSame(today, 'year') &&
                             moment(transaction.createdAt).isSame(today, 'month');
-        if (isSameMonth) spending += transaction.cost;
-        this.setState({ spending: spending });
+        console.log(transaction);
+        if (isSameMonth) {
+          category.has(transaction.category)
+            ? income += transaction.cost
+            : spending += transaction.cost;
+        }
+        this.setState({ spending, income });
       }
-      // console.log(moment(transactions[0].createdAt).isSame(today, 'month'))
-      // console.log(moment(transactions[0].createdAt).isSame(today, 'week'))
-      // console.log(moment(transactions[0].createdAt).isSame(today, 'day'))
-      // this.setState({ spending: spending, income: income })
     }
   }
 }

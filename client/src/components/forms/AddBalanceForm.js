@@ -1,33 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import M from 'materialize-css';
 
 const AddBalanceForm = props => {
+  const [form, setForm] = useState({ balance: 0, category: '' })
+
   useEffect(() => {
     const selector = document.querySelectorAll('#selector');
     M.FormSelect.init(selector);
   }, []);
 
   const handleAddBalance = async () => {
-    const response = await fetch('/api/user/update', {
+    const response = await fetch('/api/user/addbalance', {
       method: 'PUT',
       headers: {
         Authorization: localStorage.getItem('token'),
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(form)
     });
 
     await response.json();
 
-    this.props.fetchBalance();
-    this.props.toggleModal();
+    props.fetchUser();
+    props.toggleModal();
   };
 
   const handleChange = e => {
-    this.setState({ balance: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  
   return (
     <div className='modal-container'>
       <div className='modal-content row'>
@@ -35,6 +37,7 @@ const AddBalanceForm = props => {
         <div className='input-field col s12'>
           <input
             id='newBalance'
+            name="balance"
             type='number'
             placeholder='Amount'
             onChange={handleChange}
@@ -42,12 +45,12 @@ const AddBalanceForm = props => {
           />
         </div>
         <div className='input-field col s12'>
-          <select name='addNewBalance' id='selector'>
-            <option value='cash' selected>
-              Cash
+          <select name='category' id='selector' onChange={handleChange}>
+            <option value="Cash Deposit" selected>
+              Cash Deposit
             </option>
-            <option value='deposit'>Direct Deposit</option>
-            <option value='atm-deposit'>ATM Deposit</option>
+            <option value='Direct Deposit'>Direct Deposit</option>
+            <option value='ATM Deposit'>ATM Deposit</option>
           </select>
         </div>
         <div className='input-field col s6'>

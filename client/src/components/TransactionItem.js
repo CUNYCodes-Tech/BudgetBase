@@ -50,7 +50,11 @@ class TransactionItem extends React.Component{
     ? (
       <>
         <div className="col s2 center-align">
-          <i class="spent-icon fas fa-chevron-circle-down"></i>
+          { 
+            this.props.transaction.category.match(/deposit/i)
+              ? <i class="salary-icon fas fa-chevron-circle-up" />
+              : <i class="spent-icon fas fa-chevron-circle-down" />
+          }
         </div>
         <div className="col s2 center-align">
           <div className="row item-cost-row">
