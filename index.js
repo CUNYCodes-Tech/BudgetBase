@@ -176,14 +176,45 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
   });
 });
 
+
 app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
   const newBalance = req.user.balance + req.body.balance;
-  const userUpdate = { ...req.user._doc, balance: newBalance };
-  User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
-    if (err) next(err);
-    res.json({ success: true });
+  const budgetId    = req.body.budgetId;
+
+  const newTransaction = new Transaction({
+    name: "Balance addition",
+    createdAt: new Date,
+    cost: req.body.balance,
+    category: null,
+    user: req.user._id,
+    paymentType: null,
+    budgetType: null,
+    budgetId: budgetId
   });
+  const userUpdate = { ...req.user._doc, balance: newBalance }; 
+  newTransaction.save(err => {
+    if (err) next(err);
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    })
+  }); 
+ 
+  // User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+  //   if (err) next(err);
+  //   res.json({ success: true });
+  // });
 });
+
+
+// app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
+//   const newBalance = req.user.balance + req.body.balance;
+//   const userUpdate = { ...req.user._doc, balance: newBalance };
+//   User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+//     if (err) next(err);
+//     res.json({ success: true });
+//   });
+// });
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
