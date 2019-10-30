@@ -96,13 +96,13 @@ const TransactionForm = props => {
         </label>
         <label>
           <input
-            checked={form.paymentType === 'debet/credit'}
+            checked={form.paymentType === 'debit/credit'}
             name='paymentType'
             type='radio'
-            value='debet/credit'
+            value='debit/credit'
             onChange={handleChange}
           />
-          <span>Debet/Credit</span>
+          <span>Debit/Credit</span>
         </label>
       </form>
     );

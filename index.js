@@ -84,6 +84,30 @@ app.post('/api/signup', (req, res, next) => {
 app.post('/api/signin', requireSignin, (req, res, next) => {
   res.send({ token: tokenForUser(req.user) });
 });
+// -----------------------------------------------------------------------------------------
+// Budget API
+// -----------------------------------------------------------------------------------------
+// app.post('/api/budget/create', requireAuth, (req, res, next) => {
+//   const name = req.body.createdAt;
+//   const amount = req.body.cost;
+
+//   const newBudget = new Budget({
+//     name: name,
+//     amount: amount
+//   });
+
+//   const userUpdate = { ...req.user._doc };
+
+//   newTransaction.save(err => {
+//     if (err) next(err);
+//     User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+//       if (err2) next(err2);
+//       res.json({ success: true });
+//     })
+//   }); 
+
+// })
+
 
 // -----------------------------------------------------------------------------------------
 // Transaction API
@@ -109,7 +133,6 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
   });
 
   const userUpdate = { ...req.user._doc, balance: req.user.balance - cost };
-
   newTransaction.save(err => {
     if (err) next(err);
     User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
@@ -176,15 +199,44 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
   });
 });
 
-app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
-  const newBalance = req.user.balance + req.body.balance;
-  const userUpdate = { ...req.user._doc, balance: newBalance };
-  User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
-    if (err) next(err);
-    res.json({ success: true });
-  });
-});
 
+app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
+  const newBalance = req.user.balance + parseInt(req.body.balance, 10);
+  const userUpdate = { ...req.user._doc, balance: newBalance };
+
+  const newTransaction = new Transaction({
+    name: "Balance addition",
+    createdAt: new Date,
+    cost: req.body.balance,
+    category: req.body.category,
+    user: req.user._id,
+    paymentType: null,
+    budgetType: null,
+    budgetId: null
+  })
+
+  console.log(req.body.category);
+  
+  // User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+  //   if (err) next(err);
+  //   res.json({ success: true });
+  // });
+  
+  // const userUpdate = { ...req.user._doc, balance: newBalance }; 
+
+  newTransaction.save(err => {
+    if (err) next(err);
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    })
+  }); 
+ 
+  // User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+  //   if (err) next(err);
+  //   res.json({ success: true });
+  // });
+});
 
 // -----------------------------------------------------------------------------------------
 // budget

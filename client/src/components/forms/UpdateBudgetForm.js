@@ -1,7 +1,7 @@
 import React from 'react'
-
+// Should this component be called IncrementBudgetForm?
 class UpdateBudgetForm extends React.Component{
-  state = { balance: 0 }
+  state = { balance: 0 }    // Why is the balance 0??
 
   handleUpdateBudget = async () => {
     const response = await fetch('/api/user/update', {
@@ -13,7 +13,17 @@ class UpdateBudgetForm extends React.Component{
       body: JSON.stringify(this.state)
     });
 
-    await response.json();
+    
+    // const response = await fetch('/api/user/addbalance', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Authorization': localStorage.getItem('token'),
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(this.state)
+    // });
+
+    await response.json(); // why is this here?
 
     this.props.fetchUser();
     this.props.toggleModal();
