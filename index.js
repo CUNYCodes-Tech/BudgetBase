@@ -152,8 +152,9 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
   });
 });
 
-app.get('/api/transactions/filter', requireAuth, (req, res, next) => {
-  Transaction.find({ budgetId: req.body.budgetId }, (err, results) => {
+app.get('/api/transactions/filter/:budgetId', requireAuth, (req, res, next) => {
+  console.log(req.body.budgetId);
+  Transaction.find({ budgetId: req.params.budgetId }, (err, results) => {
     if (err) next(err);
     res.json(results);
   });
@@ -184,7 +185,7 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
 app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
   const newBalance = req.user.balance + parseInt(req.body.balance, 10);
   const userUpdate = { ...req.user._doc, balance: newBalance , name: req.body.name};
-  
+
   const newTransaction = new Transaction({
     name: req.body.name,
     createdAt: new Date,
@@ -193,7 +194,7 @@ app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
     user: req.user._id,
     paymentType: null,
     budgetType: "Balance Addition",
-    budgetId: req.budgetId
+    budgetId: null
   })
 
   newTransaction.save(err => {

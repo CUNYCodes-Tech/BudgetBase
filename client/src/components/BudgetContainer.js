@@ -17,7 +17,19 @@ class BudgetContainer extends React.Component {
         {
           this.props.budgets.map((budget, idx) => {
             return (
-              <BudgetItem idx={idx} name={budget.name} amount={budget.amount} fetchBalance={this.props.fetchBalance} fetchBudgets={this.props.fetchBudgets} toggleModal={this.props.toggleModal} setModalContent={this.props.setModalContent} setModalTitle={this.props.setModalTitle}  />
+              <BudgetItem 
+                idx={idx}
+                id={budget._id}
+                name={budget.name} 
+                amount={budget.amount} 
+                fetchBalance={this.props.fetchBalance} 
+                fetchTransactions={this.props.fetchTransactions}
+                fetchBudgets={this.props.fetchBudgets}
+                filterTransactions={this.props.filterTransactions}
+                toggleModal={this.props.toggleModal} 
+                setModalContent={this.props.setModalContent} 
+                setModalTitle={this.props.setModalTitle}  
+              />
             )
           })
         }

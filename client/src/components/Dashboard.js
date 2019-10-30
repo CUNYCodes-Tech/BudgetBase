@@ -55,6 +55,14 @@ class Dashboard extends React.Component {
     this.setState({ budgets: data });
   }
 
+  filterTransactions = async (budgetId) => {
+    const response = await fetch(`/api/transactions/filter/${budgetId}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
+    const data = await response.json();
+    this.setState({ transactions: data });
+  }
+
   render() {
     return (
       <div>
@@ -102,6 +110,8 @@ class Dashboard extends React.Component {
                   budgets={this.state.budgets}
                   fetchBalance={this.fetchBalance}
                   fetchBudgets={this.fetchBudgets}
+                  fetchTransactions={this.fetchTransactions}
+                  filterTransactions={this.filterTransactions}
                 />
               </div>
             </div>

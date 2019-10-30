@@ -11,7 +11,7 @@ const TransactionForm = props => {
     budgetId: null,
     paymentType: 'cash'
   });
-  console.log(form);
+  console.log(props.budgets);
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });

@@ -3,8 +3,10 @@ import React from 'react';
 import CreateBudgetForm from './forms/CreateBudgetForm';
 
 class BudgetItem extends React.Component {
+  state = { clicked: false }
+
   render() {
-    const {name, amount} = this.props;
+    const {name, amount, id} = this.props;
     
     const bg = this.props.idx % 2? "teal-bg" : "light-blue-bg";
     const btnbg = this.props.idx % 2? "light-blue-bg" : "teal-bg"
@@ -12,7 +14,7 @@ class BudgetItem extends React.Component {
       <div className="budget-item-container col s4">
         <div>
           {name ? (
-            <div className={`budget-item ${bg}`}>
+            <div className={`budget-item ${bg}`} onClick={() => this.handleFilter(id)}>
               <div className="budget-title">{name}</div>
               <div className="budget-amount">${amount}</div>
               <div className="progress-bar"></div>
@@ -26,6 +28,16 @@ class BudgetItem extends React.Component {
         </div>
       </div>
     )
+  }
+
+  handleFilter = id => {
+    if (this.state.clicked) {
+      this.setState({ clicked: false });
+      this.props.fetchTransactions();
+    } else {
+      this.setState({ clicked: true });
+      this.props.filterTransactions(id);
+    }
   }
 
   handleAddBudget = () => {
