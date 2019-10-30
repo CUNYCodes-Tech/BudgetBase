@@ -206,7 +206,7 @@ app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const name = req.body.name;
-  const amount = req.body.cost;
+  const amount = parseInt(req.body.amount, 10);
 
   const newBudget = new Budget({
     name: name,

@@ -15,8 +15,9 @@ import Separator from '../assets/img/Separator.png';
 class SideMenu extends React.Component {
   state = { firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
 
-  componentWillReceiveProps({ transactions }) {
+  componentWillReceiveProps({ transactions, balance }) {
     this.updateFinancialStatus(transactions);
+    this.setState({ balance: balance });
   }
 
   componentDidMount() {
@@ -193,7 +194,7 @@ class SideMenu extends React.Component {
       for (let transaction of transactions) {
         const isSameMonth = moment(transaction.createdAt).isSame(today, 'year') &&
                             moment(transaction.createdAt).isSame(today, 'month');
-        console.log(transaction);
+
         if (isSameMonth) {
           category.has(transaction.category)
             ? income += transaction.cost
