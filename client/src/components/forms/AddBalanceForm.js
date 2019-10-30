@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import M from 'materialize-css';
 
 const AddBalanceForm = props => {
-  const [form, setForm] = useState({ balance: 0, category: 'Cash Deposit' })
+  const [form, setForm] = useState({ balance: 0, category: 'Cash Deposit' , name: "Balance Addition"})
 
   useEffect(() => {
     const selector = document.querySelectorAll('#selector');
@@ -41,6 +41,16 @@ const AddBalanceForm = props => {
             name="balance"
             type='number'
             placeholder='Amount'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className='input-field col s12'>
+          <input
+            id='newName'
+            name="name"
+            type='text'
+            placeholder='Name'
             onChange={handleChange}
             required
           />
