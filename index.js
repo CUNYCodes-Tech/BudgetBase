@@ -158,7 +158,7 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
 // User API
 // -----------------------------------------------------------------------------------------
 app.get('/api/user', requireAuth, (req, res) => {
-  res.send({ user: req.user.firstName });
+  res.send(req.user);
 })
 
 app.get('/api/user/balance', requireAuth, (req, res) => {
