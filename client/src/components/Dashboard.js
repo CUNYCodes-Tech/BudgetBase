@@ -7,11 +7,12 @@ import Modal from './Modal';
 import BudgetContainer from './BudgetContainer';
 
 class Dashboard extends React.Component {
-  state = { balance: 0, transactions: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
+  state = { balance: 0, transactions: [], budgets: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
 
   componentDidMount() {
     this.fetchTransactions();
     this.fetchBalance();
+    this.fetchBudgets();
   }
 
   toggleModal = () => {
@@ -42,6 +43,16 @@ class Dashboard extends React.Component {
     });
     const data = await response.json();
     this.setState({ balance: data });
+    console.log(this.state.balance);
+  }
+
+  fetchBudgets = async () => {
+    const response = await fetch('/api/budget/', {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
+    let data = await response.json();
+    while (data.length < 3) data.push({});
+    this.setState({ budgets: data });
   }
 
   render() {
@@ -60,6 +71,8 @@ class Dashboard extends React.Component {
           </div>
           <div className="col s12 m3 side-menu-container">
             <SideMenu
+              balance={this.state.balance}
+              budgets={this.state.budgets}
               transactions={this.state.transactions}
               fetchBalance={this.fetchBalance}
               fetchTransactions={this.fetchTransactions}
@@ -82,7 +95,14 @@ class Dashboard extends React.Component {
             <div className="row">
               <div className="col s12">
                 <div className="budget-total">Budgets</div>
-                <BudgetContainer />
+                <BudgetContainer 
+                  toggleModal={this.toggleModal}
+                  setModalContent={this.setModalContent}
+                  setModalTitle={this.setModalTitle}
+                  budgets={this.state.budgets}
+                  fetchBalance={this.fetchBalance}
+                  fetchBudgets={this.fetchBudgets}
+                />
               </div>
             </div>
             <div className="row">

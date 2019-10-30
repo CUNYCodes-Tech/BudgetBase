@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CreateBudgetForm from './forms/CreateBudgetForm';
+
 class BudgetItem extends React.Component {
   render() {
     const {name, amount} = this.props;
@@ -17,13 +19,27 @@ class BudgetItem extends React.Component {
             </div> ) : (
             <div className={`budget-item ${bg}`}>
               <div className={`${btnbg} add-btn btn-floating btn-large waves-light`}>
-                <i className="material-icons">add</i>
+                <i className="material-icons" onClick={this.handleAddBudget}>add</i>
               </div>
             </div> 
           )}
         </div>
       </div>
     )
+  }
+
+  handleAddBudget = () => {
+    this.props.setModalTitle('Create a New Budget');
+    this.props.setModalContent(
+      <CreateBudgetForm
+        fetchTransactions={this.props.fetchTransactions}
+        toggleModal={this.props.toggleModal}
+        fetchUser={this.fetchUser}
+        fetchBalance={this.props.fetchBalance}
+        fetchBudgets={this.props.fetchBudgets}
+      />
+    );
+    this.props.toggleModal();
   }
 }
 

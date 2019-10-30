@@ -8,10 +8,10 @@ const TransactionForm = props => {
     cost: 0,
     category: null,
     name: null,
-    budgetType: null,
+    budgetId: null,
     paymentType: 'cash'
   });
-  const { createdAt, cost, category, name } = form;
+  console.log(form);
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,15 +47,21 @@ const TransactionForm = props => {
   const createBudgetOptions = () => {
     let budgetList = [];
     let options = [];
-    for (let i = 0; i < props.budgetNameList.length; i++) {
+
+    options.push(
+      <option>-- Choose a Budget --</option>
+    )
+
+    for (let i = 0; i < props.budgets.length; i++) {
+      if (!props.budgets[i].name) break;
       options.push(
-        <option value={props.budgetNameList[i].toString()}>
-          {props.budgetNameList[i]}
+        <option value={props.budgets[i]._id}>
+          {props.budgets[i].name}
         </option>
       );
     }
     budgetList.push(
-      <select name='budgetType' id='selector' onChange={handleChange}>
+      <select name='budgetId' id='selector' onChange={handleChange}>
         {options}
       </select>
     );

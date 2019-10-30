@@ -7,7 +7,6 @@ const transactionSchema = new mongoose.Schema({
   name: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   paymentType: String,
-  budgetType: String,
   budgetId: mongoose.Schema.Types.ObjectId
 });
 

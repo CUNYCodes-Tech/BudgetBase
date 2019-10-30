@@ -15,8 +15,9 @@ import Separator from '../assets/img/Separator.png';
 class SideMenu extends React.Component {
   state = { firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
 
-  componentWillReceiveProps({ transactions }) {
+  componentWillReceiveProps({ transactions, balance }) {
     this.updateFinancialStatus(transactions);
+    this.fetchUser();
   }
 
   componentDidMount() {
@@ -158,7 +159,7 @@ class SideMenu extends React.Component {
     this.props.setModalTitle('New Transaction');
     let budgetNameList = ['Book1', 'Book2', 'Book3', 'Book4'];
     let categoriesList = [
-      '',
+      '-- Choose a Category --',
       'Eating out',
       'Fuel',
       'Clothes',
@@ -176,6 +177,7 @@ class SideMenu extends React.Component {
         toggleModal={this.props.toggleModal}
         fetchTransactions={this.props.fetchTransactions}
         fetchUser={this.fetchUser}
+        budgets={this.props.budgets}
         budgetNameList={budgetNameList}
         categoriesList={categoriesList}
       />
@@ -193,7 +195,7 @@ class SideMenu extends React.Component {
       for (let transaction of transactions) {
         const isSameMonth = moment(transaction.createdAt).isSame(today, 'year') &&
                             moment(transaction.createdAt).isSame(today, 'month');
-        console.log(transaction);
+
         if (isSameMonth) {
           category.has(transaction.category)
             ? income += transaction.cost
