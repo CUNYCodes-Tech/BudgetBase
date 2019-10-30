@@ -189,8 +189,8 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
-app.get('/api/user/', requireAuth, (req, res) => {
-  res.send(req.user);
+app.get('/api/user', requireAuth, (req, res) => {
+  res.send({ user: req.user.firstName });
 })
 
 app.get('/api/user/balance', requireAuth, (req, res) => {
@@ -247,14 +247,40 @@ app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
 });
 
 
-// app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
-//   const newBalance = req.user.balance + req.body.balance;
-//   const userUpdate = { ...req.user._doc, balance: newBalance };
-//   User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
-//     if (err) next(err);
-//     res.json({ success: true });
-//   });
-// });
+// -----------------------------------------------------------------------------------------
+// budget
+// -----------------------------------------------------------------------------------------
+app.post('/api/budget/create', requireAuth, (req, res, next) => {
+  const name = req.body.name;
+  const amount = req.body.amount;
+  const userId = req.user.id;
+
+  if(!name || !amount || !userId) {
+    return res.status(422).send({error: 'Please fill all fields'});
+  }
+
+  Budget.findOne({name: name}, (err, existingBudget) =>{
+    if(err) next(err);
+    if(existingBudget) return res.status(422).send({error: 'You already have a budget under this name'});
+    const userUpdate = {...req.user._doc, balance: req.user.balance - amount};
+
+    newBudget = new Budget({
+      name: name,
+      amount: amount,
+      userId: userId
+    });
+
+    newBudget.save(err =>{
+      if(err) next(err);
+      User.findOneAndUpdate({_id: req.user._id}, userUpdate, (err2) => {
+        if(err2) next(err2);
+        res.json({success:true});
+      });
+    });
+  });
+
+  
+});
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
@@ -315,6 +341,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+setInterval(function() {
+  https.get("https://budgetbase.herokuapp.com");
+}, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup
