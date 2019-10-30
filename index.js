@@ -108,7 +108,7 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     budgetId: budgetId
   });
 
-  const userUpdate = { ...req.user._doc, balance: req.user.balance - cost };
+  const userUpdate = { ...req.user._doc, balance: req.user.balance - cost};
   newTransaction.save(err => {
     if (err) next(err);
     User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
@@ -154,6 +154,13 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
   });
 });
 
+app.get('/api/transactions/filter', requireAuth, (req, res, next) => {
+  Transaction.find({ budgetId: req.body.budgetId }, (err, results) => {
+    if (err) next(err);
+    res.json(results);
+  });
+})
+
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
@@ -178,17 +185,17 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
 
 app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
   const newBalance = req.user.balance + parseInt(req.body.balance, 10);
-  const userUpdate = { ...req.user._doc, balance: newBalance };
-
+  const userUpdate = { ...req.user._doc, balance: newBalance , name: req.body.name};
+  
   const newTransaction = new Transaction({
-    name: "Balance addition",
+    name: req.body.name,
     createdAt: new Date,
     cost: req.body.balance,
     category: req.body.category,
     user: req.user._id,
     paymentType: null,
-    budgetType: null,
-    budgetId: null
+    budgetType: "Balance Addition",
+    budgetId: req.budgetId
   })
 
   newTransaction.save(err => {
@@ -229,9 +236,9 @@ app.get('/api/budget/', requireAuth, (req, res, next) => {
     Budget.find({ user: req.user._id }, (err, results) => {
       if (err) next(err);
       res.json(results);
-      // res.json( {success: true });
     });
 })
+
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
