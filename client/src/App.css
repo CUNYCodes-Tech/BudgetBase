@@ -541,13 +541,19 @@ nav .logo {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .modal-content {
   background-color: white;
   border-radius: 5px;
   padding: 30px 65px;
-  margin: 100px 0 20px;
+  max-height: 80%;
+  overflow-y: scroll;
+}
+
+.modal-content::-webkit-scrollbar { 
+  display: none; 
 }
 
 .delete:hover {

@@ -17,7 +17,7 @@ class SideMenu extends React.Component {
 
   componentWillReceiveProps({ transactions, balance }) {
     this.updateFinancialStatus(transactions);
-    this.setState({ balance: balance });
+    this.fetchUser();
   }
 
   componentDidMount() {
@@ -159,7 +159,7 @@ class SideMenu extends React.Component {
     this.props.setModalTitle('New Transaction');
     let budgetNameList = ['Book1', 'Book2', 'Book3', 'Book4'];
     let categoriesList = [
-      '',
+      '-- Choose a Category --',
       'Eating out',
       'Fuel',
       'Clothes',
@@ -177,6 +177,7 @@ class SideMenu extends React.Component {
         toggleModal={this.props.toggleModal}
         fetchTransactions={this.props.fetchTransactions}
         fetchUser={this.fetchUser}
+        budgets={this.props.budgets}
         budgetNameList={budgetNameList}
         categoriesList={categoriesList}
       />

@@ -72,6 +72,7 @@ class Dashboard extends React.Component {
           <div className="col s12 m3 side-menu-container">
             <SideMenu
               balance={this.state.balance}
+              budgets={this.state.budgets}
               transactions={this.state.transactions}
               fetchBalance={this.fetchBalance}
               fetchTransactions={this.fetchTransactions}

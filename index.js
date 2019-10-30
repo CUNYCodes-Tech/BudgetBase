@@ -94,7 +94,6 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
   const category    = req.body.category;
   const name        = req.body.name;
   const paymentType = req.body.paymentType;
-  const budgetType  = req.body.budgetType;
   const budgetId    = req.body.budgetId;
 
   const newTransaction = new Transaction({
@@ -104,7 +103,6 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     category: category,
     user: req.user._id,
     paymentType: paymentType,
-    budgetType: budgetType,
     budgetId: budgetId
   });
 
