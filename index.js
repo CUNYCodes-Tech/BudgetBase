@@ -158,8 +158,8 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
-app.get('/api/user/', requireAuth, (req, res) => {
-  res.send(req.user);
+app.get('/api/user', requireAuth, (req, res) => {
+  res.send({ user: req.user.firstName });
 })
 
 app.get('/api/user/balance', requireAuth, (req, res) => {
@@ -182,6 +182,27 @@ app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
   User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
     if (err) next(err);
     res.json({ success: true });
+  });
+});
+
+
+// -----------------------------------------------------------------------------------------
+// budget
+// -----------------------------------------------------------------------------------------
+app.post('/api/budget/create', requireAuth, (req, res, next) => {
+  const name = req.body.name;
+  const amount = req.body.amount;
+  const userId = req.user.id;
+
+  newBudget = new Budget({
+    name: name,
+    amount: amount,
+    userId: userId
+  });
+
+  newBudget.save(err =>{
+    if(err) next(err);
+    res.json({success:true});
   });
 });
 
@@ -244,6 +265,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+setInterval(function() {
+  https.get("https://budgetbase.herokuapp.com");
+}, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup
