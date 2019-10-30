@@ -87,27 +87,34 @@ app.post('/api/signin', requireSignin, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 // Budget API
 // -----------------------------------------------------------------------------------------
+app.post('/api/budget/create', requireAuth, (req, res, next) => {
+  const name = req.body.name;
+  const amount = req.body.cost;
+
+  const newBudget = new Budget({
+    name: name,
+    amount: amount,
+    userId: req.user.id
+  });
+
+  const userUpdate = { ...req.user._doc , balance: req.user.balance - amount };
+
+  newBudget.save(err => {
+    if (err) next(err);
+    User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err2, results) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    })
+  }); 
+
+})
+
 // app.post('/api/budget/create', requireAuth, (req, res, next) => {
-//   const name = req.body.createdAt;
-//   const amount = req.body.cost;
-
-//   const newBudget = new Budget({
-//     name: name,
-//     amount: amount
-//   });
-
-//   const userUpdate = { ...req.user._doc };
-
-//   newTransaction.save(err => {
+//   Budget.find({ user: req.user._id }, (err, results) => {
 //     if (err) next(err);
-//     User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
-//       if (err2) next(err2);
-//       res.json({ success: true });
-//     })
-//   }); 
-
-// })
-
+//     res.json(results);
+//   });
+// }
 
 // -----------------------------------------------------------------------------------------
 // Transaction API
