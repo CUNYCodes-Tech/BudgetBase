@@ -94,7 +94,7 @@ app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const newBudget = new Budget({
     name: name,
     amount: amount,
-    userId: req.user.id
+    user: req.user._id
   });
 
   const userUpdate = { ...req.user._doc , balance: req.user.balance - amount };
@@ -109,12 +109,13 @@ app.post('/api/budget/create', requireAuth, (req, res, next) => {
 
 })
 
-// app.post('/api/budget/create', requireAuth, (req, res, next) => {
-//   Budget.find({ user: req.user._id }, (err, results) => {
-//     if (err) next(err);
-//     res.json(results);
-//   });
-// }
+app.get('/api/budget/', requireAuth, (req, res, next) => {
+    Budget.find({ user: req.user._id }, (err, results) => {
+      if (err) next(err);
+      res.json(results);
+      // res.json( {success: true });
+    });
+})
 
 // -----------------------------------------------------------------------------------------
 // Transaction API
