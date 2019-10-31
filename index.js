@@ -213,21 +213,25 @@ app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const name = req.body.name;
   const amount = parseInt(req.body.amount, 10);
 
-  const newBudget = new Budget({
-    name: name,
-    amount: amount,
-    user: req.user._id
+  Budget.findOne({name: name}, (foundErr, existingBudget)=>{
+    if(foundErr) next(foundErr);
+    if(existingBudget) return res.status(422).send({error: "you already had a budget under this name"});
+    const newBudget = new Budget({
+      name: name,
+      amount: amount,
+      user: req.user._id
+    });
+  
+    const userUpdate = { ...req.user._doc , balance: req.user.balance - amount };
+  
+    newBudget.save(err => {
+      if (err) next(err);
+      User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err2, results) => {
+        if (err2) next(err2);
+        res.json({ success: true });
+      })
+    }); 
   });
-
-  const userUpdate = { ...req.user._doc , balance: req.user.balance - amount };
-
-  newBudget.save(err => {
-    if (err) next(err);
-    User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err2, results) => {
-      if (err2) next(err2);
-      res.json({ success: true });
-    })
-  }); 
 })
 
 app.get('/api/budget/', requireAuth, (req, res, next) => {
