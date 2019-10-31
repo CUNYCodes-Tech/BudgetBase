@@ -2,7 +2,11 @@ import React from 'react';
 import BudgetItem from './BudgetItem';
 
 class BudgetContainer extends React.Component {
-  state={ clicked: false, activeId: null };
+  state={ clicked: false, activeId: null, transactions: [] };
+
+  componentWillReceiveProps({ transactions }) {
+    this.setState({ transactions })
+  }
 
   render() {
     return (
@@ -19,6 +23,7 @@ class BudgetContainer extends React.Component {
                 id={budget._id}
                 name={budget.name} 
                 amount={budget.amount}
+                transactions={this.state.transactions}
                 fetchBalance={this.props.fetchBalance} 
                 fetchTransactions={this.props.fetchTransactions}
                 fetchBudgets={this.props.fetchBudgets}

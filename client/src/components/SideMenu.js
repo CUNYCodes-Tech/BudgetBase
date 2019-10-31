@@ -175,6 +175,7 @@ class SideMenu extends React.Component {
     this.props.setModalContent(
       <TransactionForm
         toggleModal={this.props.toggleModal}
+        fetchBudgets={this.props.fetchBudgets}
         fetchTransactions={this.props.fetchTransactions}
         fetchUser={this.fetchUser}
         budgets={this.props.budgets}

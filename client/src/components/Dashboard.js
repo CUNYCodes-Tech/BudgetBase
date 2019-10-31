@@ -43,7 +43,6 @@ class Dashboard extends React.Component {
     });
     const data = await response.json();
     this.setState({ balance: data });
-    console.log(this.state.balance);
   }
 
   fetchBudgets = async () => {
@@ -83,6 +82,7 @@ class Dashboard extends React.Component {
               budgets={this.state.budgets}
               transactions={this.state.transactions}
               fetchBalance={this.fetchBalance}
+              fetchBudgets={this.fetchBudgets}
               fetchTransactions={this.fetchTransactions}
               showModal={this.state.showModal}
               toggleModal={this.toggleModal}
@@ -104,6 +104,7 @@ class Dashboard extends React.Component {
               <div className="col s12">
                 <div className="budget-total">Budgets</div>
                 <BudgetContainer 
+                  transactions={this.state.transactions}
                   toggleModal={this.toggleModal}
                   setModalContent={this.setModalContent}
                   setModalTitle={this.setModalTitle}

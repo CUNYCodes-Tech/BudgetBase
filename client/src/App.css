@@ -296,6 +296,13 @@ nav .logo {
   border-radius: 10px;
 }
 
+.progress-fill {
+  height: 100%;
+  width: 81%;
+  border-radius: inherit;
+  background: #1de9b6;
+}
+
 .activity-column {
   padding: 1.5rem 2rem!important;
 }
