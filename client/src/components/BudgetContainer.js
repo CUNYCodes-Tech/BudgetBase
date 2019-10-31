@@ -2,14 +2,7 @@ import React from 'react';
 import BudgetItem from './BudgetItem';
 
 class BudgetContainer extends React.Component {
-  state = {
-    budgets:
-    [
-      {name : "Car of My Dream", amount : 300},
-      {name : "Meow", amount : 500},
-      {}
-    ]
-  };
+  state={ clicked: false, activeId: null };
 
   render() {
     return (
@@ -19,9 +12,13 @@ class BudgetContainer extends React.Component {
             return (
               <BudgetItem 
                 idx={idx}
+                clicked={this.state.clicked}
+                activeId={this.state.activeId}
+                setClicked={this.setClicked}
+                setActiveId={this.setActiveId}
                 id={budget._id}
                 name={budget.name} 
-                amount={budget.amount} 
+                amount={budget.amount}
                 fetchBalance={this.props.fetchBalance} 
                 fetchTransactions={this.props.fetchTransactions}
                 fetchBudgets={this.props.fetchBudgets}
@@ -35,6 +32,14 @@ class BudgetContainer extends React.Component {
         }
       </div>
     );
+  }
+
+  setClicked = val => {
+    this.setState({ clicked: val });
+  }
+
+  setActiveId = val => {
+    this.setState({ activeId: val });
   }
 }
 

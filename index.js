@@ -153,7 +153,6 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
 });
 
 app.get('/api/transactions/filter/:budgetId', requireAuth, (req, res, next) => {
-  console.log(req.body.budgetId);
   Transaction.find({ budgetId: req.params.budgetId }, (err, results) => {
     if (err) next(err);
     res.json(results);
