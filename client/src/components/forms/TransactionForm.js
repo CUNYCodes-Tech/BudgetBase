@@ -38,7 +38,7 @@ const TransactionForm = props => {
       },
       body: JSON.stringify(form)
     });
-
+    
     props.fetchTransactions();
     props.fetchUser();
     props.toggleModal();

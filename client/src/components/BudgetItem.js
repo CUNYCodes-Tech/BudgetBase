@@ -3,7 +3,30 @@ import React from 'react';
 import CreateBudgetForm from './forms/CreateBudgetForm';
 
 class BudgetItem extends React.Component {
-  // state = { clicked: false }
+  state = { transactions: [] };
+
+  componentWillReceiveProps({ transactions }) {
+    let progress = 0;
+    for (let transaction of transactions) {
+      if (transaction.budgetId === this.props.id) {
+        progress += transaction.cost
+      }
+    }
+    const percent = progress / this.props.amount * 100;
+    if (this.props.name) document.querySelector(`.progress-${this.props.id}`).setAttribute('style', `width: ${percent}%; height: 100%; border-radius: inherit; background: #1de9b6;`);
+    this.setState({ transactions });
+  }
+
+  componentDidMount() {
+    let progress = 0;
+    for (let transaction of this.props.transactions) {
+      if (transaction.budgetId === this.props.id) {
+        progress += transaction.cost
+      }
+    }
+    const percent = progress / this.props.amount * 100;
+    if (this.props.name) document.querySelector(`.progress-${this.props.id}`).setAttribute('style', `width: ${percent}%; height: 100%; border-radius: inherit; background: #1de9b6;`);
+  }
 
   render() {
     const {name, amount, id} = this.props;
@@ -17,7 +40,9 @@ class BudgetItem extends React.Component {
             <div id={`budget${id}`} className={`budget-item ${bg}`} onClick={() => this.handleFilter(id)}>
               <div className="budget-title">{name}</div>
               <div className="budget-amount">${amount}</div>
-              <div className="progress-bar"></div>
+              <div className="progress-bar">
+                <div className={`progress-${id}`}></div>
+              </div>
             </div> ) : (
             <div className={`budget-item ${bg}`}>
               <div className={`${btnbg} add-btn btn-floating btn-large waves-light`}>
