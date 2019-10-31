@@ -94,7 +94,6 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
   const category    = req.body.category;
   const name        = req.body.name;
   const paymentType = req.body.paymentType;
-  const budgetType  = req.body.budgetType;
   const budgetId    = req.body.budgetId;
 
   const newTransaction = new Transaction({
@@ -104,12 +103,10 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     category: category,
     user: req.user._id,
     paymentType: paymentType,
-    budgetType: budgetType,
     budgetId: budgetId
   });
 
-  const userUpdate = { ...req.user._doc, balance: req.user.balance - cost };
-
+  const userUpdate = { ...req.user._doc, balance: req.user.balance - cost};
   newTransaction.save(err => {
     if (err) next(err);
     User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
@@ -155,10 +152,17 @@ app.put('/api/transaction/update/:id', requireAuth, (req, res, next) => {
   });
 });
 
+app.get('/api/transactions/filter/:budgetId', requireAuth, (req, res, next) => {
+  Transaction.find({ budgetId: req.params.budgetId }, (err, results) => {
+    if (err) next(err);
+    res.json(results);
+  });
+})
+
 // -----------------------------------------------------------------------------------------
 // User API
 // -----------------------------------------------------------------------------------------
-app.get('/api/user/', requireAuth, (req, res) => {
+app.get('/api/user', requireAuth, (req, res) => {
   res.send(req.user);
 })
 
@@ -176,14 +180,67 @@ app.put('/api/user/update', requireAuth, (req, res, next) => {
   });
 });
 
+
 app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
-  const newBalance = req.user.balance + req.body.balance;
-  const userUpdate = { ...req.user._doc, balance: newBalance };
-  User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err, obj) => {
+  const newBalance = req.user.balance + parseInt(req.body.balance, 10);
+  const userUpdate = { ...req.user._doc, balance: newBalance , name: req.body.name};
+
+  const newTransaction = new Transaction({
+    name: req.body.name,
+    createdAt: new Date,
+    cost: req.body.balance,
+    category: req.body.category,
+    user: req.user._id,
+    paymentType: null,
+    budgetType: "Balance Addition",
+    budgetId: null
+  })
+
+  newTransaction.save(err => {
     if (err) next(err);
-    res.json({ success: true });
+    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+      if (err2) next(err2);
+      res.json({ success: true });
+    })
   });
 });
+
+
+// -----------------------------------------------------------------------------------------
+// Budget API
+// -----------------------------------------------------------------------------------------
+app.post('/api/budget/create', requireAuth, (req, res, next) => {
+  const name = req.body.name;
+  const amount = parseInt(req.body.amount, 10);
+
+  Budget.findOne({name: name}, (foundErr, existingBudget)=>{
+    if(foundErr) next(foundErr);
+    if(existingBudget) return res.status(422).send({error: "you already had a budget under this name"});
+    const newBudget = new Budget({
+      name: name,
+      amount: amount,
+      user: req.user._id
+    });
+  
+    const userUpdate = { ...req.user._doc , balance: req.user.balance - amount };
+  
+    newBudget.save(err => {
+      if (err) next(err);
+      User.findOneAndUpdate({ _id: req.user.id }, userUpdate, (err2, results) => {
+        if (err2) next(err2);
+        res.json({ success: true });
+      })
+    }); 
+  });
+})
+
+app.get('/api/budget/', requireAuth, (req, res, next) => {
+    Budget.find({ user: req.user._id }, (err, results) => {
+      if (err) next(err);
+      res.json(results);
+    });
+})
+
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
@@ -244,6 +301,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+setInterval(function() {
+  https.get("https://budgetbase.herokuapp.com");
+}, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup

@@ -7,11 +7,12 @@ import Modal from './Modal';
 import BudgetContainer from './BudgetContainer';
 
 class Dashboard extends React.Component {
-  state = { balance: 0, transactions: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
+  state = { balance: 0, transactions: [], budgets: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
 
   componentDidMount() {
     this.fetchTransactions();
     this.fetchBalance();
+    this.fetchBudgets();
   }
 
   toggleModal = () => {
@@ -44,6 +45,23 @@ class Dashboard extends React.Component {
     this.setState({ balance: data });
   }
 
+  fetchBudgets = async () => {
+    const response = await fetch('/api/budget/', {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
+    let data = await response.json();
+    while (data.length < 3) data.push({});
+    this.setState({ budgets: data });
+  }
+
+  filterTransactions = async (budgetId) => {
+    const response = await fetch(`/api/transactions/filter/${budgetId}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
+    const data = await response.json();
+    this.setState({ transactions: data });
+  }
+
   render() {
     return (
       <div>
@@ -60,8 +78,11 @@ class Dashboard extends React.Component {
           </div>
           <div className="col s12 m3 side-menu-container">
             <SideMenu
+              balance={this.state.balance}
+              budgets={this.state.budgets}
               transactions={this.state.transactions}
               fetchBalance={this.fetchBalance}
+              fetchBudgets={this.fetchBudgets}
               fetchTransactions={this.fetchTransactions}
               showModal={this.state.showModal}
               toggleModal={this.toggleModal}
@@ -82,7 +103,17 @@ class Dashboard extends React.Component {
             <div className="row">
               <div className="col s12">
                 <div className="budget-total">Budgets</div>
-                <BudgetContainer />
+                <BudgetContainer 
+                  transactions={this.state.transactions}
+                  toggleModal={this.toggleModal}
+                  setModalContent={this.setModalContent}
+                  setModalTitle={this.setModalTitle}
+                  budgets={this.state.budgets}
+                  fetchBalance={this.fetchBalance}
+                  fetchBudgets={this.fetchBudgets}
+                  fetchTransactions={this.fetchTransactions}
+                  filterTransactions={this.filterTransactions}
+                />
               </div>
             </div>
             <div className="row">
