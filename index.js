@@ -106,14 +106,36 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     budgetId: budgetId
   });
 
-  const userUpdate = { ...req.user._doc, balance: req.user.balance - cost};
-  newTransaction.save(err => {
-    if (err) next(err);
-    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
-      if (err2) next(err2);
-      res.json({ success: true });
-    })
+  if (req.body.budgetId === null){
+    const userUpdate = { ...req.user._doc, balance: req.user.balance - cost};
+    newTransaction.save(err => {
+      if (err) next(err);
+      User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+        if (err2) next(err2);
+        res.json({ success: true });
+      })
   });
+    console.log("BudgetId is null");
+  } else {
+    Budget.find({_id: budgetId}, (err, results) => {
+      if (err) next (err);
+       Budget.findOneAndUpdate({_id: budgetId}, {amount : results[0].amount - cost} , err2 =>{
+        if (err2) next(err2);
+        res.json({ success: true })
+        console.log("Budged updated")
+      })
+    })
+    console.log("Budget has a budgetId")
+  }
+
+  // const userUpdate = { ...req.user._doc, balance: req.user.balance - cost};
+  // newTransaction.save(err => {
+  //   if (err) next(err);
+  //   User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2, results) => {
+  //     if (err2) next(err2);
+  //     res.json({ success: true });
+  //   })
+  // });
 });
 
 app.get('/api/transaction/all', requireAuth, (req, res, next) => {
