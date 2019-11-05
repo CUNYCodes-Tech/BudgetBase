@@ -534,6 +534,11 @@ nav .logo {
   padding: 0.7rem 0!important;
 }
 
+.item-dropdown {
+  display: flex;
+  justify-content: space-between;
+}
+
 .item-button {
   padding: 0;
 }
@@ -573,6 +578,21 @@ nav .logo {
   cursor: pointer;
 }
 
+.edit-cost {
+  text-align: center;
+  height: auto!important;
+}
+
+.edit-name {
+  text-align: center;
+  height: auto!important;
+}
+
+.edit-category {
+  padding: 0;
+  height: auto;
+}
+
 .save:hover {
   color: green;
   cursor: pointer;
@@ -582,9 +602,15 @@ nav .logo {
   max-height: 250px;
 }
 
+.edit-date {
+  height: auto!important;
+}
+
+.edit-date::-webkit-inner-spin-button { -webkit-appearance: none!important; display: none!important; }
+
 input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display: none; } 
 ::-webkit-datetime-edit { padding: 0; margin: 0 } 
-::-webkit-calendar-picker-indicator { padding: 0.1em; }
+::-webkit-calendar-picker-indicator { padding: 0; }
 
 /*=============== ADDONS ===============*/
 .material-icons {
