@@ -232,7 +232,11 @@ app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
 app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const name = req.body.name;
   const amount = parseInt(req.body.amount, 10);
-
+  Budget.find({}, (err, result) => {
+    if (result.length >= 3) { 
+      res.status(422).send({error: "Max budget limit reached."});
+    }
+  })
   Budget.findOne({name: name}, (foundErr, existingBudget)=>{
     if(foundErr) next(foundErr);
     if(existingBudget) return res.status(422).send({error: "you already had a budget under this name"});
