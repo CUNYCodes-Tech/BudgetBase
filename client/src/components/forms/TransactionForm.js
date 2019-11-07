@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment-timezone';
 
 import M from 'materialize-css';
 
@@ -11,11 +12,8 @@ const TransactionForm = props => {
     budgetId: null,
     paymentType: 'cash'
   });
-  console.log(props.budgets);
-
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log(e.target.name + ' ' + e.target.value);
   };
 
   useEffect(() => {
@@ -25,7 +23,7 @@ const TransactionForm = props => {
     M.FormSelect.init(selector);
 
     datepicker.addEventListener('change', e => {
-      handleChange(e);
+      setForm({ ...form, [e.target.name]: e.target.value });
     });
   }, []);
 
