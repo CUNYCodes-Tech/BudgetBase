@@ -119,7 +119,7 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
   } else {
     Budget.find({_id: budgetId}, (err, results) => {
       if (err) next (err);
-      Budget.findOneAndUpdate({_id: budgetId}, {amount : results[0].amount - cost} , err2 =>{
+      Budget.findOneAndUpdate({_id: budgetId}, {currentAmount : results[0].amount - cost} , err2 =>{
         if (err2) next(err2);
         res.json({ success: true })
       })
@@ -243,6 +243,7 @@ app.post('/api/budget/create', requireAuth, (req, res, next) => {
     const newBudget = new Budget({
       name: name,
       amount: amount,
+      currentAmount: amount,
       user: req.user._id
     });
   

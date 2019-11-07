@@ -29,7 +29,7 @@ class BudgetItem extends React.Component {
   }
 
   render() {
-    const {name, amount, id} = this.props;
+    const {name, amount, currentAmount, id} = this.props;
     
     const bg = this.props.idx % 2? "teal-bg" : "light-blue-bg";
     const btnbg = this.props.idx % 2? "light-blue-bg" : "teal-bg"
@@ -39,7 +39,7 @@ class BudgetItem extends React.Component {
           {name ? (
             <div id={`budget${id}`} className={`budget-item ${bg}`} onClick={() => this.handleFilter(id)}>
               <div className="budget-title">{name}</div>
-              <div className="budget-amount">${amount}</div>
+              <div className="budget-amount">${currentAmount}</div>
               <div className="progress-bar">
                 <div className={`progress-${id}`}></div>
               </div>
