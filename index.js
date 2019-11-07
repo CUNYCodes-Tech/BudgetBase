@@ -301,26 +301,7 @@ app.put('/api/budget/update/:id', requireAuth, (req, res, next) => {
   })
   
 });
-// app.put('/api/budget/update/:id', requireAuth, (req, res, next) => {
-//   Budget.find({_id: req.params.id}, (err, results) => {
-//     const originalCurrentAmount  = results[0].currentAmount;
-//     Budget.findByIdAndUpdate({_id: req.params.id}, req.body, (err, results) => {
-//     if (err) next (err);
 
-//     const newName = req.body.name;
-//     const newAmount = req.body.amount;
-    
-//     const budgetUpdate = {}
-//     const userUpdate = {...req.user._doc, balance: req.user.balance + (originalCurrentAmount - newAmount), name: newName}
-//     User.findOneAndUpdate({ _id: req.user._id}, userUpdate, err2 => {
-//       if (err2) next(err2);
-
-//       res.json({ success: true});
-//     })
-//   })
-//   })
-  
-// });
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
 // -----------------------------------------------------------------------------------------
