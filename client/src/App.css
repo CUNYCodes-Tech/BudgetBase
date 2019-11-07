@@ -524,6 +524,43 @@ nav .logo {
   margin-top: 20px;
 }
 
+.overview-container {
+  margin-top: 23px;
+  padding: 1rem 0;
+  border-radius: 6px;
+}
+
+.overview-item-container {
+  margin: 0.5rem 0;
+  position: relative;
+  padding-top: 20%;
+  border-radius: 0.8rem;
+  background: #3c58b9;
+}
+
+.overview-item-title {
+  padding: 0 0.88rem;
+  color: #aaaaaa;
+}
+
+.overview-item-amount {
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  color: #e8ebf7;
+}
+
+.overview-progress {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18%;
+  width: 85%;
+  height: 0.5rem;
+  background: #ff5252;
+  border-radius: inherit;
+}
+
 .item-container {
   padding: 10px 8px;
 }

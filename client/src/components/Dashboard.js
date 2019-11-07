@@ -5,6 +5,7 @@ import SideMenu from './SideMenu';
 import ActivityMenu from './ActivityMenu';
 import Modal from './Modal';
 import BudgetContainer from './BudgetContainer';
+import OverviewContainer from './OverviewContainer';
 
 class Dashboard extends React.Component {
   state = { balance: 0, transactions: [], budgets: [], totalBudgets: 0, showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
@@ -138,6 +139,7 @@ class Dashboard extends React.Component {
               </div>
               <div className="col s4">
                 <div className="dashboard-subtitle">Overview</div>
+                <OverviewContainer transactions={this.state.transactions} />
               </div>
             </div>
           </div>
