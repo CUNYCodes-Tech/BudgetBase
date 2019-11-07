@@ -41,6 +41,7 @@ const TransactionForm = props => {
     
     props.fetchTransactions();
     props.fetchUser();
+    props.fetchBudgets();
     props.toggleModal();
   };
 
