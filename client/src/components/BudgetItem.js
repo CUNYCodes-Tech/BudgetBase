@@ -34,7 +34,7 @@ class BudgetItem extends React.Component {
     const bg = this.props.idx % 2? "teal-bg" : "light-blue-bg";
     const btnbg = this.props.idx % 2? "light-blue-bg" : "teal-bg"
     return (
-      <div className="budget-item-container col s4">
+      <div className="col s4">
         <div>
           {name ? (
             <div id={`budget${id}`} className={`budget-item ${bg}`} onClick={() => this.handleFilter(id)}>

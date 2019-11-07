@@ -213,7 +213,7 @@ app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const name = req.body.name;
   const amount = parseInt(req.body.amount, 10);
 
-  Budget.findOne({name: name}, (foundErr, existingBudget)=>{
+  Budget.findOne({ name: name, _id: req.user.id }, (foundErr, existingBudget)=>{
     if(foundErr) next(foundErr);
     if(existingBudget) return res.status(422).send({error: "you already had a budget under this name"});
     const newBudget = new Budget({
