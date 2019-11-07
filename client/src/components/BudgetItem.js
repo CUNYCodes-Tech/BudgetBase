@@ -5,7 +5,7 @@ import CreateBudgetForm from './forms/CreateBudgetForm';
 class BudgetItem extends React.Component {
   componentWillReceiveProps({ name, amount, currentAmount, id }) {
     const percent = (amount - currentAmount) / amount * 100;
-    if (name) document.querySelector(`.progress-${id}`).setAttribute('style', `width: ${percent}%; height: 100%; border-radius: inherit; background: #1de9b6;`);
+    if (name && document.querySelector(`.progress-${id}`)) document.querySelector(`.progress-${id}`).setAttribute('style', `width: ${percent}%; height: 100%; border-radius: inherit; background: #1de9b6;`);
   }
 
   componentDidMount() {

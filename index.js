@@ -90,7 +90,7 @@ app.post('/api/signin', requireSignin, (req, res, next) => {
 // -----------------------------------------------------------------------------------------
 app.post('/api/transaction/create', requireAuth, (req, res, next) => {
   const createdAt   = req.body.createdAt;
-  const cost        = req.body.cost;
+  const cost        = parseInt(req.body.cost, 10);
   const category    = req.body.category;
   const name        = req.body.name;
   const paymentType = req.body.paymentType;
@@ -116,16 +116,12 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
       })
     });
   } else {
-    Budget.find({_id: budgetId}, (err, results) => {
+    Budget.findOne({_id: budgetId}, (err, results) => {
       if (err) next (err);
-      Budget.findOneAndUpdate({_id: budgetId}, {currentAmount : results[0].amount - cost} , err2 =>{
+      Budget.findOneAndUpdate({_id: budgetId}, { currentAmount : results.currentAmount - cost} , err2 =>{
         if (err2) next(err2);
         newTransaction.save(err3 => {
           if (err3) next(err3);
-          // User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err4, results) => {
-            //     if (err4) next(err4);
-            //     res.json({ success: true });
-            //   })
           res.json({ success: true })
         });
       })
