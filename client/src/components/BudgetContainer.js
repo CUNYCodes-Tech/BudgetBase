@@ -23,6 +23,7 @@ class BudgetContainer extends React.Component {
                 id={budget._id}
                 name={budget.name} 
                 amount={budget.amount}
+                currentAmount = {budget.currentAmount}
                 transactions={this.state.transactions}
                 fetchBalance={this.props.fetchBalance} 
                 fetchTransactions={this.props.fetchTransactions}
