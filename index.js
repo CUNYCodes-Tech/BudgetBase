@@ -269,7 +269,7 @@ app.get('/api/budget/', requireAuth, (req, res, next) => {
 app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
   Budget.find({_id: req.params.id}, (err,results) => {
     if (err) next (err);
-    const userUpdate = { ...req.user._doc, balance: req.user.balance + results.currentAmount};
+    const userUpdate = { ...req.user._doc, balance: req.user.balance + results[0].currentAmount};
     Budget.deleteOne({_id: req.params.id}, err2 => {
       if (err2) next (err2);
       User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err3) => {
