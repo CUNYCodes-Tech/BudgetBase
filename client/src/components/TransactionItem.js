@@ -170,8 +170,7 @@ class TransactionItem extends React.Component{
     );
   }
 
-  render(){
-    console.log(this.convertDateDash(this.state.createdAt));
+  render() {
     return(
       <div className="col s12 item-container">
         <div className="row item valign-wrapper card-panel" onClick={() => this.setState({ isClicked: !this.state.isClicked, isEdit: false })}>

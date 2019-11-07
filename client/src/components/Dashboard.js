@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
       }
     });
     const data = await response.json();
-    this.setState({ transactions: data });
+    this.setState({ transactions: data.reverse() });
   }
 
   fetchBalance = async () => {
@@ -64,7 +64,7 @@ class Dashboard extends React.Component {
       headers: { Authorization: localStorage.getItem('token') },
     });
     const data = await response.json();
-    this.setState({ transactions: data });
+    this.setState({ transactions: data.reverse() });
   }
 
   render() {
