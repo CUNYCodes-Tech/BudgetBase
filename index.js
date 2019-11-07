@@ -266,7 +266,23 @@ app.get('/api/budget/', requireAuth, (req, res, next) => {
     });
 })
 
+app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
+  Budget.find({_id: req.params.id}, (err,results) => {
+    if (err) next (err);
+    const userUpdate = { ...req.user._doc, balance: req.user.balance + results.currentAmount};
+    Budget.deleteOne({_id: req.params.id}, err2 => {
+      if (err2) next (err2);
+      User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err3) => {
+        if (err3) next(err3);
+        res.json({ success: true });
+      });
+    })
+  })
+});
 
+// app.put('/api/budget/update/:id', requireAuth, (req, res, next) => {
+
+// });
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
 // -----------------------------------------------------------------------------------------
