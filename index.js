@@ -227,7 +227,7 @@ app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const name = req.body.name;
   const amount = parseInt(req.body.amount, 10);
 
-  Budget.find({}, (err, result) => {
+  Budget.find({ user: req.user.id }, (err, result) => {
     if (result.length >= 3) { 
       res.status(422).send({error: "Max budget limit reached."});
     }
