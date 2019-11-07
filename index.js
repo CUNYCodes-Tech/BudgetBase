@@ -129,7 +129,6 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
           res.json({ success: true })
         });
       })
-      // const userUpdate = { ...req.user._doc};
     })
   }
 });
@@ -266,6 +265,42 @@ app.get('/api/budget/', requireAuth, (req, res, next) => {
     });
 })
 
+app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
+  Budget.find({_id: req.params.id}, (err,results) => {
+    if (err) next (err);
+    const userUpdate = { ...req.user._doc, balance: req.user.balance + results[0].currentAmount};
+    Budget.deleteOne({_id: req.params.id}, err2 => {
+      if (err2) next (err2);
+      User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err3) => {
+        if (err3) next(err3);
+        res.json({ success: true });
+      });
+    })
+  })
+});
+app.put('/api/budget/update/:id', requireAuth, (req, res, next) => {
+  Budget.find({_id: req.params.id}, (err1, results) => {
+    if (err1) next (err1);
+    const originalCurrentAmount  = results[0].currentAmount;
+    Budget.findByIdAndUpdate({_id: req.params.id}, req.body, err2 => {
+      if (err2) next (err2);
+
+      const newName = req.body.name;
+      const newAmount = req.body.amount;
+      
+      Budget.findOneAndUpdate({_id: req.params.id}, {currentAmount: newAmount}, {amount : newAmount} , err3 =>{
+          if (err3) next(err3);
+          
+      })
+      const userUpdate = {...req.user._doc, balance: req.user.balance + (originalCurrentAmount - newAmount), name: newName}
+      User.findOneAndUpdate({ _id: req.user._id}, userUpdate, err4 => {
+        if (err4) next(err4);
+      })
+    })
+    res.json({ success: true })
+  })
+  
+});
 
 // -----------------------------------------------------------------------------------------
 // JWT Strategy
