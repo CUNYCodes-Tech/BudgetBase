@@ -115,23 +115,21 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
         res.json({ success: true });
       })
     });
-    console.log("BudgetId is null");
   } else {
     Budget.find({_id: budgetId}, (err, results) => {
       if (err) next (err);
       Budget.findOneAndUpdate({_id: budgetId}, {currentAmount : results[0].amount - cost} , err2 =>{
         if (err2) next(err2);
-        res.json({ success: true })
+        newTransaction.save(err3 => {
+          if (err3) next(err3);
+          // User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err4, results) => {
+            //     if (err4) next(err4);
+            //     res.json({ success: true });
+            //   })
+          res.json({ success: true })
+        });
       })
-      const userUpdate = { ...req.user._doc};
-      newTransaction.save(err3 => {
-        if (err3) next(err3);
-        User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err4, results) => {
-            if (err4) next(err4);
-          })
-      });
     })
-    console.log("Budget has a budgetId");
   }
 });
 
@@ -231,12 +229,14 @@ app.put('/api/user/addbalance', requireAuth, (req, res, next) => {
 app.post('/api/budget/create', requireAuth, (req, res, next) => {
   const name = req.body.name;
   const amount = parseInt(req.body.amount, 10);
+
   Budget.find({}, (err, result) => {
     if (result.length >= 3) { 
       res.status(422).send({error: "Max budget limit reached."});
     }
-  })
-  Budget.findOne({name: name}, (foundErr, existingBudget)=>{
+  });
+
+  Budget.findOne({ name: name, _id: req.user.id }, (foundErr, existingBudget)=>{
     if(foundErr) next(foundErr);
     if(existingBudget) return res.status(422).send({error: "you already had a budget under this name"});
     const newBudget = new Budget({
