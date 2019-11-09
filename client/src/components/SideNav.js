@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import SideNavLogo from '../assets/img/Dashboard-Logo.png'
 
 class SideNav extends React.Component {
-  componentDidMount() {
-    this.setSideNav();
-    window.addEventListener('resize', this.setSideNav);
-  }
+  // componentDidMount() {
+  //   this.setSideNav();
+    // window.addEventListener('resize', this.setSideNav);
+  // }
 
-  setSideNav() {
-    const parWidth = document.querySelector('.side-nav-container').offsetWidth;
-    document.querySelector('.side-nav').setAttribute('style', `width:${parWidth}px!important`);
-  }
+  // setSideNav() {
+    // const parWidth = document.querySelector('.side-nav-container').offsetWidth;
+    // document.querySelector('.side-nav').setAttribute('style', `width:${parWidth}px!important`);
+  // }
 
   render() {
     return (

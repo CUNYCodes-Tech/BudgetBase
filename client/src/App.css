@@ -46,6 +46,7 @@ nav .logo {
   position: fixed;
   background: #3C58B9;
   height: 100%;
+  width: inherit;
   /* Flex */
   display: flex;
   flex-direction: column;

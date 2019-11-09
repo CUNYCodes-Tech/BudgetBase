@@ -131,7 +131,7 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
 });
 
 app.get('/api/transaction/all', requireAuth, (req, res, next) => {
-  Transaction.find({ user: req.user._id }, (err, results) => {
+  Transaction.find({ user: req.user._id }, null, {sort: "-createdAt"}, (err, results) => {
     if (err) next(err);
     res.json(results);
   });

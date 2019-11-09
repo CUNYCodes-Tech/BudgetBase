@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment-timezone';
 
 import M from 'materialize-css';
 
 const TransactionForm = props => {
   const [form, setForm] = useState({
-    createdAt: null,
+    createdAt: new Date(),
     cost: 0,
     category: null,
     name: null,
@@ -19,15 +18,12 @@ const TransactionForm = props => {
   useEffect(() => {
     const datepicker = document.querySelector('#transactionDate');
     const selector = document.querySelectorAll('#selector');
-    M.Datepicker.init(datepicker);
+    M.Datepicker.init(datepicker, { onSelect: date => setForm({ ...form, createdAt: date }), defaultDate: form.createdAt, setDefaultDate: true });
     M.FormSelect.init(selector);
+  }, [form]);
 
-    datepicker.addEventListener('change', e => {
-      setForm({ ...form, [e.target.name]: e.target.value });
-    });
-  }, []);
-
-  const createTransaction = async () => {
+  const createTransaction = async e => {
+    e.preventDefault();
     const response = await fetch('/api/transaction/create', {
       method: 'POST',
       headers: {
@@ -115,15 +111,16 @@ const TransactionForm = props => {
   };
 
   return (
-    <div>
+    <form onSubmit={createTransaction}>
       <div className='input-field col s12'>
         <input
           id='transactionDate'
           name='createdAt'
+          value={form.createdAt}
           type='text'
           className='datepicker'
+          placeholder="Enter a date"
         />
-        <label>Date</label>
       </div>
       <div className='input-field col s12'>
         <input
@@ -153,16 +150,14 @@ const TransactionForm = props => {
         <label>Payment</label>
       </div>
       <div className='input-field col s6'>
-        <button className='btn' onClick={createTransaction}>
-          Submit
-        </button>
+        <input className='btn' type="submit" value="Submit" />
       </div>
       <div className='input-field col s6'>
         <button className='btn' onClick={() => props.toggleModal()}>
           Cancel
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

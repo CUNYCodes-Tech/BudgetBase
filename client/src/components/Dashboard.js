@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 
 import SideNav from './SideNav';
 import SideMenu from './SideMenu';
@@ -36,7 +35,7 @@ class Dashboard extends React.Component {
       }
     });
     const data = await response.json();
-    this.setState({ transactions: data.reverse() });
+    this.setState({ transactions: data });
   }
 
   fetchBalance = async () => {
@@ -66,7 +65,7 @@ class Dashboard extends React.Component {
       headers: { Authorization: localStorage.getItem('token') },
     });
     const data = await response.json();
-    this.setState({ transactions: data.reverse() });
+    this.setState({ transactions: data });
   }
 
   render() {
