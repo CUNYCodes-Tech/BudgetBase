@@ -111,8 +111,24 @@ class SideMenu extends React.Component {
   // ----------------------------------------------------------------------
   // Helper Methods
   // ----------------------------------------------------------------------
-  handleOnSuccess = (token, metadata) => {
-    console.log('meow');
+  handleOnSuccess = async (token, metadata) => {
+    const plaidData = {
+      public_token: token,
+      metadata: metadata
+    };
+    console.log("plaidData", plaidData);
+    const response = await fetch('/api/plaid/accounts/add', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json', 
+        Authorization: localStorage.getItem('token') 
+      },
+      body: JSON.stringify(plaidData)
+    });
+
+    const data = await response.json();
+
+    console.log(data);
   }
 
   handleAddBalance = () => {

@@ -73,7 +73,7 @@ let ITEM_ID      = null;
 // @route POST api/plaid/accounts/add
 // @desc Trades public token for access token and stores credentials in database
 // @access Private
-app.post('/api/plaid/accounts/add', requireSignin, (req, res) => {
+app.post('/api/plaid/accounts/add', requireAuth, (req, res) => {
   PUBLIC_TOKEN      = req.body.public_token;
   const userId      = req.user.id;
   const institution = req.body.metadata.institution;
