@@ -12,7 +12,8 @@ const JwtStrategy   = require('passport-jwt').Strategy;
 const ExtractJwt    = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const https         = require('https');
-const moment        = require("moment-timezone")
+const moment        = require("moment");
+const plaid         = require("plaid");
 
 // -----------------------------------------------------------------------------------------
 // Internal Dependencies
@@ -20,6 +21,7 @@ const moment        = require("moment-timezone")
 const User        = require('./models/user');
 const Transaction = require('./models/transaction');
 const Budget      = require('./models/budget');
+const Account     = require('./models/account');
 if(process.env.NODE_ENV !== 'production') require('dotenv/config');
 const keys = require('./config/keys');
 
@@ -32,6 +34,7 @@ app.use(cors());
 const requireAuth   = passport.authenticate('jwt', { session: false});
 const requireSignin = passport.authenticate('local', { session: false });
 
+
 // -----------------------------------------------------------------------------------------
 // MongoDB Setup
 // -----------------------------------------------------------------------------------------
@@ -42,6 +45,64 @@ mongoose.connect(keys.mongoURI, {
 });
 
 mongoose.set('useFindAndModify', false); // Must add this to fix deprecation warning
+
+// -----------------------------------------------------------------------------------------
+// Plaid Setup
+// -----------------------------------------------------------------------------------------
+
+const PLAID_CLIENT_ID = "5dc5aac7f546b50014c19ade";
+const PLAID_SECRET = "5741237b7f9875a0d01bfd42b261ed";
+const PLAID_PUBLIC_KEY = "838c02e0848a46a9b525b5e2d658e6";
+
+const client = new plaid.Client(
+  PLAID_CLIENT_ID,
+  PLAID_SECRET,
+  PLAID_PUBLIC_KEY,
+  plaid.environments.sandbox,
+  { version: "2018-05-22" }
+);
+
+let PUBLIC_TOKEN = null;
+let ACCESS_TOKEN = null;
+let ITEM_ID      = null;
+
+// -----------------------------------------------------------------------------------------
+// Plaid API
+// -----------------------------------------------------------------------------------------
+
+// @route POST api/plaid/accounts/add
+// @desc Trades public token for access token and stores credentials in database
+// @access Private
+app.post('/api/plaid/accounts/add', requireSignin, (req, res) => {
+  PUBLIC_TOKEN      = req.body.public_token;
+  const userId      = req.user.id;
+  const institution = req.body.metadata.institution;
+  
+  const { name, institution_id } = institution;
+  if (PUBLIC_TOKEN) {
+    client.exchangePublicToken(PUBLIC_TOKEN)
+      .then(exchangeResponse => {
+        ACCESS_TOKEN = exchangeResponse.access_token;
+        ITEM_ID = exchangeResponse.item_id;
+        Account.findOne({ userId: req.user.id, institutionId: institution_id })
+          .then(account => {
+            if (account) { console.log("Account already exists"); }
+            else {
+              const newAccount = new Account({
+                userId: userId,
+                accessToken: ACCESS_TOKEN,
+                itemId: ITEM_ID,
+                institutionId: institution_id,
+                institutionName: name
+              });
+              newAccount.save().then(account => res.json(account));
+            }
+          })
+          .catch(err => console.log(err)); // Mongo Error
+      })
+      .catch(err => console.log(err)); // Plaid Error
+  }
+});
 
 // -----------------------------------------------------------------------------------------
 // Authentication API

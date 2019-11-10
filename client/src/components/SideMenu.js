@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PlaidLinkButton from "react-plaid-link-button";
 
 import M from 'materialize-css';
 import AddBalanceForm from './forms/AddBalanceForm';
@@ -82,11 +83,24 @@ class SideMenu extends React.Component {
           <div className="col s12">
             <h7 id="bank-acc">Bank Account</h7>
           </div>
+          
           <div className='col s12 bank-acc-container'>
             <div className='bank-info'>
-              <div class='add-btn btn-floating btn-large waves-light'>
+              <PlaidLinkButton
+                buttonProps={{
+                  className: "add-btn btn-floating btn-large waves-light"
+                }}
+                plaidLinkProps={{
+                  clientName: "Budgetbase",
+                  key: "838c02e0848a46a9b525b5e2d658e6",
+                  env: "sandbox",
+                  product: ["transactions"],
+                  onSuccess: this.handleOnSuccess
+                }}
+                onScriptLoad={() => this.setState({ loaded: true })}
+              >
                 <i class='material-icons'>add</i>
-              </div>
+              </PlaidLinkButton>
             </div>
           </div>
         </div>
@@ -97,6 +111,10 @@ class SideMenu extends React.Component {
   // ----------------------------------------------------------------------
   // Helper Methods
   // ----------------------------------------------------------------------
+  handleOnSuccess = (token, metadata) => {
+    console.log('meow');
+  }
+
   handleAddBalance = () => {
     this.props.setModalTitle('Add Balance');
     this.props.setModalContent(
