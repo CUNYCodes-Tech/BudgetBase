@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CreateBudgetForm from './forms/CreateBudgetForm';
+import DeleteBudgetForm from './forms/DeleteBudgetForm';
 
 class BudgetItem extends React.Component {
   componentWillReceiveProps({ name, amount, currentAmount, id }) {
@@ -23,6 +24,7 @@ class BudgetItem extends React.Component {
           {name ? (
             <div id={`budget${id}`} className={`budget-item ${bg}`} onClick={() => this.handleFilter(id)}>
               <div className="budget-title">{name}</div>
+              <i class="fas fa-times-circle delete-budget" onClick={this.deleteBudget}></i>
               <div className="budget-amount">${currentAmount}</div>
               <div className="progress-bar">
                 <div className={`progress-${id}`}></div>
@@ -37,6 +39,19 @@ class BudgetItem extends React.Component {
         </div>
       </div>
     )
+  }
+
+  deleteBudget = e => {
+    e.stopPropagation();
+    this.props.setModalTitle('Delete this budget?');
+    this.props.setModalContent(
+      <DeleteBudgetForm 
+        toggleModal={this.props.toggleModal}
+        fetchBudgets={this.props.fetchBudgets}
+        id={this.props.id}
+      />
+    );
+    this.props.toggleModal();
   }
 
   handleFilter = id => {

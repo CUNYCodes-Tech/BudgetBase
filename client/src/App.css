@@ -252,6 +252,20 @@ nav .logo {
   align-items: center;
 }
 
+.delete-budget {
+  display: none!important;
+  color: red;
+  position: absolute;
+  top: 8%;
+  right: 8%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.budget-item:hover .delete-budget {
+  display: block!important;
+}
+
 .budget-total-title {
   letter-spacing: 0.05rem;
   margin-right: 1.5rem;
