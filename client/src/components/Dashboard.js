@@ -8,12 +8,13 @@ import BudgetContainer from './BudgetContainer';
 import OverviewContainer from './OverviewContainer';
 
 class Dashboard extends React.Component {
-  state = { balance: 0, transactions: [], budgets: [], totalBudgets: 0, showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
+  state = { bankAccounts: [], balance: 0, transactions: [], budgets: [], totalBudgets: 0, showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
 
   componentDidMount() {
     this.fetchTransactions();
     this.fetchBalance();
     this.fetchBudgets();
+    this.fetchBankAccounts();
   }
 
   toggleModal = () => {
@@ -56,7 +57,7 @@ class Dashboard extends React.Component {
       totalBudgets += budget.amount;
     }
     while (data.length < 3) data.push({});
-    
+
     this.setState({ budgets: data, totalBudgets: totalBudgets });
   }
 
@@ -68,17 +69,25 @@ class Dashboard extends React.Component {
     this.setState({ transactions: data });
   }
 
+  fetchBankAccounts = async () => {
+    const response = await fetch('/api/plaid/accounts/', {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
+    const data = await response.json();
+    this.setState({ bankAccounts: data });
+  }
+
   render() {
     return (
       <div>
-        <Modal title={this.state.modalTitle} 
-          modalSubmit={this.state.modalSubmit} 
-          showModal={this.state.showModal} 
+        <Modal title={this.state.modalTitle}
+          modalSubmit={this.state.modalSubmit}
+          showModal={this.state.showModal}
           toggleModal={this.toggleModal}
         >
           {this.state.modalContent}
         </Modal>
-        <div className ="row">
+        <div className="row">
           <div className="col s12 m1 side-nav-container">
             <SideNav />
           </div>
@@ -94,9 +103,11 @@ class Dashboard extends React.Component {
               toggleModal={this.toggleModal}
               setModalContent={this.setModalContent}
               setModalTitle={this.setModalTitle}
+              fetchBankAccounts={this.fetchBankAccounts}
+              bankAccounts={this.state.bankAccounts}
             />
           </div>
-          <div className ="col s12 m8 activity-column">
+          <div className="col s12 m8 activity-column">
             <div className="row">
               <div className="col s12 dashboard-header">
                 <span className="dashboard-title">Dashboard</span>
@@ -109,7 +120,7 @@ class Dashboard extends React.Component {
             <div className="row">
               <div className="col s12">
                 <div className="budget-total">Budgets</div>
-                <BudgetContainer 
+                <BudgetContainer
                   transactions={this.state.transactions}
                   toggleModal={this.toggleModal}
                   setModalContent={this.setModalContent}

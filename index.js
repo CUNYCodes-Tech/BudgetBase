@@ -112,29 +112,33 @@ app.get('/api/plaid/accounts/', requireAuth, (req, res) => {
 })
 
 app.post('/api/plaid/accounts/transactions', requireAuth, (req, res) => {
+  const now = moment();
+  const today = now.format("YYYY-MM-DD");
+  const thirtyDaysAgo = now.subtract(30, "days").format("YYYY-MM-DD"); // Change this if you want more transactions
+  
   let transactions = [];
 
-  const accounts = req.body;
-
-  if (accounts) { 
+  const accounts = req.body.accounts;
+  if (accounts) {
+    accounts.forEach(function(account) {
       ACCESS_TOKEN = account.accessToken;
-      const institutionName = account.institution.name;
+      const institutionName = account.institutionName;
 
-      client.getAllTransactions(ACCESS_TOKEN)
-      .then(response => {
-        transactions.push({
-          accountName: institutionName,
-          transactions: response.transactions
-        });
+      client.getTransactions(ACCESS_TOKEN, thirtyDaysAgo, today)
+        .then(response => {
+          transactions.push({
+            accountName: institutionName,
+            transactions: response.transactions
+          });
 
-        if (transactions.length === accounts.length) {
-          res.json(transactions);
-        }
+          if (transactions.length === accounts.length) {
+            res.json(transactions);
+          }
         })
         .catch(err => console.log(err));
-      }
+    });
   }
-);
+});
 
 
 

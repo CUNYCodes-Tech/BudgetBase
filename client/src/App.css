@@ -198,6 +198,45 @@ nav .logo {
   margin: 0 0!important;
 }
 
+.bank-name {
+  color: white;
+  opacity: 0.8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.delete-bank {
+  display: none!important;
+  color: red;
+  position: absolute;
+  right: 7%;
+  top: 10%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.fetch-bank {
+  display: none!important;
+  color: orange;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 20%;
+  top: 10%;
+}
+
+.bank-info:hover .delete-bank {
+  display: block!important;
+}
+
+.bank-info:hover .fetch-bank {
+  display: block!important;
+}
+
 .bank-acc-container {
   position: relative;
   padding-top: 56.25%!important;
