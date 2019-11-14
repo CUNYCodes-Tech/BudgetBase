@@ -116,6 +116,16 @@ app.get('/api/plaid/accounts/', requireAuth, (req, res) => {
 //   .then(accounts => res.json(accounts))
 //   .catch(err => console.log(err));
 // })
+
+app.delete('/api/plaid/accounts/delete/:id', requireAuth, (req, res) => {
+  Account.findById({ _id: req.params.id})
+  .then(accounts => {
+    Account.remove().then(() => res.json({success: true}));
+  })
+  .catch(err => console.log(err));
+})
+
+
 // -----------------------------------------------------------------------------------------
 // Authentication API
 // -----------------------------------------------------------------------------------------
