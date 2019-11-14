@@ -46,6 +46,7 @@ nav .logo {
   position: fixed;
   background: #3C58B9;
   height: 100%;
+  width: inherit;
   /* Flex */
   display: flex;
   flex-direction: column;
@@ -197,6 +198,45 @@ nav .logo {
   margin: 0 0!important;
 }
 
+.bank-name {
+  color: white;
+  opacity: 0.8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.delete-bank {
+  display: none!important;
+  color: red;
+  position: absolute;
+  right: 7%;
+  top: 10%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.fetch-bank {
+  display: none!important;
+  color: orange;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 20%;
+  top: 10%;
+}
+
+.bank-info:hover .delete-bank {
+  display: block!important;
+}
+
+.bank-info:hover .fetch-bank {
+  display: block!important;
+}
+
 .bank-acc-container {
   position: relative;
   padding-top: 56.25%!important;
@@ -249,6 +289,20 @@ nav .logo {
   font-size: 1.2rem;
   display: inline-flex;
   align-items: center;
+}
+
+.delete-budget {
+  display: none!important;
+  color: red;
+  position: absolute;
+  top: 8%;
+  right: 8%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.budget-item:hover .delete-budget {
+  display: block!important;
 }
 
 .budget-total-title {
@@ -524,6 +578,43 @@ nav .logo {
   margin-top: 20px;
 }
 
+.overview-container {
+  margin-top: 23px;
+  padding: 1rem 0;
+  border-radius: 6px;
+}
+
+.overview-item-container {
+  margin: 0.5rem 0;
+  position: relative;
+  padding-top: 20%;
+  border-radius: 0.8rem;
+  background: #3c58b9;
+}
+
+.overview-item-title {
+  padding: 0 0.88rem;
+  color: #aaaaaa;
+}
+
+.overview-item-amount {
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  color: #e8ebf7;
+}
+
+.overview-progress {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18%;
+  width: 85%;
+  height: 0.5rem;
+  background: #ff5252;
+  border-radius: inherit;
+}
+
 .item-container {
   padding: 10px 8px;
 }
@@ -532,6 +623,11 @@ nav .logo {
   border-radius: 6px;
   margin: 0.3rem 0!important;
   padding: 0.7rem 0!important;
+}
+
+.item-dropdown {
+  display: flex;
+  justify-content: space-between;
 }
 
 .item-button {
@@ -573,6 +669,21 @@ nav .logo {
   cursor: pointer;
 }
 
+.edit-cost {
+  text-align: center;
+  height: auto!important;
+}
+
+.edit-name {
+  text-align: center;
+  height: auto!important;
+}
+
+.edit-category {
+  padding: 0;
+  height: auto;
+}
+
 .save:hover {
   color: green;
   cursor: pointer;
@@ -582,9 +693,15 @@ nav .logo {
   max-height: 250px;
 }
 
+.edit-date {
+  height: auto!important;
+}
+
+.edit-date::-webkit-inner-spin-button { -webkit-appearance: none!important; display: none!important; }
+
 input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display: none; } 
 ::-webkit-datetime-edit { padding: 0; margin: 0 } 
-::-webkit-calendar-picker-indicator { padding: 0.1em; }
+::-webkit-calendar-picker-indicator { padding: 0; }
 
 /*=============== ADDONS ===============*/
 .material-icons {

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PlaidLinkButton from "react-plaid-link-button";
 
 import M from 'materialize-css';
 import AddBalanceForm from './forms/AddBalanceForm';
@@ -7,17 +8,20 @@ import ReportForm from './forms/ReportForm';
 import ImportExportForm from './forms/ImportExportForm';
 import TransactionForm from './forms/TransactionForm';
 import UpdateBudgetForm from './forms/UpdateBudgetForm';
+import DeleteBankAccountForm from './forms/DeleteBankAccountForm';
+import BankTransactionsForm from './forms/BankTransactionsForm';
 
 // Assets
 import ProfilePicture from '../assets/img/profile-picture.png';
 import Separator from '../assets/img/Separator.png';
 
 class SideMenu extends React.Component {
-  state = { firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
+  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
 
-  componentWillReceiveProps({ transactions, balance }) {
+  componentWillReceiveProps({ transactions, bankAccounts, bankTransactions }) {
     this.updateFinancialStatus(transactions);
     this.fetchUser();
+    this.setState({ bankAccounts, bankTransactions });
   }
 
   componentDidMount() {
@@ -82,11 +86,34 @@ class SideMenu extends React.Component {
           <div className="col s12">
             <h7 id="bank-acc">Bank Account</h7>
           </div>
+          
           <div className='col s12 bank-acc-container'>
             <div className='bank-info'>
-              <div class='add-btn btn-floating btn-large waves-light'>
-                <i class='material-icons'>add</i>
-              </div>
+              {
+                !this.state.bankAccounts.length? (
+                  <PlaidLinkButton
+                    buttonProps={{
+                      className: "add-btn btn-floating btn-large waves-light"
+                    }}
+                    plaidLinkProps={{
+                      clientName: "Budgetbase",
+                      key: "838c02e0848a46a9b525b5e2d658e6",
+                      env: "sandbox",
+                      product: ["transactions"],
+                      onSuccess: this.handleOnSuccess
+                    }}
+                    onScriptLoad={() => this.setState({ loaded: true })}
+                  >
+                    <i class='material-icons'>add</i>
+                  </PlaidLinkButton>
+                ) : (
+                  <>
+                    <div className="bank-name">{this.state.bankAccounts[0].institutionName}</div>
+                    <i class="fas fa-search fetch-bank" onClick={this.fetchBankTransactions}></i>
+                    <i class="fas fa-times-circle delete-bank" onClick={this.deleteBankAccount}></i>
+                  </>
+                )
+              }
             </div>
           </div>
         </div>
@@ -97,6 +124,49 @@ class SideMenu extends React.Component {
   // ----------------------------------------------------------------------
   // Helper Methods
   // ----------------------------------------------------------------------
+  fetchBankTransactions = () => {
+    this.props.setModalTitle('Past 30 Days Online Transactions');
+    this.props.setModalContent(
+      <BankTransactionsForm 
+        toggleModal={this.props.toggleModal}
+        bankAccounts={this.state.bankAccounts}
+      />
+    );
+    this.props.toggleModal();
+  }
+  
+  deleteBankAccount = e => {
+    e.stopPropagation();
+    this.props.setModalTitle('Delete this Bank Account?');
+    this.props.setModalContent(
+      <DeleteBankAccountForm 
+        toggleModal={this.props.toggleModal}
+        fetchBankAccounts={this.props.fetchBankAccounts}
+        bankTransactions={this.state.bankTransactions}
+        id={this.state.bankAccounts[0]._id}
+      />
+    );
+    this.props.toggleModal();
+  }
+
+  handleOnSuccess = async (token, metadata) => {
+    const plaidData = {
+      public_token: token,
+      metadata: metadata
+    };
+    const response = await fetch('/api/plaid/accounts/add', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json', 
+        Authorization: localStorage.getItem('token') 
+      },
+      body: JSON.stringify(plaidData)
+    });
+
+    const data = await response.json();
+    this.props.fetchBankAccounts();
+  }
+
   handleAddBalance = () => {
     this.props.setModalTitle('Add Balance');
     this.props.setModalContent(

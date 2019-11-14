@@ -5,14 +5,16 @@ import SideMenu from './SideMenu';
 import ActivityMenu from './ActivityMenu';
 import Modal from './Modal';
 import BudgetContainer from './BudgetContainer';
+import OverviewContainer from './OverviewContainer';
 
 class Dashboard extends React.Component {
-  state = { balance: 0, transactions: [], budgets: [], showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
+  state = { bankAccounts: [], balance: 0, transactions: [], budgets: [], totalBudgets: 0, showModal: false, modalContent: null, modalTitle: null, modalSubmit: null }
 
   componentDidMount() {
     this.fetchTransactions();
     this.fetchBalance();
     this.fetchBudgets();
+    this.fetchBankAccounts();
   }
 
   toggleModal = () => {
@@ -50,8 +52,13 @@ class Dashboard extends React.Component {
       headers: { Authorization: localStorage.getItem('token') }
     });
     let data = await response.json();
+    let totalBudgets = 0;
+    for (let budget of data) {
+      totalBudgets += budget.amount;
+    }
     while (data.length < 3) data.push({});
-    this.setState({ budgets: data });
+
+    this.setState({ budgets: data, totalBudgets: totalBudgets });
   }
 
   filterTransactions = async (budgetId) => {
@@ -62,17 +69,25 @@ class Dashboard extends React.Component {
     this.setState({ transactions: data });
   }
 
+  fetchBankAccounts = async () => {
+    const response = await fetch('/api/plaid/accounts/', {
+      headers: { Authorization: localStorage.getItem('token') }
+    });
+    const data = await response.json();
+    this.setState({ bankAccounts: data });
+  }
+
   render() {
     return (
       <div>
-        <Modal title={this.state.modalTitle} 
-          modalSubmit={this.state.modalSubmit} 
-          showModal={this.state.showModal} 
+        <Modal title={this.state.modalTitle}
+          modalSubmit={this.state.modalSubmit}
+          showModal={this.state.showModal}
           toggleModal={this.toggleModal}
         >
           {this.state.modalContent}
         </Modal>
-        <div className ="row">
+        <div className="row">
           <div className="col s12 m1 side-nav-container">
             <SideNav />
           </div>
@@ -88,22 +103,24 @@ class Dashboard extends React.Component {
               toggleModal={this.toggleModal}
               setModalContent={this.setModalContent}
               setModalTitle={this.setModalTitle}
+              fetchBankAccounts={this.fetchBankAccounts}
+              bankAccounts={this.state.bankAccounts}
             />
           </div>
-          <div className ="col s12 m8 activity-column">
+          <div className="col s12 m8 activity-column">
             <div className="row">
               <div className="col s12 dashboard-header">
                 <span className="dashboard-title">Dashboard</span>
                 <span className="budget-total">
                   <span className="budget-total-title">Budget Total</span>
-                  <span className="budget-num">$293,240</span>
+                  <span className="budget-num">${this.state.totalBudgets}</span>
                 </span>
               </div>
             </div>
             <div className="row">
               <div className="col s12">
                 <div className="budget-total">Budgets</div>
-                <BudgetContainer 
+                <BudgetContainer
                   transactions={this.state.transactions}
                   toggleModal={this.toggleModal}
                   setModalContent={this.setModalContent}
@@ -133,6 +150,7 @@ class Dashboard extends React.Component {
               </div>
               <div className="col s4">
                 <div className="dashboard-subtitle">Overview</div>
+                <OverviewContainer transactions={this.state.transactions} />
               </div>
             </div>
           </div>

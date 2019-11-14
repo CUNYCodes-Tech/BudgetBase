@@ -34,10 +34,13 @@
     "jwt-simple": "^0.5.6",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "mongoose": "^5.7.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "plaid": "^4.3.0",
+    "react-materialize": "^3.4.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.2",
