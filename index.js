@@ -111,11 +111,32 @@ app.get('/api/plaid/accounts/', requireAuth, (req, res) => {
   .catch(err => console.log(err));
 })
 
-// app.get('/api/plaid/accounts/transactions', requireAuth, (req, res) => {
-//   Account.find({ userId: req.user.id})
-//   .then(accounts => res.json(accounts))
-//   .catch(err => console.log(err));
-// })
+app.post('/api/plaid/accounts/transactions', requireAuth, (req, res) => {
+  let transactions = [];
+
+  const accounts = req.body;
+
+  if (accounts) { 
+      ACCESS_TOKEN = account.accessToken;
+      const institutionName = account.institution.name;
+
+      client.getAllTransactions(ACCESS_TOKEN)
+      .then(response => {
+        transactions.push({
+          accountName: institutionName,
+          transactions: response.transactions
+        });
+
+        if (transactions.length === accounts.length) {
+          res.json(transactions);
+        }
+        })
+        .catch(err => console.log(err));
+      }
+  }
+);
+
+
 
 app.delete('/api/plaid/accounts/delete/:id', requireAuth, (req, res) => {
   Account.findById({ _id: req.params.id})
