@@ -26,8 +26,8 @@ class SideMenu extends React.Component {
 
   componentDidMount() {
     this.fetchUser();
-    this.setSideMenuWidth();
-    window.addEventListener('resize', this.setSideMenuWidth);
+    // this.setSideMenuWidth();
+    // window.addEventListener('resize', this.setSideMenuWidth);
     const elems = document.querySelectorAll('#dateFilter');
     M.Datepicker.init(elems);
   }
@@ -193,12 +193,12 @@ class SideMenu extends React.Component {
     });
   };
 
-  setSideMenuWidth() {
-    const parWidth = document.querySelector('.side-menu-container').offsetWidth;
-    document
-      .querySelector('.side-menu')
-      .setAttribute('style', `width:${parWidth}px!important`);
-  }
+  // setSideMenuWidth() {
+  //   const parWidth = document.querySelector('.side-menu-container').offsetWidth;
+  //   document
+  //     .querySelector('.side-menu')
+  //     .setAttribute('style', `width:${parWidth}px!important`);
+  // }
 
   handleUpdateBudget = () => {
     this.props.setModalTitle('Update Budget');

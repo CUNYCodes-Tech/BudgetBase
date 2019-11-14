@@ -115,6 +115,7 @@ nav .logo {
   background: #1c2c85;
   height: 100vh;
   padding: 0 1.5rem;
+  width: inherit;
   /* overflow-y: scroll; */
   /* Flexbox */
   display: flex;
