@@ -725,9 +725,13 @@ input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display:
     margin-bottom: 1rem;
   }
 
+  .side-menu {
+    position: relative;
+  }
+
   .row {
-    padding: 8% 5%;
-    background-color: #08afce;
+    /* padding: 8% 5%; */
+    /* background-color: #08afce; */
   }
 
   .slide-form {
