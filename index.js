@@ -104,6 +104,18 @@ app.post('/api/plaid/accounts/add', requireAuth, (req, res) => {
   }
 });
 
+
+app.get('/api/plaid/accounts/', requireAuth, (req, res) => {
+  Account.find({ userId: req.user.id})
+  .then(accounts => res.json(accounts))
+  .catch(err => console.log(err));
+})
+
+// app.get('/api/plaid/accounts/transactions', requireAuth, (req, res) => {
+//   Account.find({ userId: req.user.id})
+//   .then(accounts => res.json(accounts))
+//   .catch(err => console.log(err));
+// })
 // -----------------------------------------------------------------------------------------
 // Authentication API
 // -----------------------------------------------------------------------------------------
