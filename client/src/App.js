@@ -9,6 +9,7 @@ import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Signout from './components/Signout';
 import Dashboard from './components/Dashboard';
+import Archive from './components/Archive';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class App extends React.Component {
           />
           <Route path="/signout" render={ props => <Signout {...props} signout={this.signout} />} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/Archive" component={Archive} />
         </div>
       </Router>
     );
