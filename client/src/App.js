@@ -10,6 +10,8 @@ import Signin from './components/Signin';
 import Signout from './components/Signout';
 import Dashboard from './components/Dashboard';
 import Archive from './components/Archive';
+import Setting from './components/Setting';
+import Report from './components/Report';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,7 +59,9 @@ class App extends React.Component {
           />
           <Route path="/signout" render={ props => <Signout {...props} signout={this.signout} />} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/Archive" component={Archive} />
+          <Route path="/archive" component={Archive} />
+          <Route path="/setting" component={Setting} />
+          <Route path="/report" component={Report} />
         </div>
       </Router>
     );

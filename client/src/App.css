@@ -64,10 +64,13 @@ nav .logo {
   height: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .side-icon {
+  padding: 1.5rem 1rem;
+  width: auto;
+  cursor: pointer;
   display: block!important;
   color: white;
   text-align: center;
@@ -76,23 +79,6 @@ nav .logo {
 
 .balance {
   font-size: 1.5rem;
-}
-
-.dropup-container {
-  position: relative;
-  width: 100%;
-}
-
-.dropup-content {
-  display: none;
-  position: absolute;
-  background: black;
-  color: white;
-  bottom: 2rem;
-  left: 0.3rem;
-  width: 90%;
-  padding: 0.5rem 0;
-  text-align: center;
 }
 
 .dropup-content a {
@@ -703,6 +689,10 @@ nav .logo {
 input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display: none; } 
 ::-webkit-datetime-edit { padding: 0; margin: 0 } 
 ::-webkit-calendar-picker-indicator { padding: 0; }
+
+.activeRow {
+  background: pink;
+}
 
 /*=============== ADDONS ===============*/
 .material-icons {

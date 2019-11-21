@@ -2,7 +2,7 @@ import React from 'react';
 
 import SideNav from './SideNav';
 
-class Archive extends React.Component {
+class Setting extends React.Component {
   render() {
     return (
         <>
@@ -16,4 +16,4 @@ class Archive extends React.Component {
   }
 }
 
-export default Archive;
+export default Setting;

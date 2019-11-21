@@ -130,6 +130,7 @@ class SideMenu extends React.Component {
       <BankTransactionsForm 
         toggleModal={this.props.toggleModal}
         bankAccounts={this.state.bankAccounts}
+        fetchTransactions = {this.props.fetchTransactions}
       />
     );
     this.props.toggleModal();
