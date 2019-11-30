@@ -10,6 +10,9 @@ class Setting extends React.Component {
             <div className="col s12 m1 side-nav-container hide-on-med-and-down">
               <SideNav />
             </div>
+            <div className="col s12 m11">
+              
+            </div>
           </div>
         </>
     );

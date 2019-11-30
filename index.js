@@ -467,9 +467,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-setInterval(function() {
-  https.get("https://budgetbase.herokuapp.com");
-}, 300000);
+// setInterval(function() {
+//   https.get("https://budgetbase.herokuapp.com");
+// }, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup
