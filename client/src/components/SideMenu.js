@@ -16,7 +16,7 @@ import ProfilePicture from '../assets/img/profile-picture.png';
 import Separator from '../assets/img/Separator.png';
 
 class SideMenu extends React.Component {
-  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
+  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', balance: 0, spending: 0, income: 0 };
 
   componentWillReceiveProps({ transactions, bankAccounts, bankTransactions }) {
     this.updateFinancialStatus(transactions);
@@ -42,7 +42,7 @@ class SideMenu extends React.Component {
               {this.state.firstName} {this.state.lastName}
             </h5>
             <div className='balance-container white-text'>
-              $ <span className='balance'>{this.state.balance}</span>
+              $ <span className='balance'>{this.state.balance.toLocaleString()}</span>
             </div>
             <img id='separator' src={Separator} />
           </div>
@@ -231,17 +231,10 @@ class SideMenu extends React.Component {
     let budgetNameList = ['Book1', 'Book2', 'Book3', 'Book4'];
     let categoriesList = [
       '-- Choose a Category --',
-      'Eating out',
-      'Fuel',
-      'Clothes',
-      'Entertainment',
-      'General',
-      'Gifts',
-      'Holidays',
-      'Kids',
-      'Shopping',
-      'Sports',
-      'Travel'
+      'Groceries',
+      'Bills',
+      'Food',
+      'Other'
     ];
     this.props.setModalContent(
       <TransactionForm

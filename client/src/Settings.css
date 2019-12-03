@@ -1,0 +1,10 @@
+.setting-category {
+  margin: 1.3rem 0;
+  color: #aaaaaa;
+  cursor: pointer;
+}
+
+.setting-selected {
+  color: #373737;
+  border-right: 10px solid #1c2c85;
+}
