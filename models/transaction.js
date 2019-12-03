@@ -7,7 +7,8 @@ const transactionSchema = new mongoose.Schema({
   name: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   paymentType: String,
-  budgetId: mongoose.Schema.Types.ObjectId
+  budgetId: mongoose.Schema.Types.ObjectId,
+  archive: Boolean
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

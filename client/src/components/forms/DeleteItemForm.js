@@ -20,6 +20,11 @@ class DeleteItemForm extends React.Component{
   render(){
     return(
       <div>
+        
+        <label>
+          <input type="checkbox"></input>
+          <span>Archived</span>
+        </label>
         <p>Are you sure?</p>
         <div className = "input-field col s6">
           <button className = "btn red" onClick={this.handleDelete}>Delete</button>

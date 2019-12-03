@@ -204,6 +204,7 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
   const name        = req.body.name;
   const paymentType = req.body.paymentType;
   const budgetId    = req.body.budgetId;
+  const archive = false;
 
   const newTransaction = new Transaction({
     name: name,
@@ -212,7 +213,8 @@ app.post('/api/transaction/create', requireAuth, (req, res, next) => {
     category: category,
     user: req.user._id,
     paymentType: paymentType,
-    budgetId: budgetId
+    budgetId: budgetId,
+    archive: archive
   });
 
   if (req.body.budgetId === null){
@@ -278,6 +280,14 @@ app.get('/api/transactions/filter/:budgetId', requireAuth, (req, res, next) => {
   Transaction.find({ budgetId: req.params.budgetId }, (err, results) => {
     if (err) next(err);
     res.json(results);
+  });
+})
+
+
+app.get('/api/transactions/archive', requireAuth, (req, res, next) => {
+  Transaction.find({archive:false}, (err, results) => {
+    if (err) next(err);
+    res.json(results);  
   });
 })
 
