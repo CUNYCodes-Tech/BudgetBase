@@ -20,7 +20,7 @@ class Setting extends React.Component {
               <SettingsMenu handleSelect={this.handleSelect} active={this.state.active} />
             </div>
             <div className="col s12 m8">
-              
+              {this.handleRender()}
             </div>
           </div>
         </>
@@ -29,6 +29,17 @@ class Setting extends React.Component {
 
   handleSelect = selection => {
     this.setState({ active: selection });
+  }
+
+  handleRender = () => {
+    switch(this.state.active) {
+      case "User Profile":
+        return <ProfileSettings />
+      case "Delete Account":
+        return <DeleteSettings />
+      default:
+        return null
+    }
   }
 }
 
