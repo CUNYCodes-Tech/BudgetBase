@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 let data = { Groceries: 4260, Bills: 3970, Food: 3454, Other: 2390 };
 
-const width = 320, height = 200, margin = 0;
+const width = 320, height = 180, margin = 0;
 const radius = Math.min(width, height) / 2 - margin;
 
 export default class ExpenseDonut {
@@ -28,7 +28,7 @@ export default class ExpenseDonut {
     const data_ready = pie(d3.entries(data));
 
     const meow = svg.append("g")
-      .attr("transform", "translate(" + (width / 2 - 50) + "," + height / 2 + ")");
+      .attr("transform", "translate(" + (width / 2 - 70) + "," + (height / 2) + ")");
     
     meow.selectAll('whatever')
       .data(data_ready)
@@ -64,10 +64,13 @@ export default class ExpenseDonut {
         .attr("class", "chart-legend")
         .attr("transform", (d,i) => `translate(0, ${legendScale(d)})`);
 
-    legend.append("rect")
-        .attr("width", 15)
-        .attr("height", 15)
-        .style("fill", color);
+    legend.append("circle")
+    .attr("cy", 9)
+    .attr("r", 7.5)
+    .style("fill", "transparent")
+    .style("stroke", color)
+    .style("stroke-width", 3);
+    
     legend.append("text")
         .attr("x", 20)
         .attr("y", 14)
