@@ -8,7 +8,7 @@ var data = d3.range(n).map(function() {
 });
 
 export default class StackedBars {
-  constructor(e) {
+  constructor(e, stackData) {
     var margin = {top: 20, right: 30, bottom: 30, left: 40},
         width = 300 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
@@ -90,6 +90,8 @@ export default class StackedBars {
         price: 46
       }
     ];
+
+    raw = stackData;
     var symbols = [];
     var data = [];
 

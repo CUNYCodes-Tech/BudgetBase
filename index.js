@@ -371,9 +371,26 @@ app.get('/api/budget/', requireAuth, (req, res, next) => {
 })
 
 app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
-  Budget.find({_id: req.params.id}, (err,results) => {
+  Budget.find({_id: req.params.id}, (err, results) => {
     if (err) next (err);
     const userUpdate = { ...req.user._doc, balance: req.user.balance + results[0].currentAmount};
+    
+    Transaction.create({
+      category: "Spent",
+      cost: results[0].currentAmount,
+      name: "Budget Spent: " + results[0].name,
+      user: req.user.id,
+      budgetId: results._id
+    });
+
+    Transaction.create({
+      category: "Saved",
+      cost: results[0].amount - results[0].currentAmount,
+      name: "Budget Saved: " + results[0].name,
+      user: req.user.id,
+      budgetId: results._id
+    });
+    
     Budget.deleteOne({_id: req.params.id}, err2 => {
       if (err2) next (err2);
       User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err3) => {
