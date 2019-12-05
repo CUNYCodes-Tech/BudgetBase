@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 let data = { Groceries: 4260, Bills: 3970, Food: 3454, Other: 2390 };
 
-const width = 200, height = 200, margin = 0;
+const width = 320, height = 200, margin = 0;
 const radius = Math.min(width, height) / 2 - margin;
 
 export default class ExpenseDonut {
@@ -15,8 +15,8 @@ export default class ExpenseDonut {
       .append("svg")
         .attr("width", width)
         .attr("height", height)
-      .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      // .append("g")
+      //   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     
     const color = d3.scaleOrdinal()
       .domain(data)
@@ -27,8 +27,10 @@ export default class ExpenseDonut {
 
     const data_ready = pie(d3.entries(data));
 
-    svg
-      .selectAll('whatever')
+    const meow = svg.append("g")
+      .attr("transform", "translate(" + (width / 2 - 50) + "," + height / 2 + ")");
+    
+    meow.selectAll('whatever')
       .data(data_ready)
       .enter()
       .append('path')
@@ -38,13 +40,37 @@ export default class ExpenseDonut {
       )
       .attr('fill', function(d){ return(color(d.data.key)) });
     
-    svg.append('text')
+    meow.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '-0.3rem')
       .text(`$${total}`);
-    svg.append('text')
+    meow.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '1.5rem')
       .text('Spent');
+
+    const legendGroup = svg.append("g")
+      .attr("transform", `translate(${width / 2 - 50 + radius + 20}, 15)`)
+    
+    const legendScale = d3.scaleBand()
+      .range([0, height-20])
+      .padding(0.1)
+      .domain(Object.keys(data));
+    
+    const legend = legendGroup.selectAll(".expense-legend")
+      .data(color.domain())
+      .enter()
+        .append("g")
+        .attr("class", "chart-legend")
+        .attr("transform", (d,i) => `translate(0, ${legendScale(d)})`);
+
+    legend.append("rect")
+        .attr("width", 15)
+        .attr("height", 15)
+        .style("fill", color);
+    legend.append("text")
+        .attr("x", 20)
+        .attr("y", 14)
+        .text(d => d);
   }
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import '../Report.css';
 import SideNav from './SideNav';
@@ -10,13 +11,13 @@ import SpentIcon from '../assets/img/spent-icon.svg';
 import GrowthIcon from '../assets/img/growth-icon.svg';
 
 class Report extends React.Component {
-  state = { expenseData: {}, moneyData: {}, stackedData: [] };
+  state = { expenseData: {}, moneyData: {}, stackedData: [], totalEarned: 0, totalSpent: 0, totalSaved: 0 };
 
   async componentDidMount() {
     await this.fetchExpenses();
     new ExpenseDonut(this.refs.expenseDonut, this.state.expenseData);
-    new MoneyDonut(this.refs.moneyDonut);
-    new StackedBars(this.refs.stackedBars);
+    new MoneyDonut(this.refs.moneyDonut, this.state.moneyData);
+    new StackedBars(this.refs.stackedBars, this.state.stackData);
   }
 
   render() {
@@ -57,7 +58,7 @@ class Report extends React.Component {
                         </div>
                         <div className="col s12 m10 valign-wrapper" style={{ height: "100%" }}>
                           <div className="stat-wrapper">
-                            <div style={{ color: "#56d9fe" }}>$50,000</div>
+                            <div style={{ color: "#56d9fe" }}>${this.state.totalEarned.toLocaleString()}</div>
                             <div>Total Earned</div>
                           </div>
                         </div>
@@ -70,7 +71,7 @@ class Report extends React.Component {
                         </div>
                         <div className="col s12 m10 valign-wrapper" style={{ height: "100%" }}>
                           <div className="stat-wrapper">
-                            <div style={{ color: "#adaafb" }}>$1,250</div>
+                            <div style={{ color: "#adaafb" }}>${this.state.totalSpent.toLocaleString()}</div>
                             <div>Spent</div>
                           </div>
                         </div>
@@ -83,8 +84,8 @@ class Report extends React.Component {
                         </div>
                         <div className="col s12 m10 valign-wrapper" style={{ height: "100%" }}>
                           <div className="stat-wrapper">
-                            <div style={{ color: "#85e5b4" }}>+2.0%</div>
-                            <div>Growth</div>
+                            <div style={{ color: "#85e5b4" }}>+${this.state.totalSaved.toLocaleString()}</div>
+                            <div>Saved</div>
                           </div>
                         </div>
                       </div>
@@ -105,16 +106,73 @@ class Report extends React.Component {
       }
     });
     const data = await response.json();
+
     let expenses = { Groceries: 0, Bills: 0, Food: 0, Other: 0 };
-    const nonRelated = new Set(["Cash Deposit", "Direct Deposit", "ATM Deposit"]);
-    for (let d of data) {
-      if (nonRelated.has(d.category)) continue;
-      
-      if (expenses.hasOwnProperty(d.category)) {
-        expenses[d.category] += d.cost;
+    let money = { Spent: 0, Saved: 0 };
+    let stack = {};
+
+    // Initialize stack data.
+    const stackKeys = ["Saved", "Earned", "Spent"];
+    for (let i = 0; i < stackKeys.length; ++i) {
+      for (let j = 1; j <= 5; ++j) {
+        stack[stackKeys[i] + j] = {
+          symbol: stackKeys[i],
+          date: "Week " + j,
+          price: 0
+        }
       }
     }
+    
+    const nonRelated = new Set(["Cash Deposit", "Direct Deposit", "ATM Deposit"]);
+    let earned = 0;
+    let spent = 0;
+    let saved = 0;
+    for (let d of data) {
+      const isThisMonth = moment(d.createdAt).isSame(new Date(), 'month');
+      const weekNumber = Math.ceil(moment(d.createdAt).date() / 7);
+      
+
+      if (expenses.hasOwnProperty(d.category)) {
+        expenses[d.category] += d.cost;
+      } else if (money.hasOwnProperty(d.category)) {
+        money[d.category] += d.cost;
+      }
+
+      // Populate stack.
+      if (isThisMonth) {
+        switch(d.category) {
+          case "Groceries":
+          case "Bills":
+          case "Food":
+          case "Other":
+          case "Spent":
+            stack["Spent" + weekNumber].price += d.cost;
+            spent += d.cost;
+            break;
+          case "Saved":
+            stack["Saved" + weekNumber].price += d.cost;
+            saved += d.cost;
+            break;
+          case "Cash Deposit":
+            // stack["Earned" + weekNumber].price+= d.cost;
+            // break;
+          case "Direct Deposit":
+            // stack["Earned" + weekNumber].price+= d.cost;
+            // break;
+          case "ATM Deposit":
+            stack["Earned" + weekNumber].price+= d.cost;
+            earned += d.cost;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    
     this.setState({ expenseData: expenses });
+    this.setState({ moneyData: money });
+    this.setState({ stackData: Object.values(stack) });
+    this.setState({ totalEarned: earned, totalSaved: saved, totalSpent: spent });
   }
 }
 

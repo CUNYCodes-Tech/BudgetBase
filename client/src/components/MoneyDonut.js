@@ -1,12 +1,14 @@
 import * as d3 from 'd3';
 
-const data = { Spent: 18570, Saved: 31430 };
+let data = { Spent: 18570, Saved: 31430 };
 
 const width = 150, height = 150, margin = 0;
 const radius = Math.min(width, height) / 2 - margin;
 
 export default class MoneyDonut {
-  constructor(e) {
+  constructor(e, moneyData) {
+    data = moneyData;
+
     const svg = d3.select(e)
       .append("svg")
         .attr("width", width)
