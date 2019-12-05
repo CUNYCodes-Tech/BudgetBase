@@ -11,7 +11,7 @@ import SpentIcon from '../assets/img/spent-icon.svg';
 import GrowthIcon from '../assets/img/growth-icon.svg';
 
 class Report extends React.Component {
-  state = { expenseData: {}, moneyData: {}, stackedData: [], totalEarned: 0, totalSpent: 0, totalSaved: 0 };
+  state = { expenseData: {}, moneyData: { Spent: 0, Saved: 0 }, stackedData: [], totalEarned: 0, totalSpent: 0, totalSaved: 0 };
 
   async componentDidMount() {
     await this.fetchExpenses();
@@ -32,13 +32,22 @@ class Report extends React.Component {
               <div className="row">
                 <div className="col s12 m4" style={{ padding: "1rem 1rem" }}>
                   <div className="chart-container z-depth-1">
-                    <div>Expenses Distribution</div>
+                    <div className="valign-wrapper" style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }}>
+                      <div>Expenses Distribution</div>
+                      <select className="browser-default" style={{ height: "2.2rem", width: "8rem" }}>
+                        <option value="">This Month</option>
+                      </select>
+                    </div>
                     <div className="mini-chart" ref="expenseDonut"></div>
                   </div>
                 </div>
-                <div className="col s12 m4" style={{ padding: "1rem 1rem" }}>
+                <div className="col s12 m4 center" style={{ padding: "1rem 1rem" }}>
                   <div className="chart-container z-depth-1">
-                    <div>Money</div>
+                    <div style={{ marginBottom: "0.7rem", textAlign: "left" }}>Money</div>
+                    <div style={{ marginBottom: "1rem", fontWeight: "bold", display: "flex", justifyContent: "space-between", borderBottom: "1px solid #e8e9ec" }}>
+                      <div>Total Budget</div>
+                      <div style={{ color: "#4bd991" }}>${(this.state.moneyData.Spent + this.state.moneyData.Saved).toLocaleString()}</div>
+                    </div>
                     <div className="mini-chart" ref="moneyDonut"></div>
                   </div>
                 </div>
