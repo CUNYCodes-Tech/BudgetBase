@@ -11,10 +11,11 @@ export default class MoneyDonut {
 
     const svg = d3.select(e)
       .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-      .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        .attr("width", width + 150)
+        .attr("height", height + 30);
+
+    const meow = svg.append("g")
+        .attr("transform", "translate(" + width + "," + height / 2 + ")");
     
     const color = d3.scaleOrdinal()
       .domain(data)
@@ -25,7 +26,7 @@ export default class MoneyDonut {
 
     const data_ready = pie(d3.entries(data));
 
-    svg
+    meow
       .selectAll('whatever')
       .data(data_ready)
       .enter()
@@ -36,13 +37,37 @@ export default class MoneyDonut {
       )
       .attr('fill', function(d){ return(color(d.data.key)) });
     
-    svg.append('text')
+    meow.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '-0.3rem')
       .text('48%');
-    svg.append('text')
+    meow.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '1.5rem')
       .text('Saved');
+
+    const legendGroup = svg.append("g")
+      .attr("transform", `translate(0, ${radius*2 + 20})`);
+    
+    const legendScale = d3.scaleBand()
+      .range([0, width + 200])
+      .padding(0.1)
+      .domain(Object.keys(data));
+    
+    const legend = legendGroup.selectAll(".expense-legend")
+      .data(color.domain())
+      .enter()
+        .append("g")
+        .attr("class", "chart-legend")
+        .attr("transform", (d,i) => `translate(${legendScale(d)}, 0)`);
+
+    legend.append("circle")
+      .attr("r", 7.5)
+      .style("fill", color);
+
+    legend.append("text")
+      .attr("x", 15)
+      .attr("y", 5)
+      .text(d => "Total " + d);
   }
 };

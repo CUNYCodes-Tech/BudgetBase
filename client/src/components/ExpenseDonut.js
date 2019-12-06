@@ -14,9 +14,7 @@ export default class ExpenseDonut {
     const svg = d3.select(e)
       .append("svg")
         .attr("width", width)
-        .attr("height", height)
-      // .append("g")
-      //   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        .attr("height", height);
     
     const color = d3.scaleOrdinal()
       .domain(data)
