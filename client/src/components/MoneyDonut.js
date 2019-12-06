@@ -54,7 +54,7 @@ export default class MoneyDonut {
       .padding(0.1)
       .domain(Object.keys(data));
     
-    const legend = legendGroup.selectAll(".expense-legend")
+    const legend = legendGroup.selectAll(".money-legend")
       .data(color.domain())
       .enter()
         .append("g")

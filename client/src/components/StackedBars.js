@@ -9,9 +9,9 @@ var data = d3.range(n).map(function() {
 
 export default class StackedBars {
   constructor(e, stackData) {
-    var margin = {top: 20, right: 30, bottom: 30, left: 40},
+    var margin = {top: 50, right: 30, bottom: 30, left: 40},
         width = 300 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        height = 228 - margin.top - margin.bottom;
     
     var y = d3.scaleLinear()
       .rangeRound([height, 0])
@@ -19,7 +19,7 @@ export default class StackedBars {
     
     var x = d3.scaleBand()
       .rangeRound([0, width])
-      .paddingInner(0.05)
+      .paddingInner(0.3)
       .align(0.1);
     
     var z = d3.scaleOrdinal(/*d3.schemeSet3*/)
@@ -137,11 +137,12 @@ export default class StackedBars {
 
     var svg = d3.select(e).append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .attr("height", height + margin.top + margin.bottom);
+      
+    const meow = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    svg.append("g").selectAll("g")
+    meow.append("g").selectAll("g")
           .data(layers)
       .enter().append("g")
         .style("fill", function(d) { return z(d.key); })	
@@ -153,15 +154,68 @@ export default class StackedBars {
           .attr("height", function(d) { return y(d[0]) - y(d[1]); })
           .attr("width", x.bandwidth());
 
-    svg.append("g")
+    meow.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
       
-    svg.append("g")
+    meow.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + (0) + ", 0)")
       .call(d3.axisLeft().scale(y).ticks(5));
     
+    const legendGroup = svg.append("g")
+      .attr("transform", `translate(${width/3-30}, 20)`);
+    
+    const legendScale = d3.scaleBand()
+      .range([0, width])
+      .paddingInner(0.3)
+      .domain(["Saved", "Earned", "Spent"]);
+
+    const legend = legendGroup.selectAll(".stacked-legend")
+      .data(z.domain())
+      .enter()
+        .append("g")
+        .attr("class", "chart-legend")
+        .attr("transform", (d,i) => `translate(${legendScale(d)}, 0)`);
+
+    legend.append("path")
+      .attr("d", rounded_rect(0, 0, 18, 10, 5, true, true, true, true))
+      .style("fill", z);
+
+    legend.append("text")
+      .attr("x", 20)
+      .attr("y", 8)
+      .text(d => d)
+      .style("font-size", "0.8rem");
   }
 };
+
+// x: x-coordinate
+// y: y-coordinate
+// w: width
+// h: height
+// r: corner radius
+// tl: top_left rounded?
+// tr: top_right rounded?
+// bl: bottom_left rounded?
+// br: bottom_right rounded?
+
+function rounded_rect(x, y, w, h, r, tl, tr, bl, br) {
+    var retval;
+    retval  = "M" + (x + r) + "," + y;
+    retval += "h" + (w - 2*r);
+    if (tr) { retval += "a" + r + "," + r + " 0 0 1 " + r + "," + r; }
+    else { retval += "h" + r; retval += "v" + r; }
+    retval += "v" + (h - 2*r);
+    if (br) { retval += "a" + r + "," + r + " 0 0 1 " + -r + "," + r; }
+    else { retval += "v" + r; retval += "h" + -r; }
+    retval += "h" + (2*r - w);
+    if (bl) { retval += "a" + r + "," + r + " 0 0 1 " + -r + "," + -r; }
+    else { retval += "h" + -r; retval += "v" + -r; }
+    retval += "v" + (2*r - h);
+    if (tl) { retval += "a" + r + "," + r + " 0 0 1 " + r + "," + -r; }
+    else { retval += "v" + -r; retval += "h" + r; }
+    retval += "z";
+    return retval;
+}
