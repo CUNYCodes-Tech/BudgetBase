@@ -77,6 +77,14 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
+const storage = multer.diskStorage({
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now());
+  }
+});
+
+const upload = multer({ storage: storage });
+
 // -----------------------------------------------------------------------------------------
 // Plaid API
 // -----------------------------------------------------------------------------------------
@@ -301,7 +309,13 @@ app.get('/api/user/balance', requireAuth, (req, res) => {
   res.json(req.user.balance);
 })
 
-app.put('/api/user/update', requireAuth, (req, res, next) => {
+app.put('/api/user/update', requireAuth, upload.single('photo'), async (req, res, next) => {
+  if (req.file) {
+    await cloudinary.uploader.upload(req.file.path, (error, result) => {
+      req.body.avatar = result.secure_url;
+    });
+  }
+
   const update = { ...req.user._doc, ...req.body };
 
   User.findOneAndUpdate({_id: req.user._id}, update, (err, results) => {
