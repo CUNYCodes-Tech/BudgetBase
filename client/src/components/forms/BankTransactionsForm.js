@@ -8,7 +8,6 @@ class BankTransactionsForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.selectedTransactions);
     return this.state.page === 1? this.renderPageOne() : this.renderPageTwo();
   }
 
@@ -40,7 +39,6 @@ class BankTransactionsForm extends React.Component {
         </tbody>
       </table>
       <button className="btn" onClick={() => this.setState({ page: this.state.page+1 })}>Next</button>
-      {/* <button className="btn" onClick={this.handleSubmit}>Add</button> */}
     </>   
   );
 
@@ -90,7 +88,6 @@ class BankTransactionsForm extends React.Component {
       }
         </tbody>
       </table>
-      {/* <button className="btn" onClick={() => this.setState({ page: page+1 })}>Next</button> */}
       <button className="btn" onClick={this.handleSubmit}>Add</button>
     </>
   );

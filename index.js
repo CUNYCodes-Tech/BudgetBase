@@ -14,6 +14,8 @@ const LocalStrategy = require('passport-local');
 const https         = require('https');
 const moment        = require("moment");
 const plaid         = require("plaid");
+const multer        = require('multer');
+const cloudinary    = require('cloudinary').v2;
 
 // -----------------------------------------------------------------------------------------
 // Internal Dependencies
@@ -65,6 +67,15 @@ const client = new plaid.Client(
 let PUBLIC_TOKEN = null;
 let ACCESS_TOKEN = null;
 let ITEM_ID      = null;
+
+// ----------------------------------------------------------------------------
+// Cloudinary Setup
+// ----------------------------------------------------------------------------
+cloudinary.config({
+  cloud_name: 'imagicat',
+  api_key: '582611221428748',
+  api_secret: process.env.CLOUDINARY_SECRET
+});
 
 // -----------------------------------------------------------------------------------------
 // Plaid API
@@ -139,8 +150,6 @@ app.post('/api/plaid/accounts/transactions', requireAuth, (req, res) => {
     });
   }
 });
-
-
 
 app.delete('/api/plaid/accounts/delete/:id', requireAuth, (req, res) => {
   Account.findById({ _id: req.params.id})

@@ -118,8 +118,11 @@ nav .logo {
 }
 
 #profile-pic {
-  width: 7rem;
-  height: 7rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 8rem;
+  border: 0.5rem solid #1c2c85;
+  box-shadow: 0 0 0 1px #fff;
 }
 
 #fullname {

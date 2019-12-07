@@ -16,7 +16,7 @@ import ProfilePicture from '../assets/img/profile-picture.png';
 import Separator from '../assets/img/Separator.png';
 
 class SideMenu extends React.Component {
-  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', balance: 0, spending: 0, income: 0 };
+  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', avatar: "", balance: 0, spending: 0, income: 0 };
 
   componentWillReceiveProps({ transactions, bankAccounts, bankTransactions }) {
     this.updateFinancialStatus(transactions);
@@ -26,8 +26,6 @@ class SideMenu extends React.Component {
 
   componentDidMount() {
     this.fetchUser();
-    // this.setSideMenuWidth();
-    // window.addEventListener('resize', this.setSideMenuWidth);
     const elems = document.querySelectorAll('#dateFilter');
     M.Datepicker.init(elems);
   }
@@ -37,7 +35,8 @@ class SideMenu extends React.Component {
       <div className='side-menu'>
         <div className='row side-menu-header center'>
           <div className='col s12'>
-            <img id='profile-pic' src={ProfilePicture} />
+            <img id="profile-pic" src={this.state.avatar} />
+            {/* <img id='profile-pic' src={ProfilePicture} /> */}
             <h5 id='fullname'>
               {this.state.firstName} {this.state.lastName}
             </h5>
@@ -192,7 +191,8 @@ class SideMenu extends React.Component {
     this.setState({
       firstName: data.firstName,
       lastName: data.lastName,
-      balance: data.balance
+      balance: data.balance,
+      avatar: data.avatar
     });
   };
 
