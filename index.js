@@ -310,6 +310,7 @@ app.get('/api/user/balance', requireAuth, (req, res) => {
 })
 
 app.put('/api/user/update', requireAuth, upload.single('photo'), async (req, res, next) => {
+  console.log(req.body);
   if (req.file) {
     await cloudinary.uploader.upload(req.file.path, (error, result) => {
       req.body.avatar = result.secure_url;
