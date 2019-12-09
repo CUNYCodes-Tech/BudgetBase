@@ -401,7 +401,7 @@ app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
     
     Transaction.create({
       category: "Spent",
-      cost: results[0].currentAmount,
+      cost: results[0].amount - results[0].currentAmount,
       name: "Budget Spent: " + results[0].name,
       user: req.user.id,
       budgetId: results._id
@@ -409,7 +409,7 @@ app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
 
     Transaction.create({
       category: "Saved",
-      cost: results[0].amount - results[0].currentAmount,
+      cost: results[0].currentAmount,
       name: "Budget Saved: " + results[0].name,
       user: req.user.id,
       budgetId: results._id
