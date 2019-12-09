@@ -16,11 +16,11 @@ class SideNav extends React.Component {
         <div className="side-icon-container">
           <i className="side-icon fas fa-wallet" onClick={() => history.push('/dashboard')} style={this.isActive("/dashboard")} />
           <i className="side-icon far fa-file-alt" onClick={() => history.push('/report')} style={this.isActive("/report")} />
-          <i className="side-icon far fa-bookmark" onClick={() => history.push('/archive')} style={this.isActive("/archive")} />
-          <i className="side-icon fas fa-cog" onClick={() => history.push('/setting')} style={this.isActive("/setting")} />
+          {/* <i className="side-icon far fa-bookmark" onClick={() => history.push('/archive')} style={this.isActive("/archive")} /> */}
         </div>
         <div>
-          <i class="fas fa-sign-out-alt side-icon" onClick={() => history.push('/signout')} />
+          <i className="side-icon fas fa-cog" onClick={() => history.push('/setting')} style={this.isActive("/setting")} />
+          {/* <i class="fas fa-sign-out-alt side-icon" onClick={() => history.push('/signout')} /> */}
         </div>
       </div>
     );

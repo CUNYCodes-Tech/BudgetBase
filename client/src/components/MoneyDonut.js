@@ -40,7 +40,7 @@ export default class MoneyDonut {
     meow.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '-0.3rem')
-      .text('48%');
+      .text(`${(data.Saved / (data.Saved + data.Spent) * 100).toFixed(2)}%`);
     meow.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '1.5rem')

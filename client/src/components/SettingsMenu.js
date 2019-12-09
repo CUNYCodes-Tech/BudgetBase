@@ -1,5 +1,7 @@
 import React from 'react';
 
+import history from '../history';
+
 class SettingsMenu extends React.Component {
   state = { active: "User Profile" };
 
@@ -10,7 +12,7 @@ class SettingsMenu extends React.Component {
         <div style={{ marginTop: "5rem", textAlign: "left", paddingLeft: "5rem", fontSize: "1.3rem" }}>
           <div className={`setting-category ${this.props.active === "User Profile"? "setting-selected" : null }`} onClick={() => this.props.handleSelect("User Profile")}>User Profile</div>
           <div className={`setting-category ${this.props.active === "Delete Account"? "setting-selected" : null }`} onClick={ () => this.props.handleSelect("Delete Account")} >Delete Account</div>
-          <div className="setting-category">Log Out</div>
+          <div className="setting-category" onClick={ () => history.push('/signout') }>Log Out</div>
         </div>
       </div>
     );
