@@ -2,7 +2,7 @@ import React from 'react'
 import TransactionItem from './TransactionItem';
 
 
-const ActivityContainer = ({ fetchBalance, fetchTransactions, transactions, setModalTitle, setModalContent, toggleModal }) => {
+const ActivityContainer = ({ fetchBudgets, fetchBalance, fetchTransactions, transactions, setModalTitle, setModalContent, toggleModal }) => {
   return (
     <div className="row activity-container">
         {
@@ -14,6 +14,7 @@ const ActivityContainer = ({ fetchBalance, fetchTransactions, transactions, setM
               setModalContent = {setModalContent}
               toggleModal = {toggleModal}
               fetchBalance={fetchBalance}
+              fetchBudgets={fetchBudgets}
               fetchTransactions={fetchTransactions}
             />
           ))
