@@ -183,7 +183,7 @@ app.post('/api/signup', (req, res, next) => {
   const dateOfBirth = req.body.dateOfBirth;
   const balance     = req.body.balance;
 
-  if (!firstName || !lastName || !email || !password || !dateOfBirth || !balance) {
+  if (!firstName || !lastName || !email || !password || !balance) {
     return res.status(422).send({ error: 'Please fill all fields!' });
   }
 
