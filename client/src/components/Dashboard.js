@@ -139,6 +139,7 @@ class Dashboard extends React.Component {
                 <ActivityMenu
                   fetchBalance={this.fetchBalance}
                   fetchTransactions={this.fetchTransactions}
+                  fetchBudgets={this.fetchBudgets}
                   balance={this.state.balance}
                   transactions={this.state.transactions}
                   token={this.props.token}
