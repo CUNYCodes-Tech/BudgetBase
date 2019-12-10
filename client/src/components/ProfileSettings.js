@@ -1,4 +1,5 @@
 import React from 'react';
+import M from 'materialize-css';
 
 class ProfileSettings extends React.Component {
   state = { user: {}, photo: null, message: null };
@@ -27,21 +28,21 @@ class ProfileSettings extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12 m6">
-            <input id="firstName" placeholder="." onChange={this.handleChange} name="firstName" type="text" value={this.state.user.firstName} />
+            <input id="firstName" onChange={this.handleChange} name="firstName" type="text" value={this.state.user.firstName} />
             <label for="firstName">First Name</label>
           </div>
           <div className="input-field col s12 m6">
-            <input id="lastName" placeholder="." onChange={this.handleChange} name="lastName" type="text" value={this.state.user.lastName} />
+            <input id="lastName" onChange={this.handleChange} name="lastName" type="text" value={this.state.user.lastName} />
             <label for="lastName">Last Name</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12 m6">
-            <input id="email" placeholder="." onChange={this.handleChange} name="email" type="text" value={this.state.user.email} />
+            <input id="email" onChange={this.handleChange} name="email" type="text" value={this.state.user.email} />
             <label for="email">Email</label>
           </div>
           <div className="input-field col s12 m6">
-            <input id="balance" placeholder="." onChange={this.handleChange} name="balance" type="text" value={this.state.user.balance} />
+            <input id="balance" onChange={this.handleChange} name="balance" type="text" value={this.state.user.balance} />
             <label for="balance">Balance</label>
           </div>
         </div>
@@ -64,6 +65,7 @@ class ProfileSettings extends React.Component {
     this.setState({
       user: data
     });
+    M.updateTextFields();
   };
 
   handleSubmit = async () => {
