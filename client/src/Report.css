@@ -1,0 +1,33 @@
+body {
+  background: #ebebeb;
+}
+
+.vis-container {
+  padding: 1rem 2rem!important;
+}
+
+.chart-container {
+  background: white;
+  padding: 1rem 1rem;
+}
+
+.mini-chart {
+  /* height: 15rem; */
+}
+
+.stat-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat {
+  background: white;
+  width: 18rem;
+  height: 5rem;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.stat-wrapper {
+  margin: 0 1rem;
+}

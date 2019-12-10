@@ -64,10 +64,13 @@ nav .logo {
   height: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .side-icon {
+  padding: 1.5rem 1rem;
+  width: auto;
+  cursor: pointer;
   display: block!important;
   color: white;
   text-align: center;
@@ -76,23 +79,6 @@ nav .logo {
 
 .balance {
   font-size: 1.5rem;
-}
-
-.dropup-container {
-  position: relative;
-  width: 100%;
-}
-
-.dropup-content {
-  display: none;
-  position: absolute;
-  background: black;
-  color: white;
-  bottom: 2rem;
-  left: 0.3rem;
-  width: 90%;
-  padding: 0.5rem 0;
-  text-align: center;
 }
 
 .dropup-content a {
@@ -115,6 +101,7 @@ nav .logo {
   background: #1c2c85;
   height: 100vh;
   padding: 0 1.5rem;
+  width: inherit;
   /* overflow-y: scroll; */
   /* Flexbox */
   display: flex;
@@ -131,8 +118,11 @@ nav .logo {
 }
 
 #profile-pic {
-  width: 7rem;
-  height: 7rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 8rem;
+  border: 0.5rem solid #1c2c85;
+  box-shadow: 0 0 0 1px #fff;
 }
 
 #fullname {
@@ -161,6 +151,20 @@ nav .logo {
 .financial-icon {
   color: #fff;
   font-size: 2rem;
+}
+
+.financial-icon-container, .financial-name-container {
+  padding: 0!important;
+}
+
+.income-wrapper {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.spending-wrapper {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .financial-name {
@@ -324,7 +328,7 @@ nav .logo {
 .budget-title {
   position: absolute;
   color: white;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   top: 7%;
   left: 7%;
 }
@@ -703,6 +707,10 @@ input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display:
 ::-webkit-datetime-edit { padding: 0; margin: 0 } 
 ::-webkit-calendar-picker-indicator { padding: 0; }
 
+.activeRow {
+  background: pink;
+}
+
 /*=============== ADDONS ===============*/
 .material-icons {
   color: #70707080;
@@ -725,9 +733,13 @@ input[type=date]::-webkit-inner-spin-button { -webkit-appearance: none; display:
     margin-bottom: 1rem;
   }
 
+  .side-menu {
+    position: relative;
+  }
+
   .row {
-    padding: 8% 5%;
-    background-color: #08afce;
+    /* padding: 8% 5%; */
+    /* background-color: #08afce; */
   }
 
   .slide-form {

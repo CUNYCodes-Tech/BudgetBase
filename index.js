@@ -14,6 +14,8 @@ const LocalStrategy = require('passport-local');
 const https         = require('https');
 const moment        = require("moment");
 const plaid         = require("plaid");
+const multer        = require('multer');
+const cloudinary    = require('cloudinary').v2;
 
 // -----------------------------------------------------------------------------------------
 // Internal Dependencies
@@ -65,6 +67,23 @@ const client = new plaid.Client(
 let PUBLIC_TOKEN = null;
 let ACCESS_TOKEN = null;
 let ITEM_ID      = null;
+
+// ----------------------------------------------------------------------------
+// Cloudinary Setup
+// ----------------------------------------------------------------------------
+cloudinary.config({
+  cloud_name: 'imagicat',
+  api_key: '582611221428748',
+  api_secret: process.env.CLOUDINARY_SECRET
+});
+
+const storage = multer.diskStorage({
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now());
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // -----------------------------------------------------------------------------------------
 // Plaid API
@@ -140,8 +159,6 @@ app.post('/api/plaid/accounts/transactions', requireAuth, (req, res) => {
   }
 });
 
-
-
 app.delete('/api/plaid/accounts/delete/:id', requireAuth, (req, res) => {
   Account.findById({ _id: req.params.id})
   .then(accounts => {
@@ -166,7 +183,7 @@ app.post('/api/signup', (req, res, next) => {
   const dateOfBirth = req.body.dateOfBirth;
   const balance     = req.body.balance;
 
-  if (!firstName || !lastName || !email || !password || !dateOfBirth || !balance) {
+  if (!firstName || !lastName || !email || !password || !balance) {
     return res.status(422).send({ error: 'Please fill all fields!' });
   }
 
@@ -246,15 +263,23 @@ app.get('/api/transaction/all', requireAuth, (req, res, next) => {
 });
 
 app.delete('/api/transaction/delete/:id', requireAuth, (req, res, next) => {
-  const userUpdate = { ...req.user._doc, balance: req.user.balance + req.body.cost };
-
   Transaction.deleteOne({ _id: req.params.id }, (err, results) => {
     if (err) next(err);
-
-    User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2) => {
-      if (err2) next(err2);
-      res.json({ success: true });
-    });
+    if (!req.body.budgetId) {
+      const userUpdate = { ...req.user._doc, balance: req.user.balance + req.body.cost };
+      User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err2) => {
+        if (err2) next(err2);
+        res.json({ success: true });
+      });
+    } else {
+      Budget.findOne({ _id: req.body.budgetId }, (err, foundBudget) => {
+        if (err) next(err);
+        Budget.updateOne({ _id: req.body.budgetId }, { currentAmount: foundBudget.currentAmount + req.body.cost }, (updateError, update) => {
+          if (updateError) next(updateError);
+          res.json({ update });
+        });
+      });
+    }
   });
 });
 
@@ -292,7 +317,14 @@ app.get('/api/user/balance', requireAuth, (req, res) => {
   res.json(req.user.balance);
 })
 
-app.put('/api/user/update', requireAuth, (req, res, next) => {
+app.put('/api/user/update', requireAuth, upload.single('photo'), async (req, res, next) => {
+  console.log(req.body);
+  if (req.file) {
+    await cloudinary.uploader.upload(req.file.path, (error, result) => {
+      req.body.avatar = result.secure_url;
+    });
+  }
+
   const update = { ...req.user._doc, ...req.body };
 
   User.findOneAndUpdate({_id: req.user._id}, update, (err, results) => {
@@ -371,9 +403,26 @@ app.get('/api/budget/', requireAuth, (req, res, next) => {
 })
 
 app.delete('/api/budget/delete/:id', requireAuth, (req, res, next) => {
-  Budget.find({_id: req.params.id}, (err,results) => {
+  Budget.find({_id: req.params.id}, (err, results) => {
     if (err) next (err);
     const userUpdate = { ...req.user._doc, balance: req.user.balance + results[0].currentAmount};
+    
+    Transaction.create({
+      category: "Spent",
+      cost: results[0].amount - results[0].currentAmount,
+      name: "Budget Spent: " + results[0].name,
+      user: req.user.id,
+      budgetId: results._id
+    });
+
+    Transaction.create({
+      category: "Saved",
+      cost: results[0].currentAmount,
+      name: "Budget Saved: " + results[0].name,
+      user: req.user.id,
+      budgetId: results._id
+    });
+    
     Budget.deleteOne({_id: req.params.id}, err2 => {
       if (err2) next (err2);
       User.findOneAndUpdate({ _id: req.user._id }, userUpdate, (err3) => {
@@ -467,9 +516,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-setInterval(function() {
-  https.get("https://budgetbase.herokuapp.com");
-}, 300000);
+// setInterval(function() {
+//   https.get("https://budgetbase.herokuapp.com");
+// }, 300000);
 
 // -----------------------------------------------------------------------------------------
 // Port Setup

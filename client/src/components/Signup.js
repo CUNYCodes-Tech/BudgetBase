@@ -121,15 +121,15 @@ class Signup extends React.Component {
                 required
               />
             </div>
-            <div className='input-field col s12'>
+            {/* <div className='input-field col s12'> */}
               {/* <label>Date of Birth:</label> */}
-              <input
+              {/* <input
                 name='dateOfBirth'
                 type='date'
                 onChange={this.handleChange}
                 required
-              />
-            </div>
+              /> */}
+            {/* </div> */}
             <div className='input-field col s12'>
               <label>Initial Budget:</label>
               <input

@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
   dateOfBirth: Date,
-  balance: Number
+  balance: Number,
+  avatar: { type: String, default: "https://res-console.cloudinary.com/imagicat/thumbnails/v1/image/upload/v1575736324/ZGVmYXVsdF9hdmF0YXJfaGhydXB2/preview" }
 });
 
 // Hash password before saving it into database.

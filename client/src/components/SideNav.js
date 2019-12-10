@@ -1,20 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import history from '../history';
+
 // Assets
 import SideNavLogo from '../assets/img/Dashboard-Logo.png'
 
 class SideNav extends React.Component {
-  // componentDidMount() {
-  //   this.setSideNav();
-    // window.addEventListener('resize', this.setSideNav);
-  // }
-
-  // setSideNav() {
-    // const parWidth = document.querySelector('.side-nav-container').offsetWidth;
-    // document.querySelector('.side-nav').setAttribute('style', `width:${parWidth}px!important`);
-  // }
-
   render() {
     return (
       <div className="side-nav">
@@ -22,21 +14,20 @@ class SideNav extends React.Component {
           <img id="side-nav-logo" src={SideNavLogo} />
         </div>
         <div className="side-icon-container">
-          <i className="side-icon fas fa-wallet" />
-          <i className="side-icon far fa-file-alt" />
-          <i className="side-icon fas fa-credit-card" />
-          <i className="side-icon far fa-bookmark" />
+          <i className="side-icon fas fa-wallet" onClick={() => history.push('/dashboard')} style={this.isActive("/dashboard")} />
+          <i className="side-icon far fa-file-alt" onClick={() => history.push('/report')} style={this.isActive("/report")} />
+          {/* <i className="side-icon far fa-bookmark" onClick={() => history.push('/archive')} style={this.isActive("/archive")} /> */}
         </div>
         <div>
-          <div className="dropup-container">
-            <i className="side-icon fas fa-cog" />
-            <div className="dropup-content">
-              <Link to="/signout">Log out</Link>
-            </div>
-          </div>
+          <i className="side-icon fas fa-cog" onClick={() => history.push('/setting')} style={this.isActive("/setting")} />
+          {/* <i class="fas fa-sign-out-alt side-icon" onClick={() => history.push('/signout')} /> */}
         </div>
       </div>
     );
+  }
+
+  isActive = pathname => {
+    return pathname === window.location.pathname? { background: "#1976d2" } : {};
   }
 }
 

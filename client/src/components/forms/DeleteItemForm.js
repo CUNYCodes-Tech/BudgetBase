@@ -8,10 +8,11 @@ class DeleteItemForm extends React.Component{
         'Authorization': localStorage.getItem('token'),
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ cost: this.props.cost })
+      body: JSON.stringify({ cost: this.props.cost, budgetId: this.props.budgetId })
     });
 
     await response.json();
+    this.props.fetchBudgets();
     this.props.fetchTransactions();
     this.props.fetchBalance();
     this.props.toggleModal();

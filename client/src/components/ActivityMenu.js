@@ -7,6 +7,7 @@ class ActivityMenu extends React.Component {
   render() {
     return (
       <ActivityContainer
+        fetchBudgets={this.props.fetchBudgets}
         fetchBalance={this.props.fetchBalance}
         fetchTransactions={this.props.fetchTransactions}
         transactions={this.props.transactions} 

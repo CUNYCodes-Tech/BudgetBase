@@ -19,13 +19,13 @@ class BudgetItem extends React.Component {
     const bg = this.props.idx % 2? "teal-bg" : "light-blue-bg";
     const btnbg = this.props.idx % 2? "light-blue-bg" : "teal-bg"
     return (
-      <div className="col s4">
+      <div className="col s12 m4">
         <div>
           {name ? (
             <div id={`budget${id}`} className={`budget-item ${bg}`} onClick={() => this.handleFilter(id)}>
-              <div className="budget-title">{name}</div>
+              <div className="budget-title">{name} <span style={{ opacity: "0.8" }}>(Total: ${amount.toLocaleString()})</span></div>
               <i class="fas fa-times-circle delete-budget" onClick={this.deleteBudget}></i>
-              <div className="budget-amount">${currentAmount}</div>
+              <div className="budget-amount">${currentAmount.toLocaleString()}</div>
               <div className="progress-bar">
                 <div className={`progress-${id}`}></div>
               </div>

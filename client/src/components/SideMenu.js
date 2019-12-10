@@ -16,7 +16,7 @@ import ProfilePicture from '../assets/img/profile-picture.png';
 import Separator from '../assets/img/Separator.png';
 
 class SideMenu extends React.Component {
-  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', balance: null, spending: 0, income: 0 };
+  state = { bankTransactions: [], bankAccounts: [], firstName: '', lastName: '', avatar: "", balance: 0, spending: 0, income: 0 };
 
   componentWillReceiveProps({ transactions, bankAccounts, bankTransactions }) {
     this.updateFinancialStatus(transactions);
@@ -26,8 +26,6 @@ class SideMenu extends React.Component {
 
   componentDidMount() {
     this.fetchUser();
-    this.setSideMenuWidth();
-    window.addEventListener('resize', this.setSideMenuWidth);
     const elems = document.querySelectorAll('#dateFilter');
     M.Datepicker.init(elems);
   }
@@ -37,12 +35,13 @@ class SideMenu extends React.Component {
       <div className='side-menu'>
         <div className='row side-menu-header center'>
           <div className='col s12'>
-            <img id='profile-pic' src={ProfilePicture} />
+            <img id="profile-pic" src={this.state.avatar} />
+            {/* <img id='profile-pic' src={ProfilePicture} /> */}
             <h5 id='fullname'>
               {this.state.firstName} {this.state.lastName}
             </h5>
             <div className='balance-container white-text'>
-              $ <span className='balance'>{this.state.balance}</span>
+              $ <span className='balance'>{this.state.balance.toLocaleString()}</span>
             </div>
             <img id='separator' src={Separator} />
           </div>
@@ -62,7 +61,8 @@ class SideMenu extends React.Component {
           <div className='col s6 income-container'>
             <div className='row income-wrapper valign-wrapper'>
               <div className='col s3 valign-wrapper'>
-                <i className='financial-icon fas fa-chevron-circle-down' />
+                <i class="financial-icon fas fa-chevron-up" />
+                {/* <i className='financial-icon fas fa-chevron-circle-down' /> */}
               </div>
               <div className='financial-name-container col s9'>
                 <h7 className='financial-name'>Income</h7>
@@ -72,8 +72,9 @@ class SideMenu extends React.Component {
           </div>
           <div className='col s6 spending-container'>
             <div className='row spending-wrapper valign-wrapper'>
-              <div className='col s3'>
-                <i className='financial-icon fas fa-chevron-circle-up' />
+              <div className='financial-icon-container col s3'>
+                <i class="financial-icon fas fa-chevron-down" />
+                {/* <i className='financial-icon fas fa-chevron-circle-up' /> */}
               </div>
               <div className='financial-name-container col s9'>
                 <h7 className='financial-name'>Spending</h7>
@@ -130,6 +131,9 @@ class SideMenu extends React.Component {
       <BankTransactionsForm 
         toggleModal={this.props.toggleModal}
         bankAccounts={this.state.bankAccounts}
+        fetchTransactions = {this.props.fetchTransactions}
+        budgets={this.props.budgets}
+        fetchBudgets={this.props.fetchBudgets}
       />
     );
     this.props.toggleModal();
@@ -189,16 +193,17 @@ class SideMenu extends React.Component {
     this.setState({
       firstName: data.firstName,
       lastName: data.lastName,
-      balance: data.balance
+      balance: data.balance,
+      avatar: data.avatar
     });
   };
 
-  setSideMenuWidth() {
-    const parWidth = document.querySelector('.side-menu-container').offsetWidth;
-    document
-      .querySelector('.side-menu')
-      .setAttribute('style', `width:${parWidth}px!important`);
-  }
+  // setSideMenuWidth() {
+  //   const parWidth = document.querySelector('.side-menu-container').offsetWidth;
+  //   document
+  //     .querySelector('.side-menu')
+  //     .setAttribute('style', `width:${parWidth}px!important`);
+  // }
 
   handleUpdateBudget = () => {
     this.props.setModalTitle('Update Budget');
@@ -230,17 +235,10 @@ class SideMenu extends React.Component {
     let budgetNameList = ['Book1', 'Book2', 'Book3', 'Book4'];
     let categoriesList = [
       '-- Choose a Category --',
-      'Eating out',
-      'Fuel',
-      'Clothes',
-      'Entertainment',
-      'General',
-      'Gifts',
-      'Holidays',
-      'Kids',
-      'Shopping',
-      'Sports',
-      'Travel'
+      'Groceries',
+      'Bills',
+      'Food',
+      'Other'
     ];
     this.props.setModalContent(
       <TransactionForm

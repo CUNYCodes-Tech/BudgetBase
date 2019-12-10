@@ -1,0 +1,31 @@
+.setting-category {
+  margin: 1.3rem 0;
+  color: #aaaaaa;
+  cursor: pointer;
+}
+
+.setting-selected {
+  color: #373737;
+  border-right: 10px solid #1c2c85;
+}
+
+.red {
+  background-color: #3c58b9!important;
+}
+
+.btn-floating {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+}
+
+.setting-fullname {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #737373;
+  margin-top: 1rem;
+}
+
+.save-btn {
+  background: #3c68b9;
+}

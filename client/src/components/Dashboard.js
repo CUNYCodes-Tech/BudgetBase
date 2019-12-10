@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
           {this.state.modalContent}
         </Modal>
         <div className="row">
-          <div className="col s12 m1 side-nav-container">
+          <div className="col s12 m1 side-nav-container hide-on-med-and-down">
             <SideNav />
           </div>
           <div className="col s12 m3 side-menu-container">
@@ -134,11 +134,12 @@ class Dashboard extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="col s8">
+              <div className="col s12 m8">
                 <div className="dashboard-subtitle">Your History</div>
                 <ActivityMenu
                   fetchBalance={this.fetchBalance}
                   fetchTransactions={this.fetchTransactions}
+                  fetchBudgets={this.fetchBudgets}
                   balance={this.state.balance}
                   transactions={this.state.transactions}
                   token={this.props.token}
@@ -148,7 +149,7 @@ class Dashboard extends React.Component {
                   setModalTitle={this.setModalTitle}
                 />
               </div>
-              <div className="col s4">
+              <div className="col s12 m4">
                 <div className="dashboard-subtitle">Overview</div>
                 <OverviewContainer transactions={this.state.transactions} />
               </div>
