@@ -153,6 +153,20 @@ nav .logo {
   font-size: 2rem;
 }
 
+.financial-icon-container, .financial-name-container {
+  padding: 0!important;
+}
+
+.income-wrapper {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.spending-wrapper {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .financial-name {
   color: #fff;
   opacity: 0.65;
@@ -314,7 +328,7 @@ nav .logo {
 .budget-title {
   position: absolute;
   color: white;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   top: 7%;
   left: 7%;
 }

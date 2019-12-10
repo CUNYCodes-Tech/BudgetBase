@@ -61,7 +61,8 @@ class SideMenu extends React.Component {
           <div className='col s6 income-container'>
             <div className='row income-wrapper valign-wrapper'>
               <div className='col s3 valign-wrapper'>
-                <i className='financial-icon fas fa-chevron-circle-down' />
+                <i class="financial-icon fas fa-chevron-up" />
+                {/* <i className='financial-icon fas fa-chevron-circle-down' /> */}
               </div>
               <div className='financial-name-container col s9'>
                 <h7 className='financial-name'>Income</h7>
@@ -71,8 +72,9 @@ class SideMenu extends React.Component {
           </div>
           <div className='col s6 spending-container'>
             <div className='row spending-wrapper valign-wrapper'>
-              <div className='col s3'>
-                <i className='financial-icon fas fa-chevron-circle-up' />
+              <div className='financial-icon-container col s3'>
+                <i class="financial-icon fas fa-chevron-down" />
+                {/* <i className='financial-icon fas fa-chevron-circle-up' /> */}
               </div>
               <div className='financial-name-container col s9'>
                 <h7 className='financial-name'>Spending</h7>
